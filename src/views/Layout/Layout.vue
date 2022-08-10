@@ -1,23 +1,27 @@
 <template>
     <div class="geekqoo-admin">
         <n-config-provider :date-locale="dateZhCN" :locale="zhCN" :theme="currentTheme">
-            <n-layout has-sider>
-                <layout-sider />
-                <n-layout>
-                    <layout-header v-model:current-theme="currentTheme" />
-                    <layout-main />
+            <n-message-provider>
+                <MessageApi />
+                <n-layout has-sider>
+                    <layout-sider />
+                    <n-layout>
+                        <layout-header v-model:current-theme="currentTheme" />
+                        <layout-main />
+                    </n-layout>
                 </n-layout>
-            </n-layout>
+            </n-message-provider>
         </n-config-provider>
     </div>
 </template>
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import { dateZhCN, NConfigProvider, NLayout, zhCN } from "naive-ui";
+import { dateZhCN, NConfigProvider, NLayout, NMessageProvider, zhCN } from "naive-ui";
 import LayoutSider from "./LayoutSider.vue";
 import LayoutHeader from "./LayoutHeader.vue";
 import LayoutMain from "./LayoutMain.vue";
+import { MessageApi } from "@/components/MessageApi";
 
 // 当前主题
 let currentTheme = ref(null);
