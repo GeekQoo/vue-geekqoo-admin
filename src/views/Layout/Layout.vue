@@ -1,35 +1,20 @@
 <template>
     <div class="geekqoo-admin">
-        <n-config-provider :date-locale="dateZhCN" :locale="zhCN" :theme="currentTheme">
-            <n-message-provider>
-                <MessageApi />
-                <n-layout has-sider>
-                    <layout-sider />
-                    <n-layout>
-                        <layout-header />
-                        <layout-main />
-                    </n-layout>
-                </n-layout>
-            </n-message-provider>
-        </n-config-provider>
+        <n-layout has-sider>
+            <layout-sider />
+            <n-layout>
+                <layout-header />
+                <layout-main />
+            </n-layout>
+        </n-layout>
     </div>
 </template>
 
 <script lang="ts" setup>
-import { computed } from "vue";
-import { darkTheme, dateZhCN, lightTheme, NConfigProvider, NLayout, NMessageProvider, zhCN } from "naive-ui";
+import { NLayout } from "naive-ui";
 import LayoutSider from "./LayoutSider.vue";
 import LayoutHeader from "./LayoutHeader.vue";
 import LayoutMain from "./LayoutMain.vue";
-import { MessageApi } from "@/components/MessageApi";
-import { useStoreDesign } from "@/store/modules/design";
-
-let storeDesign = useStoreDesign();
-
-// 当前主题
-let currentTheme = computed(() => {
-    return storeDesign.getCurrentTheme === "darkTheme" ? darkTheme : lightTheme;
-});
 </script>
 
 <style lang="scss" scoped>

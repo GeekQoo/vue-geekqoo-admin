@@ -32,7 +32,7 @@ import { ref } from "vue";
 import { WeatherMoon16Filled, WeatherSunny28Filled } from "@vicons/fluent";
 import { NBreadcrumb, NBreadcrumbItem, NIcon, NLayoutHeader, NSwitch } from "naive-ui";
 import { LayoutNavigation } from "./components/LayoutNavigation";
-import { useStoreDesign } from "@/store/modules/design";
+import { useStoreDesign } from "@/store";
 
 let storeDesign = useStoreDesign();
 

@@ -1,7 +1,11 @@
 <template>
-    <router-view />
+    <naive-provider>
+        <router-view />
+    </naive-provider>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { NaiveProvider } from "@/components/NaiveProvider";
+</script>
 
 <style lang="scss"></style>
