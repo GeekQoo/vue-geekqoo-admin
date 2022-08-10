@@ -6,7 +6,7 @@
                 <n-layout has-sider>
                     <layout-sider />
                     <n-layout>
-                        <layout-header v-model:current-theme="currentTheme" />
+                        <layout-header />
                         <layout-main />
                     </n-layout>
                 </n-layout>
@@ -16,15 +16,20 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
-import { dateZhCN, NConfigProvider, NLayout, NMessageProvider, zhCN } from "naive-ui";
+import { computed } from "vue";
+import { darkTheme, dateZhCN, lightTheme, NConfigProvider, NLayout, NMessageProvider, zhCN } from "naive-ui";
 import LayoutSider from "./LayoutSider.vue";
 import LayoutHeader from "./LayoutHeader.vue";
 import LayoutMain from "./LayoutMain.vue";
 import { MessageApi } from "@/components/MessageApi";
+import { useStoreDesign } from "@/store/modules/design";
+
+let storeDesign = useStoreDesign();
 
 // 当前主题
-let currentTheme = ref(null);
+let currentTheme = computed(() => {
+    return storeDesign.getCurrentTheme === "darkTheme" ? darkTheme : lightTheme;
+});
 </script>
 
 <style lang="scss" scoped>

@@ -30,23 +30,16 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { WeatherMoon16Filled, WeatherSunny28Filled } from "@vicons/fluent";
-import type { GlobalTheme } from "naive-ui";
-import { darkTheme, NBreadcrumb, NBreadcrumbItem, NIcon, NLayoutHeader, NSwitch } from "naive-ui";
+import { NBreadcrumb, NBreadcrumbItem, NIcon, NLayoutHeader, NSwitch } from "naive-ui";
 import { LayoutNavigation } from "./components/LayoutNavigation";
+import { useStoreDesign } from "@/store/modules/design";
 
-let props = defineProps({
-    currentTheme: {
-        type: Object as () => GlobalTheme | null,
-        default: null
-    }
-});
+let storeDesign = useStoreDesign();
 
-let emit = defineEmits(["update:currentTheme"]);
-
-// 切换夜间模式
-let isDarkTheme = ref(false);
+// 切换主题
+let isDarkTheme = ref(storeDesign.getCurrentTheme === "darkTheme");
 let themeSwitchStyle = () => ({ background: "#333333" });
 let handleCurrentTheme = (val: boolean) => {
-    val ? emit("update:currentTheme", darkTheme) : emit("update:currentTheme", null);
+    val ? storeDesign.setCurrentTheme("darkTheme") : storeDesign.setCurrentTheme("lightTheme");
 };
 </script>
