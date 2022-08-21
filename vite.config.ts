@@ -1,13 +1,21 @@
-import { defineConfig, loadEnv } from "vite";
+import { loadEnv } from "vite";
+import type { ConfigEnv, UserConfigExport } from "vite";
 import vue from "@vitejs/plugin-vue";
+import { viteMockServe } from "vite-plugin-mock";
 import autoprefixer from "autoprefixer";
 
-export default defineConfig(({ command, mode }) => {
+export default ({ command, mode }: ConfigEnv): UserConfigExport => {
     // vite环境变量
     const viteEnv = loadEnv(mode, process.cwd());
 
     return {
-        plugins: [vue()],
+        plugins: [
+            vue(),
+            viteMockServe({
+                mockPath: "mock",
+                localEnabled: command === "serve"
+            })
+        ],
         base: viteEnv.VITE_BASE_PATH, // 开发或生产环境服务的公共基础路径。
         publicDir: "public", // 作为静态资源服务的文件夹。
         resolve: {
@@ -37,12 +45,12 @@ export default defineConfig(({ command, mode }) => {
             open: true, // 是否自动打开浏览器。
             cors: false, // 为开发服务器配置 CORS。
             proxy: {
-                "/api": {
-                    target: "http://demo.demo",
-                    changeOrigin: true,
-                    ws: true
-                }
+                // "/api": {
+                //     target: "http://demo.demo",
+                //     changeOrigin: true,
+                //     ws: true
+                // }
             }
         }
     };
-});
+};

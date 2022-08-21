@@ -22,11 +22,13 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.0.0",
     "autoprefixer": "^10.4.7",
+    "mockjs": "^1.1.0",
     "prettier": "^2.7.1",
     "sass": "^1.54.0",
     "sass-loader": "^13.0.2",
     "typescript": "^4.6.4",
     "vite": "^3.0.0",
+    "vite-plugin-mock": "^2.9.6",
     "vue-tsc": "^0.38.4"
   }
 }
