@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@vicons/antd': ^0.12.0
   '@vicons/fluent': ^0.12.0
   '@vitejs/plugin-vue': ^3.0.0
   autoprefixer: ^10.4.7
@@ -19,6 +20,7 @@ specifiers:
   vue-tsc: ^0.38.4
 
 dependencies:
+  '@vicons/antd': 0.12.0
   '@vicons/fluent': 0.12.0
   axios: 0.27.2
   dayjs: 1.11.4
@@ -158,6 +160,10 @@ packages:
   /@types/node/18.6.2:
     resolution: {integrity: sha512-KcfkBq9H4PI6Vpu5B/KoPeuVDAbmi+2mDBqGPGUgoL7yXQtcWGu2vJWmmRkneWK3Rh0nIAX192Aa87AqKHYChQ==}
     dev: true
+
+  /@vicons/antd/0.12.0:
+    resolution: {integrity: sha512-C0p6aO1EmGG1QHrqgUWQS1No20934OdWSRQshM5NIDK5H1On6tC26U0hT6Rmp40KfUsvhvX5YW8BoWJdNFifPg==}
+    dev: false
 
   /@vicons/fluent/0.12.0:
     resolution: {integrity: sha512-ATCiqPuiJ6RI5GBlD3BIpZ9Xw4MsCA4RpI5oR6MCti4quS4mX1Gp6N74FCzw7lgOj+80rV4HMKhZTVInwimpVQ==}
