@@ -23,7 +23,7 @@
                 </template>
             </n-switch>
         </div>
-        <layout-navigation />
+        <header-navigation />
     </n-layout-header>
 </template>
 
@@ -31,7 +31,7 @@
 import { ref } from "vue";
 import { WeatherMoon16Filled, WeatherSunny28Filled } from "@vicons/fluent";
 import { NBreadcrumb, NBreadcrumbItem, NIcon, NLayoutHeader, NSwitch } from "naive-ui";
-import { LayoutNavigation } from "./components/LayoutNavigation";
+import { HeaderNavigation } from "./components/HeaderNavigation";
 import { useStoreDesign } from "@/store";
 
 let storeDesign = useStoreDesign();

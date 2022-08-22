@@ -12,9 +12,9 @@
 
 <script lang="ts" setup>
 import { NLayout } from "naive-ui";
-import LayoutSider from "./LayoutSider.vue";
-import LayoutHeader from "./LayoutHeader.vue";
-import LayoutMain from "./LayoutMain.vue";
+import { LayoutSider } from "./LayoutSider";
+import { LayoutHeader } from "./LayoutHeader";
+import { LayoutMain } from "./LayoutMain";
 import { useStoreDesign } from "@/store";
 import { computed } from "vue";
 

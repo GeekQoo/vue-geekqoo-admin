@@ -1,5 +1,5 @@
 <template>
-    <div class="layout-navigation">
+    <div class="header-navigation">
         <div class="navigation-wrapper">
             <n-scrollbar x-scrollable>
                 <n-space :wrap="false">
@@ -73,7 +73,7 @@ let deleteAllNavigation = () => {
 </script>
 
 <style lang="scss" scoped>
-.layout-navigation {
+.header-navigation {
     display: flex;
     align-items: center;
 

@@ -4,7 +4,7 @@ export default [
         path: "/",
         redirect: "/user/list",
         name: "Layout",
-        component: () => import("../views/Layout/Layout.vue"),
+        component: () => import("../layouts/index.vue"),
         children: [
             {
                 path: "/user/list",
