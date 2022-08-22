@@ -1,5 +1,5 @@
 <template>
-    <div class="tool-item">
+    <div class="theme-switch">
         <n-switch
             v-model:value="isDarkTheme"
             :rail-style="themeSwitchStyle"
@@ -35,3 +35,10 @@ let handleCurrentTheme = (val: boolean) => {
     val ? storeDesign.setCurrentTheme("darkTheme") : storeDesign.setCurrentTheme("lightTheme");
 };
 </script>
+
+<style lang="scss" scope>
+.theme-switch {
+    display: flex;
+    align-items: center;
+}
+</style>

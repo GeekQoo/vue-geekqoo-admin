@@ -43,16 +43,6 @@ let isDarkTheme = computed(() => storeDesign.getCurrentTheme === "darkTheme");
             height: 56px;
             border-bottom: 1px solid var(--n-border-color);
 
-            .tool-item {
-                display: flex;
-                align-items: center;
-                margin-left: 10px;
-
-                &:first-child {
-                    margin-left: 0;
-                }
-            }
-
             .n-breadcrumb {
                 margin-right: auto;
             }
