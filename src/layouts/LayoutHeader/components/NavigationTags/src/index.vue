@@ -6,7 +6,7 @@
                     <n-tag
                         v-for="item in storeNavigation.getNavigation"
                         :closable="storeNavigation.getNavigation.length > 1"
-                        :type="$route.name === item.name ? 'success' : ''"
+                        :type="$route.name === item.name ? 'success' : 'default'"
                         closable
                         size="medium"
                         @click="navigationTo(item)"

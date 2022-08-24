@@ -6,65 +6,48 @@
         collapse-mode="width"
         show-trigger="bar"
     >
-        <n-menu v-model:value="menuActive" :collapsed-width="80" :options="menuOptions" :width="200" mode="vertical" />
+        <n-menu
+            :collapsed-width="80"
+            :options="menuOptions"
+            :value="menuActive"
+            :width="200"
+            mode="vertical"
+            @update:value="handleUpdateMenu"
+        />
     </n-layout-sider>
 </template>
 
 <script lang="ts" setup>
-import { h, ref, watch } from "vue";
+import { computed, ref } from "vue";
 import { WeatherMoon16Filled } from "@vicons/fluent";
 import type { MenuOption } from "naive-ui";
 import { NLayoutSider, NMenu } from "naive-ui";
 import { usePubilc } from "@/hooks/usePubilc";
-import type { RouteRecordName } from "vue-router";
-import { RouterLink } from "vue-router";
 
-let { renderIcon, $route } = usePubilc();
+let { renderIcon, $route, $router } = usePubilc();
 
 // 菜单
-let menuActive = ref<RouteRecordName | null | undefined>($route.name);
+let menuActive = computed(() => $route.name as string);
 
-watch(
-    () => $route,
-    (val) => (menuActive.value = val.name),
-    { immediate: true, deep: true }
-);
-
-let menuOptions = ref<MenuOption[]>([
+let menuOptions: MenuOption[] = [
     {
         label: "权限管理",
         key: 0,
         icon: renderIcon(WeatherMoon16Filled),
         children: [
             {
-                label: () => {
-                    return h(
-                        RouterLink,
-                        {
-                            to: {
-                                name: "UserList"
-                            }
-                        },
-                        { default: () => "用户管理" }
-                    );
-                },
+                label: "用户管理",
                 key: "UserList"
             },
             {
-                label: () => {
-                    return h(
-                        RouterLink,
-                        {
-                            to: {
-                                name: "RoleList"
-                            }
-                        },
-                        { default: () => "角色管理" }
-                    );
-                },
+                label: "角色管理",
                 key: "RoleList"
             }
         ]
     }
-]);
+];
+
+let handleUpdateMenu = (key: string, item: MenuOption) => {
+    $router.push({ name: key });
+};
 </script>
