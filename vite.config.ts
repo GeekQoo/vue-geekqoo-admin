@@ -1,8 +1,9 @@
-import { loadEnv } from "vite";
 import type { ConfigEnv, UserConfigExport } from "vite";
+import { loadEnv } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { viteMockServe } from "vite-plugin-mock";
 import autoprefixer from "autoprefixer";
+import unocss from "unocss/vite";
 
 export default ({ command, mode }: ConfigEnv): UserConfigExport => {
     // vite环境变量
@@ -11,6 +12,14 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
     return {
         plugins: [
             vue(),
+            unocss({
+                exclude: ["node_modules", ".git", ".idea", "dist", "public", "build"],
+                shortcuts: {
+                    "flex-center": "flex justify-center items-center",
+                    "flex-x-center": "flex justify-center",
+                    "flex-y-center": "flex items-center"
+                }
+            }),
             viteMockServe({
                 mockPath: "mock",
                 localEnabled: command === "serve"
