@@ -5,8 +5,9 @@
                 <n-breadcrumb-item>测试菜单1</n-breadcrumb-item>
                 <n-breadcrumb-item>测试菜单1-1</n-breadcrumb-item>
             </n-breadcrumb>
-            <n-space size="small">
+            <n-space align="center" size="medium">
                 <global-settings />
+                <current-user />
                 <!--<theme-switch />-->
             </n-space>
         </div>
@@ -15,8 +16,9 @@
 </template>
 
 <script lang="ts" setup>
-import { NLayoutHeader, NBreadcrumb, NBreadcrumbItem, NSpace } from "naive-ui";
+import { NBreadcrumb, NBreadcrumbItem, NLayoutHeader, NSpace } from "naive-ui";
 import { NavigationTags } from "./components/NavigationTags";
 import { GlobalSettings } from "./components/GlobalSettings";
+import { CurrentUser } from "./components/CurrentUser";
 // import { ThemeSwitch } from "./components/ThemeSwitch";
 </script>

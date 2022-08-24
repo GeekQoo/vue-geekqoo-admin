@@ -1,6 +1,6 @@
 <template>
     <div class="global-settings">
-        <n-icon size="22" @click="settingsActive = !settingsActive">
+        <n-icon class="block cursor-pointer" size="22" @click="settingsActive = !settingsActive">
             <Settings28Regular />
         </n-icon>
         <n-drawer v-model:show="settingsActive" :width="300" placement="right">
