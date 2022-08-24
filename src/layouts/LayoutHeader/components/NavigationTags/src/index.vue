@@ -21,7 +21,7 @@
             <n-dropdown :options="settingOptions" trigger="hover" @select="handelSetting">
                 <n-button class="setting-button" text>
                     <n-icon size="22">
-                        <Settings28Regular />
+                        <BarsOutlined />
                     </n-icon>
                 </n-button>
             </n-dropdown>
@@ -31,7 +31,7 @@
 
 <script lang="ts" setup>
 import { NDropdown, NIcon, NScrollbar, NSpace, NTag, NButton } from "naive-ui";
-import { Settings28Regular } from "@vicons/fluent";
+import { BarsOutlined } from "@vicons/antd";
 import { ref } from "vue";
 import { useStoreNavigation } from "@/store";
 import type { NavigationProps } from "./types";

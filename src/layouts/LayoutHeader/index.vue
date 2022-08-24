@@ -7,7 +7,7 @@
             </n-breadcrumb>
             <n-space size="small">
                 <global-settings />
-                <theme-switch />
+                <!--<theme-switch />-->
             </n-space>
         </div>
         <navigation-tags />
@@ -18,5 +18,5 @@
 import { NLayoutHeader, NBreadcrumb, NBreadcrumbItem, NSpace } from "naive-ui";
 import { NavigationTags } from "./components/NavigationTags";
 import { GlobalSettings } from "./components/GlobalSettings";
-import { ThemeSwitch } from "./components/ThemeSwitch";
+// import { ThemeSwitch } from "./components/ThemeSwitch";
 </script>
