@@ -27,7 +27,7 @@
                             v-model:formatted-value="form[item.prop]"
                             :placeholder="`请选择${item.label}`"
                             :type="item.type"
-                            :value-format="item.dateForamt"
+                            :value-format="item.dateFormat"
                             class="flex-auto"
                             clearable
                         />
@@ -35,7 +35,7 @@
                             v-if="item.type === 'datetimerange'"
                             v-model:formatted-value="form[item.prop]"
                             :placeholder="`请选择${item.label}`"
-                            :value-format="item.dateForamt"
+                            :value-format="item.dateFormat"
                             class="flex-auto"
                             clearable
                             type="datetimerange"

@@ -44,19 +44,19 @@ let searchConfig = ref<TableSearchbarConfig>([
         prop: "demoDate",
         type: "date",
         label: "日期选择",
-        dateFormat: "YYYY-MM-DD"
+        dateFormat: "yyyy-MM-dd"
     },
     {
         prop: "demoDatetime",
         type: "datetime",
         label: "日期时间",
-        dateFormat: "YYYY-MM-DD hh:mm:ss"
+        dateFormat: "yyyy-MM-dd HH:mm:ss"
     },
     {
         prop: "demoDatetimerange",
         type: "datetimerange",
         label: "日期区间",
-        dateFormat: "YYYY-MM-DD hh:mm:ss",
+        dateFormat: "yyyy-MM-dd HH:mm:ss",
         span: 2
     }
 ]);
