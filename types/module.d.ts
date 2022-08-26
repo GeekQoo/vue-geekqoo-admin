@@ -4,3 +4,5 @@ declare module "*.vue" {
     export default component;
 }
 declare module "autoprefixer";
+declare module "lodash-es";
+declare module "dayjs";

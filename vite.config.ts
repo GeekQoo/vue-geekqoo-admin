@@ -14,6 +14,7 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
             vue(),
             unocss({
                 exclude: ["node_modules", ".git", ".idea", "dist", "public", "build"],
+                rules: [[/^flex-fixed-(\d+)$/, ([, d]) => ({ flex: `0 0 ${d}px` })]],
                 shortcuts: {
                     "flex-center": "flex justify-center items-center",
                     "flex-x-center": "flex justify-center",
