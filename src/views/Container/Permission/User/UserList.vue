@@ -53,7 +53,8 @@ let searchConfig = ref<TableSearchbarConfig>([
         prop: "datetimerange",
         type: "datetimerange",
         label: "日期区间",
-        dateFormat: "YYYY-MM-DD hh:mm:ss"
+        dateFormat: "YYYY-MM-DD hh:mm:ss",
+        span: 2
     }
 ]);
 

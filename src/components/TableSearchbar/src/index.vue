@@ -1,7 +1,7 @@
 <template>
     <n-grid cols="1 600:2 800:3 1000:4 1500:5 2000:6" x-gap="15" y-gap="15">
         <template v-for="item in config">
-            <n-grid-item v-if="item.type !== 'datetimerange'">
+            <n-grid-item :span="item.span || 1">
                 <div class="flex-y-center">
                     <span class="flex-fixed-80">{{ item.label }}：</span>
                     <n-input
@@ -20,6 +20,7 @@
                         class="flex-auto"
                         clearable
                     />
+                    <!--日期时间组件-->
                     <template v-if="item.dateFormat">
                         <n-date-picker
                             v-if="item.type === 'date' || item.type === 'datetime'"
@@ -30,23 +31,6 @@
                             class="flex-auto"
                             clearable
                         />
-                    </template>
-                    <template v-else>
-                        <n-date-picker
-                            v-if="item.type === 'date' || item.type === 'datetime'"
-                            v-model:value="form[item.prop]"
-                            :placeholder="`请选择${item.label}`"
-                            :type="item.type"
-                            class="flex-auto"
-                            clearable
-                        />
-                    </template>
-                </div>
-            </n-grid-item>
-            <n-grid-item v-else :span="2">
-                <div class="flex-y-center">
-                    <span class="flex-fixed-80">{{ item.label }}：</span>
-                    <template v-if="item.dateFormat">
                         <n-date-picker
                             v-if="item.type === 'datetimerange'"
                             v-model:formatted-value="form[item.prop]"
@@ -58,6 +42,14 @@
                         />
                     </template>
                     <template v-else>
+                        <n-date-picker
+                            v-if="item.type === 'date' || item.type === 'datetime'"
+                            v-model:value="form[item.prop]"
+                            :placeholder="`请选择${item.label}`"
+                            :type="item.type"
+                            class="flex-auto"
+                            clearable
+                        />
                         <n-date-picker
                             v-if="item.type === 'datetimerange'"
                             v-model:value="form[item.prop]"

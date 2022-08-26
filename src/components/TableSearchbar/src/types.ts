@@ -5,6 +5,7 @@ export type TableSearchbarConfig = Array<{
     prop: string; // 对应字段名
     type: string; // 类型
     dateFormat?: string; // 时间格式，适用于date/datetime/datetimerange，如不设置，默认为时间戳
+    span?: number; // 占用列数，默认为1
 }>;
 
 export type TableSearchbarOptions = {
