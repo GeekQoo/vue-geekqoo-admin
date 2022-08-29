@@ -15,8 +15,10 @@ import { UserOutlined } from "@vicons/antd";
 import type { MenuOption } from "naive-ui";
 import { NMenu } from "naive-ui";
 import { usePubilc } from "@/hooks/usePubilc";
+import { useRender } from "@/hooks/useRender";
 
-let { renderIcon, $route, $router } = usePubilc();
+let { $route, $router } = usePubilc();
+let { renderIcon } = useRender();
 
 let menuActive = computed(() => $route.name as string);
 

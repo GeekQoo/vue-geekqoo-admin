@@ -13,9 +13,9 @@
 import { ref } from "vue";
 import { NDropdown, NAvatar } from "naive-ui";
 import { UserOutlined, LogoutOutlined } from "@vicons/antd";
-import { usePubilc } from "@/hooks/usePubilc";
+import { useRender } from "@/hooks/useRender";
 
-let { renderIcon } = usePubilc();
+let { renderIcon } = useRender();
 
 let settingOptions = ref([
     { label: "用户中心", key: "userCenter", icon: renderIcon(UserOutlined) },
