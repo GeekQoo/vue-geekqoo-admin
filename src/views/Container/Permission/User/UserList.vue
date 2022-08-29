@@ -27,9 +27,10 @@
 <script lang="ts" setup>
 import { h, onMounted, ref } from "vue";
 import type { DataTableColumns } from "naive-ui";
-import { NButton, NCard, NDataTable } from "naive-ui";
+import { NCard, NDataTable } from "naive-ui";
 import type { TableSearchbarConfig, TableSearchbarData, TableSearchbarOptions } from "@/components/TableSearchbar";
 import { TableSearchbar } from "@/components/TableSearchbar";
+import { TableActions } from "@/components/TableActions";
 import { GET_USER_LIST } from "@/api/permission/user";
 import { useCommonTable } from "@/hooks/useCommonTable";
 
@@ -111,19 +112,25 @@ let tableColumns = ref<DataTableColumns<RowProps>>([
         title: "操作",
         key: "actions",
         align: "center",
-        width: 100,
+        width: 150,
         render(row) {
-            return h(
-                NButton,
-                {
-                    size: "small",
-                    type: "primary",
-                    onClick: () => {
-                        console.log(111, row);
+            return h(TableActions, {
+                actions: [
+                    {
+                        label: "编辑",
+                        onClick: () => {
+                            console.log(111, row);
+                        }
+                    },
+                    {
+                        label: "删除",
+                        type: "error",
+                        onClick: () => {
+                            console.log(222, row);
+                        }
                     }
-                },
-                { default: () => "编辑" }
-            );
+                ]
+            });
         }
     }
 ]);
