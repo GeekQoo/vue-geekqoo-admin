@@ -6,7 +6,7 @@ export default [
         method: "get",
         response: () => ({
             code: 1,
-            "data|100": [
+            "data|10": [
                 {
                     id: "@natural(0,100)",
                     username: "@first",
@@ -16,7 +16,7 @@ export default [
             ],
             message: "ok",
             type: "success",
-            total: 100,
+            total: 50,
             pageSize: 10,
             currentPage: 1
         })

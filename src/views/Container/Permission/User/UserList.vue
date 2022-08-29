@@ -13,9 +13,12 @@
                 :columns="tableColumns"
                 :data="tableData"
                 :pagination="tablePagination"
+                :row-key="(row) => row.id"
                 :single-line="false"
                 bordered
+                remote
                 striped
+                @update:checked-row-keys="changeTableSelection"
             />
         </n-card>
     </div>
@@ -27,7 +30,8 @@ import type { DataTableColumns } from "naive-ui";
 import { NButton, NCard, NDataTable } from "naive-ui";
 import type { TableSearchbarConfig, TableSearchbarData, TableSearchbarOptions } from "@/components/TableSearchbar";
 import { TableSearchbar } from "@/components/TableSearchbar";
-import { GET_USERINFO } from "@/api/permission/user";
+import { GET_USER_LIST } from "@/api/permission/user";
+import { useCommonTable } from "@/hooks/useCommonTable";
 
 type RowProps = {
     id: string | number;
@@ -77,9 +81,12 @@ let searchForm = ref<TableSearchbarData>({
 let getSearchOptions = () => {};
 
 // 数据列表
-let tableData = ref([]);
+let { tablePaginationConfig, tableData, tableSelection, changeTableSelection } = useCommonTable();
 
 let tableColumns = ref<DataTableColumns<RowProps>>([
+    {
+        type: "selection"
+    },
     {
         title: "ID",
         key: "id",
@@ -122,10 +129,7 @@ let tableColumns = ref<DataTableColumns<RowProps>>([
 ]);
 
 let tablePagination = ref({
-    pageSizes: [10, 100],
-    showSizePicker: true,
-    showQuickJumper: true,
-    displayOrder: ["size-picker", "pages", "quick-jumper"],
+    ...tablePaginationConfig,
     page: 1,
     pageSize: 10,
     itemCount: 0,
@@ -141,10 +145,9 @@ let tablePagination = ref({
 });
 
 let getTableData = () => {
-    GET_USERINFO({}).then((res) => {
+    GET_USER_LIST({}).then((res) => {
         tableData.value = res.data.data;
         tablePagination.value.itemCount = res.data.total;
-        console.log(111, res.data.data);
     });
 };
 
