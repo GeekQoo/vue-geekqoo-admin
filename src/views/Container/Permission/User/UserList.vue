@@ -32,7 +32,7 @@ import type { TableSearchbarConfig, TableSearchbarData, TableSearchbarOptions } 
 import { TableSearchbar } from "@/components/TableSearchbar";
 import { TableActions } from "@/components/TableActions";
 import { GET_USER_LIST } from "@/api/permission/user";
-import { useCommonTable } from "@/hooks/useCommonTable";
+import { useCommonTable } from "@/hooks";
 
 type RowProps = {
     id: string | number;

@@ -8,7 +8,7 @@ export default [
             code: 1,
             "data|10": [
                 {
-                    id: "@natural(0,100)",
+                    id: "@natural(0,10000)",
                     username: "@first",
                     nickname: "@cname",
                     "phone|1": ["13111111111", "13888888888", "18966666666", "15922222222"]

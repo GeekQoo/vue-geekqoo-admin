@@ -13,7 +13,7 @@
 import { ref } from "vue";
 import { NDropdown, NAvatar } from "naive-ui";
 import { UserOutlined, LogoutOutlined } from "@vicons/antd";
-import { useRender } from "@/hooks/useRender";
+import { useRender } from "@/hooks";
 
 let { renderIcon } = useRender();
 

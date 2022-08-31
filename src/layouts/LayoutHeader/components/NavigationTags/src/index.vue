@@ -35,7 +35,7 @@ import { BarsOutlined } from "@vicons/antd";
 import { ref } from "vue";
 import { useStoreNavigation } from "@/store";
 import type { NavigationProps } from "./types";
-import { usePubilc } from "@/hooks/usePubilc";
+import { usePubilc } from "@/hooks";
 
 let { $route, $router } = usePubilc();
 let storeNavigation = useStoreNavigation();

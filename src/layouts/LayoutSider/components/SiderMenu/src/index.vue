@@ -14,8 +14,7 @@ import { computed } from "vue";
 import { UserOutlined } from "@vicons/antd";
 import type { MenuOption } from "naive-ui";
 import { NMenu } from "naive-ui";
-import { usePubilc } from "@/hooks/usePubilc";
-import { useRender } from "@/hooks/useRender";
+import { usePubilc, useRender } from "@/hooks";
 
 let { $route, $router } = usePubilc();
 let { renderIcon } = useRender();
