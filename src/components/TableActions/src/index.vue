@@ -17,18 +17,11 @@
 <script lang="ts" setup>
 import { NSpace, NButton } from "naive-ui";
 import { PropType } from "vue";
-
-interface ActionProps {
-    actionType?: "button";
-    type?: "default" | "tertiary" | "primary" | "success" | "info" | "warning" | "error";
-    size?: "tiny" | "small" | "medium" | "large";
-    onClick?: () => void;
-    disabled?: () => boolean;
-}
+import type { TableActionsProps } from "./types";
 
 let props = defineProps({
     actions: {
-        type: Array as PropType<ActionProps[]>,
+        type: Array as PropType<TableActionsProps>,
         default: []
     }
 });

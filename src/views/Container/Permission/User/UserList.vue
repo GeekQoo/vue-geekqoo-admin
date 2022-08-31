@@ -26,7 +26,7 @@
 
 <script lang="ts" setup>
 import { h, onMounted, ref } from "vue";
-import type { DataTableColumns } from "naive-ui";
+import type { DataTableColumns, PaginationProps } from "naive-ui";
 import { NCard, NDataTable } from "naive-ui";
 import type { TableSearchbarConfig, TableSearchbarData, TableSearchbarOptions } from "@/components/TableSearchbar";
 import { TableSearchbar } from "@/components/TableSearchbar";
@@ -82,7 +82,7 @@ let searchForm = ref<TableSearchbarData>({
 let getSearchOptions = () => {};
 
 // 数据列表
-let { tablePaginationConfig, tableData, tableSelection, changeTableSelection } = useCommonTable();
+let { tableData, tableSelection, changeTableSelection } = useCommonTable();
 
 let tableColumns = ref<DataTableColumns<RowProps>>([
     {
@@ -135,11 +135,14 @@ let tableColumns = ref<DataTableColumns<RowProps>>([
     }
 ]);
 
-let tablePagination = ref({
-    ...tablePaginationConfig,
+let tablePagination = ref<PaginationProps>({
     page: 1,
     pageSize: 10,
     itemCount: 0,
+    pageSizes: [10, 50, 100],
+    showSizePicker: true,
+    showQuickJumper: true,
+    displayOrder: ["size-picker", "pages", "quick-jumper"],
     onChange: (page: number) => {
         tablePagination.value.page = page;
         getTableData();
@@ -160,5 +163,6 @@ let getTableData = () => {
 
 let onSubmit = () => {
     console.log(searchForm.value);
+    console.log(tableSelection.value);
 };
 </script>
