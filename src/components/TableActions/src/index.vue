@@ -1,31 +1,51 @@
 <template>
     <n-space justify="center">
-        <template v-for="item in actions">
+        <template v-if="type === 'button'">
             <n-button
-                v-if="!item.actionType || item.actionType === 'button'"
+                v-for="item in buttonActions"
                 :color="item.color || undefined"
                 :disabled="item.disabled ? item.disabled() : false"
-                :type="item.type || 'primary'"
                 :size="item.size || 'small'"
+                :type="item.type || 'primary'"
                 @click="item.onClick"
             >
                 {{ item.label }}
             </n-button>
         </template>
+        <template v-if="type === 'switch'">
+            <n-switch
+                v-for="item in switchActions"
+                :checked-value="item.checkedValue"
+                :default-value="item.defaultValue"
+                :disabled="item.disabled ? item.disabled() : false"
+                :size="item.size || 'small'"
+                :unchecked-value="item.uncheckedValue"
+                @update:value="item.onChange"
+            >
+                <template #checked v-if="item.checkedText">{{ item.checkedText }}</template>
+                <template #unchecked v-if="item.uncheckedText">{{ item.uncheckedText }}</template>
+            </n-switch>
+        </template>
     </n-space>
 </template>
 
 <script lang="ts" setup>
-import { NSpace, NButton } from "naive-ui";
+import { NSpace, NButton, NSwitch } from "naive-ui";
 import { PropType } from "vue";
-import type { TableActionsProps } from "./types";
+import type { TableButtonActions, TableSwitchActions } from "./types";
 
 let props = defineProps({
-    actions: {
-        type: Array as PropType<TableActionsProps>,
+    type: {
+        type: String as PropType<"button" | "switch">,
+        default: "button"
+    },
+    buttonActions: {
+        type: Array as PropType<TableButtonActions>,
+        default: []
+    },
+    switchActions: {
+        type: Array as PropType<TableSwitchActions>,
         default: []
     }
 });
-
-let emits = defineEmits([]);
 </script>
