@@ -5,6 +5,9 @@ export function useCommonTable() {
     // 表格数据
     let tableData = ref([]);
 
+    // 加载状态
+    let tableLoading = ref(false);
+
     // 选中
     let tableSelection = ref<DataTableRowKey[]>([]);
 
@@ -14,6 +17,7 @@ export function useCommonTable() {
 
     return {
         tableData,
+        tableLoading,
         tableSelection,
         changeTableSelection
     };

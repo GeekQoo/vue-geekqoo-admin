@@ -4,6 +4,7 @@ export default [
     {
         url: "/mock/api/getUserList",
         method: "get",
+        timeout: 1000,
         response: () => ({
             code: 1,
             "data|10": [

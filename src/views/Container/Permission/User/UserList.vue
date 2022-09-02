@@ -10,6 +10,7 @@
         </n-card>
         <n-card class="mt" hoverable>
             <n-data-table
+                :loading="tableLoading"
                 :columns="tableColumns"
                 :data="tableData"
                 :pagination="tablePagination"
@@ -82,7 +83,7 @@ let searchForm = ref<TableSearchbarData>({
 let getSearchOptions = () => {};
 
 // 数据列表
-let { tableData, tableSelection, changeTableSelection } = useCommonTable();
+let { tableData, tableLoading, tableSelection, changeTableSelection } = useCommonTable();
 
 let tableColumns = ref<DataTableColumns<RowProps>>([
     {
@@ -180,9 +181,11 @@ let tablePagination = ref<PaginationProps>({
 });
 
 let getTableData = () => {
+    tableLoading.value = true;
     GET_USER_LIST({}).then((res) => {
         tableData.value = res.data.data;
         tablePagination.value.itemCount = res.data.total;
+        tableLoading.value = false;
     });
 };
 
