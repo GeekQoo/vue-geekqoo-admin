@@ -1,4 +1,8 @@
-# TableActions 数据表格基础交互组件
+# TableActions 数据表格基础交互组件 V0.0.1
+
+## 介绍
+
+TableActions 是一个基础的数据表格交互组件，用于快速配置 n-data-table 的 render 函数，目前支持基础功能的按钮组和开关组。
 
 ## 参数
 

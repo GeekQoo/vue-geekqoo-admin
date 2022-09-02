@@ -1,6 +1,8 @@
 # TableSearchbar 列表搜索栏 V0.0.1
 
-基于 naive-ui 封装的列表搜索栏组件。
+## 介绍
+
+TableSearchbar 是一个基于 naive-ui 封装的基础列表搜索栏组件，目前支持输入框、下拉框、时间日期选择器。
 
 ## 现有功能
 
