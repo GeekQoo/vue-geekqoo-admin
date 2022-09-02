@@ -1,5 +1,10 @@
 <template>
-    <n-config-provider :date-locale="dateZhCN" :locale="zhCN" :theme="currentTheme">
+    <n-config-provider
+        :date-locale="dateZhCN"
+        :locale="zhCN"
+        :theme="currentTheme"
+        :theme-overrides="getThemeOverrides"
+    >
         <n-loading-bar-provider>
             <n-dialog-provider>
                 <n-notification-provider>
@@ -31,12 +36,28 @@ import {
     useNotification
 } from "naive-ui";
 import { useStoreDesign } from "@/store";
+import { lighten } from "@/utils/theme";
 
 const storeDesign = useStoreDesign();
 
 // 当前主题
 let currentTheme = computed(() => {
     return storeDesign.getCurrentTheme === "darkTheme" ? darkTheme : lightTheme;
+});
+
+let themeColor = "#409eff";
+
+let getThemeOverrides = computed(() => {
+    return {
+        common: {
+            primaryColor: themeColor,
+            primaryColorHover: lighten(themeColor, 6),
+            primaryColorPressed: lighten(themeColor, 6)
+        },
+        LoadingBar: {
+            colorLoading: themeColor
+        }
+    };
 });
 
 // 全局挂载
