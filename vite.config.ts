@@ -23,7 +23,10 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
             }),
             viteMockServe({
                 mockPath: "mock",
-                localEnabled: command === "serve"
+                localEnabled: command === "serve",
+                prodEnabled: command !== "serve",
+                //  这样可以控制关闭mock的时候不让mock打包到最终代码内
+                injectCode: `import { setupProdMockServer } from "../mock/mockProdServer";setupProdMockServer();`
             })
         ],
         base: viteEnv.VITE_BASE_PATH, // 开发或生产环境服务的公共基础路径。
