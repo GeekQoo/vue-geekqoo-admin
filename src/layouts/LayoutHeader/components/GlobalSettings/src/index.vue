@@ -12,10 +12,20 @@
                 <div class="flex-y-center mb">
                     <span>切换动画</span>
                     <n-select
-                        v-model:value="pageAnimation.active"
-                        :options="pageAnimation.options"
+                        :options="pageAnimationPreset"
+                        :value="storeDesign.getPageAnimation"
                         class="ml-a w-36"
                         @update:value="changePageAnimation"
+                    />
+                </div>
+                <div class="flex-y-center mb">
+                    <span>主题颜色</span>
+                    <n-color-picker
+                        :value="storeDesign.getThemeColor"
+                        :show-alpha="false"
+                        :swatches="themeColorPreset"
+                        class="ml-a w-36"
+                        @update:value="changeThemeColor"
                     />
                 </div>
             </n-drawer-content>
@@ -25,30 +35,23 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import { NDrawer, NDrawerContent, NIcon, NSelect } from "naive-ui";
+import { NDrawer, NDrawerContent, NIcon, NSelect, NColorPicker } from "naive-ui";
 import { Settings28Regular } from "@vicons/fluent";
 import { ThemeSwitch } from "../../ThemeSwitch";
 import { useStoreDesign } from "@/store";
+import { pageAnimationPreset, themeColorPreset } from "@/setttings/theme";
 
 let storeDesign = useStoreDesign();
 
 // 设置面板抽屉开关
 let settingsActive = ref(false);
 
-// 设置页面切换动画
-let pageAnimation = ref({
-    active: storeDesign.getPageAnimation,
-    options: [
-        { label: "滑动", value: "fade-slide" },
-        { label: "消退", value: "fade" },
-        { label: "底部消退", value: "fade-bottom" },
-        { label: "缩放消退", value: "fade-scale" },
-        { label: "渐变", value: "zoom-fade" },
-        { label: "闪现", value: "zoom-out" }
-    ]
-});
-
 let changePageAnimation = (val: string) => {
     storeDesign.setPageAnimation(val);
+};
+
+// 主题颜色
+let changeThemeColor = (val: string) => {
+    storeDesign.setThemeColor(val);
 };
 </script>

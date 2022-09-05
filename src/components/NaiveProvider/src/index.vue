@@ -45,17 +45,15 @@ let currentTheme = computed(() => {
     return storeDesign.getCurrentTheme === "darkTheme" ? darkTheme : lightTheme;
 });
 
-let themeColor = "#409eff";
-
 let getThemeOverrides = computed(() => {
     return {
         common: {
-            primaryColor: themeColor,
-            primaryColorHover: lighten(themeColor, 6),
-            primaryColorPressed: lighten(themeColor, 6)
+            primaryColor: storeDesign.getThemeColor,
+            primaryColorHover: lighten(storeDesign.getThemeColor, 6),
+            primaryColorPressed: lighten(storeDesign.getThemeColor, 6)
         },
         LoadingBar: {
-            colorLoading: themeColor
+            colorLoading: storeDesign.getThemeColor
         }
     };
 });
