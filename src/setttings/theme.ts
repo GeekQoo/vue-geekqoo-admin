@@ -42,3 +42,9 @@ export const themeColorPreset = [
     "#6d4c41",
     "#546e7a"
 ];
+
+export const pageZoomPreset = [
+    { label: "正常", value: 1 },
+    { label: "大", value: 1.1 },
+    { label: "超大", value: 1.2 }
+];

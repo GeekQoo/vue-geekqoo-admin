@@ -28,6 +28,15 @@
                         @update:value="changeThemeColor"
                     />
                 </div>
+                <div class="flex-y-center mb">
+                    <span>页面大小</span>
+                    <n-select
+                        :value="storeDesign.getPageZoom"
+                        :options="pageZoomPreset"
+                        class="ml-a w-36"
+                        @update:value="changePageZoom"
+                    />
+                </div>
             </n-drawer-content>
         </n-drawer>
     </div>
@@ -39,7 +48,7 @@ import { NDrawer, NDrawerContent, NIcon, NSelect, NColorPicker } from "naive-ui"
 import { Settings28Regular } from "@vicons/fluent";
 import { ThemeSwitch } from "../../ThemeSwitch";
 import { useStoreDesign } from "@/store";
-import { pageAnimationPreset, themeColorPreset } from "@/setttings/theme";
+import { pageAnimationPreset, themeColorPreset, pageZoomPreset } from "@/setttings/theme";
 
 let storeDesign = useStoreDesign();
 
@@ -53,5 +62,11 @@ let changePageAnimation = (val: string) => {
 // 主题颜色
 let changeThemeColor = (val: string) => {
     storeDesign.setThemeColor(val);
+};
+
+// 页面缩放
+let changePageZoom = (val: number) => {
+    (document.body.style as any).zoom = val;
+    storeDesign.setPageZoom(val);
 };
 </script>
