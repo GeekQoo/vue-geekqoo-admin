@@ -1,7 +1,8 @@
 <template>
     <n-layout-header>
         <div class="toolbar flex-y-center">
-            <page-breadcrumb />
+            <!--<page-breadcrumb />-->
+            <header-menu />
             <n-space class="ml-a" align="center" size="medium">
                 <full-screen />
                 <global-settings />
@@ -15,5 +16,5 @@
 
 <script lang="ts" setup>
 import { NLayoutHeader, NSpace } from "naive-ui";
-import { PageBreadcrumb, NavigationTags, GlobalSettings, CurrentUser, FullScreen, ThemeSwitch } from "./components";
+import { HeaderMenu, NavigationTags, GlobalSettings, CurrentUser, FullScreen } from "./components";
 </script>
