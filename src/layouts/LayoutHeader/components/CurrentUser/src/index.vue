@@ -2,8 +2,8 @@
     <div class="current-user">
         <n-dropdown :options="settingOptions" trigger="hover" @select="handelSetting">
             <div class="flex-y-center cursor-pointer">
-                <n-avatar round size="small" src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg" />
-                <span class="ml-2">超级管理员</span>
+                <n-avatar round size="small" :src="storeUser.getUserData.avatar" />
+                <span class="ml-2">{{ storeUser.getUserData.username }}</span>
             </div>
         </n-dropdown>
     </div>
@@ -14,8 +14,10 @@ import { ref } from "vue";
 import { NDropdown, NAvatar } from "naive-ui";
 import { UserOutlined, LogoutOutlined } from "@vicons/antd";
 import { useRender } from "@/hooks";
+import { useStoreUser } from "@/store";
 
 let { renderIcon } = useRender();
+let storeUser = useStoreUser();
 
 let settingOptions = ref([
     { label: "用户中心", key: "userCenter", icon: renderIcon(UserOutlined) },
