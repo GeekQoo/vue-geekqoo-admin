@@ -38,8 +38,6 @@ let isDarkTheme = computed(() => storeDesign.getCurrentTheme === "darkTheme");
         box-shadow: 0 1px 4px rgba(#000000, 0.1);
 
         .toolbar {
-            display: flex;
-            align-items: center;
             height: 56px;
             border-bottom: 1px solid var(--n-border-color);
 
