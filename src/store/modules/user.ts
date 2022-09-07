@@ -1,5 +1,12 @@
 import { defineStore } from "pinia";
 import { clearLocalStorage, delCookie, getCookie, getLocalStorage, setCookie, setLocalStorage } from "@/utils/storage";
+import type { MenuOption } from "naive-ui";
+
+interface UserDataProps {
+    username?: string;
+    avatar?: string;
+    menu?: MenuOption[];
+}
 
 interface StateProps {
     token: string;
@@ -10,18 +17,18 @@ export const useStoreUser = defineStore({
     id: "user",
     state: (): StateProps => ({
         token: getCookie("token") || "",
-        userData: getLocalStorage("userData") || {},
+        userData: getLocalStorage("userData") || {}
     }),
     getters: {
         getToken: (state): string => state.token,
-        getUserData: (state): object => state.userData,
+        getUserData: (state): UserDataProps => state.userData
     },
     actions: {
         setToken(value: string) {
             this.token = value;
             setCookie("token", value, 2592000);
         },
-        setUserData(value: object) {
+        setUserData(value: UserDataProps) {
             this.userData = value;
             setLocalStorage("userData", value);
         },
@@ -32,6 +39,6 @@ export const useStoreUser = defineStore({
         clearUserData() {
             this.userData = {};
             clearLocalStorage("userData");
-        },
-    },
+        }
+    }
 });
