@@ -14,7 +14,7 @@ import { computed, h } from "vue";
 import type { MenuOption } from "naive-ui";
 import { NMenu } from "naive-ui";
 import { usePubilc } from "@/hooks";
-import { DynamicIcon } from "@/components/DynamicIcon";
+import { renderDynamicIcon } from "@/components/DynamicIcon";
 
 let { $route, $router } = usePubilc();
 
@@ -24,7 +24,7 @@ let menuOptions: MenuOption[] = [
     {
         label: "用户管理",
         key: 0,
-        icon: () => h(DynamicIcon, { icon: "UserOutlined" }),
+        icon: renderDynamicIcon("UserOutlined"),
         children: [
             {
                 label: "用户管理",

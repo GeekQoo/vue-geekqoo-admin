@@ -10,16 +10,16 @@
 </template>
 
 <script lang="ts" setup>
-import { h, ref } from "vue";
+import { ref } from "vue";
 import { NDropdown, NAvatar } from "naive-ui";
 import { useStoreUser } from "@/store";
-import { DynamicIcon } from "@/components/DynamicIcon";
+import { renderDynamicIcon } from "@/components/DynamicIcon";
 
 let storeUser = useStoreUser();
 
 let settingOptions = ref([
-    { label: "用户中心", key: "userCenter", icon: () => h(DynamicIcon, { icon: "UserOutlined" }) },
-    { label: "退出登录", key: "logout", icon: () => h(DynamicIcon, { icon: "LogoutOutlined" }) }
+    { label: "用户中心", key: "userCenter", icon: renderDynamicIcon("UserOutlined") },
+    { label: "退出登录", key: "logout", icon: renderDynamicIcon("LogoutOutlined") }
 ]);
 
 let handelSetting = (key: string | number) => {};
