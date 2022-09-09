@@ -1,8 +1,8 @@
 <template>
     <n-layout-header>
         <div class="toolbar flex-y-center">
-            <!--<page-breadcrumb />-->
-            <header-menu />
+            <header-menu v-if="storeDesign.getMenuMode === 'linkage'" />
+            <page-breadcrumb v-else />
             <n-space class="ml-a" align="center" size="medium">
                 <full-screen />
                 <global-settings />
@@ -16,5 +16,8 @@
 
 <script lang="ts" setup>
 import { NLayoutHeader, NSpace } from "naive-ui";
-import { HeaderMenu, NavigationTags, GlobalSettings, CurrentUser, FullScreen } from "./components";
+import { HeaderMenu, NavigationTags, GlobalSettings, CurrentUser, FullScreen, PageBreadcrumb } from "./components";
+import { useStoreDesign } from "@/store";
+
+let storeDesign = useStoreDesign();
 </script>

@@ -11,36 +11,55 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { NMenu } from "naive-ui";
 import type { MenuOption } from "naive-ui";
 import { usePubilc } from "@/hooks";
-import { useStoreUser } from "@/store";
+import { useStoreDesign, useStoreUser } from "@/store";
 
-let userStore = useStoreUser();
+let storeUser = useStoreUser();
+let storeDesign = useStoreDesign();
 let { $route, $router } = usePubilc();
 
+// 当前选中
 let menuActive = computed(() => $route.name as string);
 
-let expandedKeys = ref<Array<string | number>>([]);
-
-// 左侧单菜单模式
-// let menuOptions = computed(() => userStore.getUserData.menu);
-// 左上侧多菜单模式
-let menuOptions = computed(() => {
-    let currentMenu: MenuOption[] = [];
-    userStore.getUserData.menu?.forEach((item) => {
-        if (item.key === userStore.getHeaderMenuActive) {
-            if (item.children && item.children.length > 0) {
-                $router.push({ name: item.children[0].key as string });
-            }
-            expandedKeys.value = [userStore.getHeaderMenuActive];
-            currentMenu = [item];
-        }
-    });
-    return currentMenu;
-});
+// 当前展开
+let expandedKeys = ref<any[]>([]);
 
 // 菜单点击跳转
 let handleUpdateMenu = (key: string) => $router.push({ name: key });
+
+// 菜单内容
+let menuOptions = ref<any[]>([]);
+
+let setMenu = () => {
+    expandedKeys.value = [storeUser.getHeaderMenuActive];
+    if (storeDesign.getMenuMode === "linkage") {
+        let currentMenu: any[] = [];
+        storeUser.getUserData.menu?.forEach((item) => {
+            if (item.key === storeUser.getHeaderMenuActive) {
+                item.children?.forEach((citem, cindex) => {
+                    if ($route.name !== citem.key && cindex === 0) $router.push({ name: citem.key as string });
+                });
+                currentMenu.push(item);
+            }
+        });
+        menuOptions.value = currentMenu;
+    } else {
+        menuOptions.value = storeUser.getUserData.menu as any[];
+    }
+};
+
+onMounted(() => {
+    setTimeout(() => {
+        setMenu();
+    }, 1000);
+});
+
+watch(
+    () => [storeUser.getHeaderMenuActive, storeDesign.getMenuMode],
+    (val) => setMenu(),
+    { deep: true }
+);
 </script>

@@ -33,16 +33,24 @@
 import { NDropdown, NIcon, NScrollbar, NSpace, NTag, NButton } from "naive-ui";
 import { BarsOutlined } from "@vicons/antd";
 import { ref } from "vue";
-import { useStoreNavigation } from "@/store";
+import { useStoreNavigation, useStoreUser } from "@/store";
 import type { NavigationProps } from "./types";
 import { usePubilc } from "@/hooks";
 
 let { $route, $router } = usePubilc();
 let storeNavigation = useStoreNavigation();
+let storeUser = useStoreUser();
 
 // 导航跳转
-let navigationTo = (item: NavigationProps) => {
-    $router.push({ name: item.name });
+let navigationTo = (nav: NavigationProps) => {
+    storeUser.getUserData?.menu?.forEach((item) => {
+        item.children?.forEach((citem) => {
+            if (citem.key === nav.name) {
+                storeUser.setHeaderMenuActive(item.key as string | number);
+                $router.push({ name: nav.name });
+            }
+        });
+    });
 };
 
 // 删除导航

@@ -7,6 +7,7 @@ interface DesignProps {
     pageAnimation: string;
     themeColor: string;
     pageZoom: number;
+    menuMode: string;
 }
 
 export const useStoreDesign = defineStore({
@@ -15,13 +16,15 @@ export const useStoreDesign = defineStore({
         currentTheme: getLocalStorage("currentTheme") || defaultThemeConfig.currentTheme,
         pageAnimation: getLocalStorage("pageAnimation") || defaultThemeConfig.pageAnimation,
         themeColor: getLocalStorage("themeColor") || defaultThemeConfig.themeColor,
-        pageZoom: 1
+        pageZoom: 1,
+        menuMode: getLocalStorage("menuMode") || defaultThemeConfig.menuMode
     }),
     getters: {
         getCurrentTheme: (state): string => state.currentTheme,
         getPageAnimation: (state): string => state.pageAnimation,
         getThemeColor: (state): string => state.themeColor,
-        getPageZoom: (state): number => state.pageZoom
+        getPageZoom: (state): number => state.pageZoom,
+        getMenuMode: (state): string => state.menuMode
     },
     actions: {
         setCurrentTheme(value: string) {
@@ -38,6 +41,10 @@ export const useStoreDesign = defineStore({
         },
         setPageZoom(value: number) {
             this.pageZoom = value;
+        },
+        setMenuMode(value: string) {
+            this.menuMode = value;
+            setLocalStorage("menuMode", value);
         }
     }
 });

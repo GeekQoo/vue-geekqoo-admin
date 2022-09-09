@@ -37,6 +37,15 @@
                         @update:value="changePageZoom"
                     />
                 </div>
+                <div class="flex-y-center mb">
+                    <span>菜单模式</span>
+                    <n-select
+                        :value="storeDesign.getMenuMode"
+                        :options="menuModePreset"
+                        class="ml-a w-36"
+                        @update:value="changeMenuMode"
+                    />
+                </div>
             </n-drawer-content>
         </n-drawer>
     </div>
@@ -48,7 +57,7 @@ import { NDrawer, NDrawerContent, NIcon, NSelect, NColorPicker } from "naive-ui"
 import { Settings28Regular } from "@vicons/fluent";
 import { ThemeSwitch } from "../../ThemeSwitch";
 import { useStoreDesign } from "@/store";
-import { pageAnimationPreset, themeColorPreset, pageZoomPreset } from "@/setttings/theme";
+import { pageAnimationPreset, themeColorPreset, pageZoomPreset, menuModePreset } from "@/setttings/theme";
 
 let storeDesign = useStoreDesign();
 
@@ -68,5 +77,10 @@ let changeThemeColor = (val: string) => {
 let changePageZoom = (val: number) => {
     (document.body.style as any).zoom = val;
     storeDesign.setPageZoom(val);
+};
+
+// 菜单模式
+let changeMenuMode = (val: string) => {
+    storeDesign.setMenuMode(val);
 };
 </script>
