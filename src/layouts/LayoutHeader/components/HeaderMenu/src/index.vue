@@ -8,8 +8,10 @@
 import { computed } from "vue";
 import { NMenu } from "naive-ui";
 import { useStoreUser } from "@/store";
+import { usePubilc } from "@/hooks";
 
 let storeUser = useStoreUser();
+let { $router } = usePubilc();
 
 let menuActive = computed(() => storeUser.getHeaderMenuActive);
 
@@ -25,6 +27,11 @@ let menuOptions = computed(() => {
 
 let handleUpdateMenu = (key: string | number) => {
     storeUser.setHeaderMenuActive(key);
+    storeUser.getUserData.menu?.forEach((item) => {
+        if (key === item.key && item.children && item.children.length) {
+            $router.push({ name: item.children[0].key as string });
+        }
+    });
 };
 </script>
 

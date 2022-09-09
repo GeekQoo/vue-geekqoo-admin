@@ -13,7 +13,6 @@
 <script lang="ts" setup>
 import { computed, onMounted, ref, watch } from "vue";
 import { NMenu } from "naive-ui";
-import type { MenuOption } from "naive-ui";
 import { usePubilc } from "@/hooks";
 import { useStoreDesign, useStoreUser } from "@/store";
 
@@ -33,15 +32,15 @@ let handleUpdateMenu = (key: string) => $router.push({ name: key });
 // 菜单内容
 let menuOptions = ref<any[]>([]);
 
-let setMenu = () => {
+let setMenu = (isInit = false) => {
     expandedKeys.value = [storeUser.getHeaderMenuActive];
     if (storeDesign.getMenuMode === "linkage") {
         let currentMenu: any[] = [];
         storeUser.getUserData.menu?.forEach((item) => {
             if (item.key === storeUser.getHeaderMenuActive) {
-                item.children?.forEach((citem, cindex) => {
-                    if ($route.name !== citem.key && cindex === 0) $router.push({ name: citem.key as string });
-                });
+                if (isInit && item.children && item.children.length) {
+                    $router.push({ name: item.children[0].key as string });
+                }
                 currentMenu.push(item);
             }
         });
@@ -53,7 +52,7 @@ let setMenu = () => {
 
 onMounted(() => {
     setTimeout(() => {
-        setMenu();
+        setMenu(true);
     }, 1000);
 });
 
