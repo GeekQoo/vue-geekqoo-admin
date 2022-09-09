@@ -5,26 +5,26 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, h } from "vue";
-import type { MenuOption } from "naive-ui";
+import { computed } from "vue";
 import { NMenu } from "naive-ui";
-import { usePubilc } from "@/hooks";
-import { renderDynamicIcon } from "@/components/DynamicIcon";
+import { useStoreUser } from "@/store";
 
-let { $route, $router } = usePubilc();
+let storeUser = useStoreUser();
 
-let menuActive = computed(() => $route.name as string);
+let menuActive = computed(() => storeUser.getHeaderMenuActive);
 
-let menuOptions: MenuOption[] = [
-    {
-        label: "用户管理",
-        key: 0,
-        icon: renderDynamicIcon("UserOutlined")
-    }
-];
+let menuOptions = computed(() => {
+    return storeUser.getUserData.menu?.map((item) => {
+        return {
+            label: item.label,
+            key: item.key,
+            icon: item.icon
+        };
+    });
+});
 
-let handleUpdateMenu = (key: string, item: MenuOption) => {
-    $router.push({ name: key });
+let handleUpdateMenu = (key: string | number) => {
+    storeUser.setHeaderMenuActive(key);
 };
 </script>
 

@@ -20,7 +20,14 @@ export default [
                             {
                                 label: "用户管理",
                                 key: "UserList"
-                            },
+                            }
+                        ]
+                    },
+                    {
+                        label: "角色管理",
+                        key: 1,
+                        icon: "SkinOutlined",
+                        children: [
                             {
                                 label: "角色管理",
                                 key: "RoleList"
