@@ -27,3 +27,17 @@ let handleUpdateMenu = (key: string, item: MenuOption) => {
     $router.push({ name: key });
 };
 </script>
+
+<style lang="scss" scoped>
+.header-menu {
+    :deep(.n-menu) {
+        .n-menu-item {
+            .n-menu-item-content {
+                &:first-child {
+                    padding-left: 0;
+                }
+            }
+        }
+    }
+}
+</style>

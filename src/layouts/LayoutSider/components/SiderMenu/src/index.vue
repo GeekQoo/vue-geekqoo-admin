@@ -10,35 +10,17 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, h } from "vue";
-import type { MenuOption } from "naive-ui";
+import { computed } from "vue";
 import { NMenu } from "naive-ui";
 import { usePubilc } from "@/hooks";
-import { renderDynamicIcon } from "@/components/DynamicIcon";
+import { useStoreUser } from "@/store";
 
+let userStore = useStoreUser();
 let { $route, $router } = usePubilc();
 
 let menuActive = computed(() => $route.name as string);
+let menuOptions = computed(() => userStore.getUserData.menu);
 
-let menuOptions: MenuOption[] = [
-    {
-        label: "用户管理",
-        key: 0,
-        icon: renderDynamicIcon("UserOutlined"),
-        children: [
-            {
-                label: "用户管理",
-                key: "UserList"
-            },
-            {
-                label: "角色管理",
-                key: "RoleList"
-            }
-        ]
-    }
-];
-
-let handleUpdateMenu = (key: string, item: MenuOption) => {
-    $router.push({ name: key });
-};
+// 菜单点击跳转
+let handleUpdateMenu = (key: string) => $router.push({ name: key });
 </script>
