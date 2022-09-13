@@ -1,6 +1,7 @@
 <template>
     <n-layout-content :native-scrollbar="false">
         <div class="page-container">
+            <GlobalLoading v-if="storeDesign.getGlobalLoading" />
             <router-view v-slot="{ Component }">
                 <transition :name="storeDesign.getPageAnimation" mode="out-in" appear>
                     <component :is="Component" />
@@ -12,6 +13,7 @@
 
 <script lang="ts" setup>
 import { NLayoutContent } from "naive-ui";
+import { GlobalLoading } from "@/components/GlobalLoading";
 import { useStoreDesign } from "@/store";
 
 let storeDesign = useStoreDesign();

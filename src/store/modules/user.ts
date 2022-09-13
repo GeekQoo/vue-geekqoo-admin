@@ -63,6 +63,13 @@ export const useStoreUser = defineStore({
                 });
             });
         },
+        logout() {
+            return new Promise((resolve) => {
+                this.setToken("");
+                this.setUserData({});
+                resolve(true);
+            });
+        },
         setHeaderMenuActive(value: string | number) {
             this.headerMenuActive = value;
             setSessionStorage("headerMenuActive", value);
