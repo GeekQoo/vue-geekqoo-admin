@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import { NMenu } from "naive-ui";
 import { usePubilc } from "@/hooks";
 import { useStoreDesign, useStoreUser } from "@/store";
@@ -32,17 +32,12 @@ let handleUpdateMenu = (key: string) => $router.push({ name: key });
 // 菜单内容
 let menuOptions = ref<any[]>([]);
 
-let setMenu = (isInit = false) => {
+let setMenu = () => {
     expandedKeys.value = [storeUser.getHeaderMenuActive];
     if (storeDesign.getMenuMode === "linkage") {
         let currentMenu: any[] = [];
         storeUser.getUserData.menu?.forEach((item) => {
-            if (item.key === storeUser.getHeaderMenuActive) {
-                if (isInit && item.children && item.children.length) {
-                    $router.push({ name: item.children[0].key as string });
-                }
-                currentMenu.push(item);
-            }
+            if (item.key === storeUser.getHeaderMenuActive) currentMenu.push(item);
         });
         menuOptions.value = currentMenu;
     } else {
@@ -50,15 +45,9 @@ let setMenu = (isInit = false) => {
     }
 };
 
-onMounted(() => {
-    setTimeout(() => {
-        setMenu(true);
-    }, 1000);
-});
-
 watch(
-    () => [storeUser.getHeaderMenuActive, storeDesign.getMenuMode],
-    (val) => setMenu(),
-    { deep: true }
+    () => [storeUser, storeDesign.getMenuMode],
+    () => setMenu(),
+    { deep: true, immediate: true }
 );
 </script>

@@ -2,6 +2,19 @@ import { MockMethod } from "vite-plugin-mock";
 
 export default [
     {
+        url: "/mock/api/login",
+        method: "post",
+        timeout: 1000,
+        response: () => ({
+            code: 1,
+            data: {
+                token: "0123456789"
+            },
+            message: "ok",
+            type: "success"
+        })
+    },
+    {
         url: "/mock/api/getUserinfo",
         method: "get",
         timeout: 1000,
@@ -17,6 +30,10 @@ export default [
                         key: 0,
                         icon: "UserOutlined",
                         children: [
+                            {
+                                label: "工作台",
+                                key: "Workbench"
+                            },
                             {
                                 label: "用户管理",
                                 key: "UserList"

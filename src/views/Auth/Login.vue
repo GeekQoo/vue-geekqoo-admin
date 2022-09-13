@@ -16,7 +16,9 @@
                 <n-checkbox v-model:checked="isSavePassword">保存密码</n-checkbox>
                 <a class="forget-password ml-a cursor-pointer transition-200">忘记密码？</a>
             </div>
-            <n-button class="mt-4" block type="primary" size="large">登录</n-button>
+            <n-button class="mt-4" block type="primary" size="large" :loading="loginLoading" @click="onLogin">
+                登录
+            </n-button>
             <n-divider>其它账号登录</n-divider>
             <n-space>
                 <n-button type="primary" ghost>测试账号</n-button>
@@ -28,7 +30,15 @@
 
 <script lang="ts" setup>
 import { NElement, NCard, NSpace, NInput, NButton, NCheckbox, NDivider } from "naive-ui";
+import type { MenuOption } from "naive-ui";
 import { ref } from "vue";
+import { useStoreUser } from "@/store";
+import { usePubilc } from "@/hooks";
+import { AUTH_LOGIN, GET_USERINFO } from "@/api/auth";
+import { renderDynamicIcon } from "@/components/DynamicIcon";
+
+let storeUser = useStoreUser();
+let { $router } = usePubilc();
 
 let loginForm = ref({
     username: "",
@@ -36,6 +46,35 @@ let loginForm = ref({
 });
 
 let isSavePassword = ref(false);
+
+let getMenus = (menu: MenuOption[]) => {
+    return menu.map((item: MenuOption) => {
+        if (item.icon) {
+            item.icon = renderDynamicIcon(item.icon as any);
+        }
+        if (item.children) {
+            item.children = getMenus(item.children);
+        }
+        return item;
+    });
+};
+
+let loginLoading = ref(false);
+
+let onLogin = () => {
+    loginLoading.value = true;
+    AUTH_LOGIN({ ...loginForm.value }).then((loginRes) => {
+        if (loginRes.data.code === 1) {
+            storeUser.setToken(loginRes.data.data.token);
+            GET_USERINFO({}).then((userRes) => {
+                loginLoading.value = false;
+                userRes.data.data.menu = getMenus(userRes.data.data.menu);
+                storeUser.setUserData(userRes.data.data);
+                $router.push("/");
+            });
+        }
+    });
+};
 </script>
 
 <style lang="scss">

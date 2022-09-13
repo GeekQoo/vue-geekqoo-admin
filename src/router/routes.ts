@@ -8,10 +8,19 @@ export default [
     // 主体
     {
         path: "/",
-        redirect: "/user/list",
+        redirect: "/workbench",
         name: "Layout",
         component: () => import("../layouts/index.vue"),
         children: [
+            {
+                path: "/workbench",
+                name: "Workbench",
+                meta: {
+                    title: "工作台",
+                    breadcrumb: ["工作台"]
+                },
+                component: () => import("../views/Container/Workbench/Workbench.vue")
+            },
             {
                 path: "/user/list",
                 name: "UserList",
