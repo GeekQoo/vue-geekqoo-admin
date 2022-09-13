@@ -4,7 +4,7 @@ export default [
     {
         url: "/mock/api/login",
         method: "post",
-        timeout: 200,
+        timeout: 1000,
         response: () => ({
             code: 1,
             data: {
@@ -17,7 +17,7 @@ export default [
     {
         url: "/mock/api/getUserinfo",
         method: "get",
-        timeout: 200,
+        timeout: 1000,
         response: () => ({
             code: 1,
             data: {

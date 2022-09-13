@@ -8,6 +8,7 @@ interface DesignProps {
     themeColor: string;
     pageZoom: number;
     menuMode: string;
+    globalLoading: boolean;
 }
 
 export const useStoreDesign = defineStore({
@@ -17,14 +18,16 @@ export const useStoreDesign = defineStore({
         pageAnimation: getLocalStorage("pageAnimation") || defaultThemeConfig.pageAnimation,
         themeColor: getLocalStorage("themeColor") || defaultThemeConfig.themeColor,
         pageZoom: 1,
-        menuMode: getLocalStorage("menuMode") || defaultThemeConfig.menuMode
+        menuMode: getLocalStorage("menuMode") || defaultThemeConfig.menuMode,
+        globalLoading: false
     }),
     getters: {
         getCurrentTheme: (state): string => state.currentTheme,
         getPageAnimation: (state): string => state.pageAnimation,
         getThemeColor: (state): string => state.themeColor,
         getPageZoom: (state): number => state.pageZoom,
-        getMenuMode: (state): string => state.menuMode
+        getMenuMode: (state): string => state.menuMode,
+        getGlobalLoading: (state): boolean => state.globalLoading
     },
     actions: {
         setCurrentTheme(value: string) {
@@ -45,6 +48,9 @@ export const useStoreDesign = defineStore({
         setMenuMode(value: string) {
             this.menuMode = value;
             setLocalStorage("menuMode", value);
+        },
+        setGlobalLoading(value: boolean) {
+            this.globalLoading = value;
         }
     }
 });

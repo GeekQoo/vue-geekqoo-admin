@@ -3,6 +3,7 @@ import { delCookie, getCookie, getSessionStorage, setCookie, setSessionStorage }
 import { GET_USERINFO } from "@/api/auth";
 import { renderDynamicIcon } from "@/components/DynamicIcon";
 import type { MenuOption } from "naive-ui";
+import { useStoreDesign } from "@/store";
 
 interface UserDataProps {
     username?: string;
@@ -42,6 +43,8 @@ export const useStoreUser = defineStore({
             this.userData = value as any;
         },
         requestUserData() {
+            let storeDesign = useStoreDesign();
+            storeDesign.setGlobalLoading(true);
             let getMenus = (menu: any[]) => {
                 return menu.map((item: any) => {
                     if (item.icon) item.icon = renderDynamicIcon(item.icon as any);
@@ -54,6 +57,7 @@ export const useStoreUser = defineStore({
                     if (res.data.code === 1) {
                         res.data.data.menu = getMenus(res.data.data.menu);
                         this.setUserData(res.data.data);
+                        storeDesign.setGlobalLoading(false);
                         resolve(res.data.data);
                     }
                 });
