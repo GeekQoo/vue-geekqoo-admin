@@ -1,14 +1,7 @@
 import { defineStore } from "pinia";
-import {
-    clearLocalStorage,
-    delCookie,
-    getCookie,
-    getLocalStorage,
-    getSessionStorage,
-    setCookie,
-    setLocalStorage,
-    setSessionStorage
-} from "@/utils/storage";
+import { delCookie, getCookie, getSessionStorage, setCookie, setSessionStorage } from "@/utils/storage";
+import { GET_USERINFO } from "@/api/auth";
+import { renderDynamicIcon } from "@/components/DynamicIcon";
 import type { MenuOption } from "naive-ui";
 
 interface UserDataProps {
@@ -19,7 +12,7 @@ interface UserDataProps {
 
 interface StateProps {
     token: string;
-    userData: object;
+    userData: UserDataProps;
     headerMenuActive: string | number;
 }
 
@@ -27,30 +20,44 @@ export const useStoreUser = defineStore({
     id: "user",
     state: (): StateProps => ({
         token: getCookie("token") || "",
-        userData: getLocalStorage("userData") || {},
+        userData: {},
         headerMenuActive: getSessionStorage("headerMenuActive") || 0
     }),
     getters: {
         getToken: (state): string => state.token,
-        getUserData: (state): UserDataProps => state.userData,
+        getUserData: (state): UserDataProps => state.userData as any,
         getHeaderMenuActive: (state): string | number => state.headerMenuActive
     },
     actions: {
-        setToken(value: string) {
-            this.token = value;
-            setCookie("token", value, 2592000);
+        setToken(value?: string) {
+            if (value) {
+                this.token = value;
+                setCookie("token", value, 2592000);
+            } else {
+                this.token = "";
+                delCookie("token");
+            }
         },
         setUserData(value: UserDataProps) {
-            this.userData = value;
-            setLocalStorage("userData", value);
+            this.userData = value as any;
         },
-        clearToken() {
-            this.token = "";
-            delCookie("token");
-        },
-        clearUserData() {
-            this.userData = {};
-            clearLocalStorage("userData");
+        requestUserData() {
+            let getMenus = (menu: any[]) => {
+                return menu.map((item: any) => {
+                    if (item.icon) item.icon = renderDynamicIcon(item.icon as any);
+                    if (item.children) item.children = getMenus(item.children);
+                    return item;
+                });
+            };
+            return new Promise((resolve) => {
+                GET_USERINFO({}).then((res) => {
+                    if (res.data.code === 1) {
+                        res.data.data.menu = getMenus(res.data.data.menu);
+                        this.setUserData(res.data.data);
+                        resolve(res.data.data);
+                    }
+                });
+            });
         },
         setHeaderMenuActive(value: string | number) {
             this.headerMenuActive = value;

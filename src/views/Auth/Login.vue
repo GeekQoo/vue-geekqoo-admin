@@ -29,13 +29,11 @@
 </template>
 
 <script lang="ts" setup>
-import { NElement, NCard, NSpace, NInput, NButton, NCheckbox, NDivider } from "naive-ui";
-import type { MenuOption } from "naive-ui";
+import { NButton, NCard, NCheckbox, NDivider, NElement, NInput, NSpace } from "naive-ui";
 import { ref } from "vue";
 import { useStoreUser } from "@/store";
 import { usePubilc } from "@/hooks";
-import { AUTH_LOGIN, GET_USERINFO } from "@/api/auth";
-import { renderDynamicIcon } from "@/components/DynamicIcon";
+import { AUTH_LOGIN } from "@/api/auth";
 
 let storeUser = useStoreUser();
 let { $router } = usePubilc();
@@ -47,31 +45,15 @@ let loginForm = ref({
 
 let isSavePassword = ref(false);
 
-let getMenus = (menu: MenuOption[]) => {
-    return menu.map((item: MenuOption) => {
-        if (item.icon) {
-            item.icon = renderDynamicIcon(item.icon as any);
-        }
-        if (item.children) {
-            item.children = getMenus(item.children);
-        }
-        return item;
-    });
-};
-
 let loginLoading = ref(false);
 
 let onLogin = () => {
     loginLoading.value = true;
-    AUTH_LOGIN({ ...loginForm.value }).then((loginRes) => {
+    AUTH_LOGIN({ ...loginForm.value }).then(async (loginRes) => {
         if (loginRes.data.code === 1) {
             storeUser.setToken(loginRes.data.data.token);
-            GET_USERINFO({}).then((userRes) => {
-                loginLoading.value = false;
-                userRes.data.data.menu = getMenus(userRes.data.data.menu);
-                storeUser.setUserData(userRes.data.data);
-                $router.push("/");
-            });
+            await storeUser.requestUserData();
+            await $router.push("/");
         }
     });
 };
