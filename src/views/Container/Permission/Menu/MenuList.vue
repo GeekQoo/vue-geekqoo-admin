@@ -9,6 +9,10 @@
             />
         </n-card>
         <n-card class="mt" hoverable>
+            <n-space class="mb">
+                <n-button type="primary">新增</n-button>
+                <n-button type="error">删除</n-button>
+            </n-space>
             <n-data-table
                 :loading="tableLoading"
                 :columns="tableColumns"
@@ -28,18 +32,18 @@
 <script lang="ts" setup>
 import { h, onMounted, ref } from "vue";
 import type { DataTableColumns, PaginationProps } from "naive-ui";
-import { NCard, NDataTable } from "naive-ui";
+import { NSpace, NButton, NCard, NDataTable } from "naive-ui";
 import type { TableSearchbarConfig, TableSearchbarData, TableSearchbarOptions } from "@/components/TableSearchbar";
 import { TableSearchbar } from "@/components/TableSearchbar";
 import { TableActions } from "@/components/TableActions";
+import { DynamicIcon } from "@/components/DynamicIcon";
 import { GET_MENU_LIST } from "@/api/permission/menu";
 import { useCommonTable } from "@/hooks";
 
 type RowProps = {
-    id: string | number;
-    username: string;
-    nickname: string;
-    phone: string | number;
+    name: string;
+    parentName: string;
+    icon: string;
 };
 
 onMounted(() => {
@@ -86,6 +90,13 @@ let tableColumns = ref<DataTableColumns<RowProps>>([
         title: "ID",
         key: "id",
         align: "center"
+    },
+    {
+        title: "菜单图标",
+        key: "icon",
+        align: "center",
+        width: 80,
+        render: (row) => h(DynamicIcon, { icon: row.icon, size: 25 })
     },
     {
         title: "菜单名称",

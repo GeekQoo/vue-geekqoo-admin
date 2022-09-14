@@ -9,6 +9,10 @@
             />
         </n-card>
         <n-card class="mt" hoverable>
+            <n-space class="mb">
+                <n-button type="primary">新增</n-button>
+                <n-button type="error">删除</n-button>
+            </n-space>
             <n-data-table
                 :loading="tableLoading"
                 :columns="tableColumns"
@@ -28,7 +32,7 @@
 <script lang="ts" setup>
 import { h, onMounted, ref } from "vue";
 import type { DataTableColumns, PaginationProps } from "naive-ui";
-import { NCard, NDataTable } from "naive-ui";
+import { NSpace, NButton, NCard, NDataTable } from "naive-ui";
 import type { TableSearchbarConfig, TableSearchbarData, TableSearchbarOptions } from "@/components/TableSearchbar";
 import { TableSearchbar } from "@/components/TableSearchbar";
 import { TableActions } from "@/components/TableActions";

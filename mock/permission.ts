@@ -32,7 +32,17 @@ export default [
                 {
                     id: "@natural(0,10000)",
                     name: "@ctitle(4)",
-                    parentName: "@ctitle(4)"
+                    parentName: "@ctitle(4)",
+                    "icon|1": [
+                        "ProjectOutlined",
+                        "UserOutlined",
+                        "HeartOutlined",
+                        "FundViewOutlined",
+                        "AppstoreOutlined",
+                        "CarOutlined",
+                        "ClearOutlined",
+                        "CodepenOutlined"
+                    ]
                 }
             ],
             message: "ok",
