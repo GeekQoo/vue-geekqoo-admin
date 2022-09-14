@@ -17,7 +17,7 @@ export default [
                 name: "Workbench",
                 meta: {
                     title: "工作台",
-                    breadcrumb: ["工作台"]
+                    breadcrumb: ["仪表盘", "工作台"]
                 },
                 component: () => import("../views/Container/Workbench/Workbench.vue")
             },
@@ -25,8 +25,8 @@ export default [
                 path: "/user/list",
                 name: "UserList",
                 meta: {
-                    title: "用户管理",
-                    breadcrumb: ["用户管理"]
+                    title: "用户列表",
+                    breadcrumb: ["用户管理", "用户列表"]
                 },
                 component: () => import("../views/Container/Permission/User/UserList.vue")
             },
@@ -34,8 +34,8 @@ export default [
                 path: "/role/list",
                 name: "RoleList",
                 meta: {
-                    title: "角色管理",
-                    breadcrumb: ["角色管理"]
+                    title: "角色列表",
+                    breadcrumb: ["用户管理", "角色列表"]
                 },
                 component: () => import("../views/Container/Permission/Role/RoleList.vue")
             }
