@@ -27,7 +27,7 @@ export default [
                 menu: [
                     {
                         label: "仪表盘",
-                        key: 1,
+                        key: 0,
                         icon: "ProjectOutlined",
                         children: [
                             {
@@ -38,7 +38,7 @@ export default [
                     },
                     {
                         label: "用户管理",
-                        key: 0,
+                        key: 1,
                         icon: "UserOutlined",
                         children: [
                             {
@@ -48,6 +48,10 @@ export default [
                             {
                                 label: "角色列表",
                                 key: "RoleList"
+                            },
+                            {
+                                label: "菜单列表",
+                                key: "MenuList"
                             }
                         ]
                     }

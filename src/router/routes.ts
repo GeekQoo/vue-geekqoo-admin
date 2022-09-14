@@ -38,6 +38,15 @@ export default [
                     breadcrumb: ["用户管理", "角色列表"]
                 },
                 component: () => import("../views/Container/Permission/Role/RoleList.vue")
+            },
+            {
+                path: "/menu/list",
+                name: "MenuList",
+                meta: {
+                    title: "菜单列表",
+                    breadcrumb: ["用户管理", "菜单列表"]
+                },
+                component: () => import("../views/Container/Permission/Menu/MenuList.vue")
             }
         ]
     }

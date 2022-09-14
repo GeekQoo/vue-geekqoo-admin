@@ -21,5 +21,25 @@ export default [
             pageSize: 10,
             currentPage: 1
         })
+    },
+    {
+        url: "/mock/api/getMenuList",
+        method: "get",
+        timeout: 1000,
+        response: () => ({
+            code: 1,
+            "data|10": [
+                {
+                    id: "@natural(0,10000)",
+                    name: "@ctitle(4)",
+                    parentName: "@ctitle(4)"
+                }
+            ],
+            message: "ok",
+            type: "success",
+            total: 50,
+            pageSize: 10,
+            currentPage: 1
+        })
     }
 ] as MockMethod[];
