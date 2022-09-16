@@ -1,9 +1,20 @@
 <template>
-    <div class="workbench">
-        <vue-draggable v-model="draggableList" class="draggable-container flex flex-wrap" item-key="index" tag="div">
+    <div class="workbench-page">
+        <vue-draggable
+            v-model="draggableList"
+            :animation="300"
+            :forceFallback="true"
+            class="draggable-default flex flex-wrap items-start -m-2"
+            drag-class="draggable-drag"
+            ghost-class="draggable-ghost"
+            item-key="index"
+            tag="div"
+        >
             <template #item="{ element, index }">
-                <n-card :class="index === 2 ? 'span-2' : 'span-1'" hoverable>
-                    {{ element.title }}
+                <n-card :class="`m-2 h-a span-${element.span}`" hoverable>
+                    <div class="draggable-item">
+                        <p>{{ element.title }}</p>
+                    </div>
                 </n-card>
             </template>
         </vue-draggable>
@@ -16,29 +27,37 @@ import { NCard } from "naive-ui";
 import VueDraggable from "vuedraggable";
 
 let draggableList = ref([
-    { title: "测试模块1", name: "test1" },
-    { title: "测试模块2", name: "test2" },
-    { title: "测试模块3", name: "test3" },
-    { title: "测试模块4", name: "test4" },
-    { title: "测试模块5", name: "test5" }
+    { title: "测试模块1", span: 1, name: "test1" },
+    { title: "测试模块2", span: 1, name: "test2" },
+    { title: "测试模块3", span: 2, name: "test3" },
+    { title: "测试模块4", span: 1, name: "test4" },
+    { title: "测试模块5", span: 1, name: "test5" }
 ]);
 </script>
 
 <style lang="scss" scoped>
-.workbench {
-    .draggable-container {
-        margin: -5px;
-
-        .n-card {
-            margin: 5px;
-        }
-
+.workbench-page {
+    .draggable-default {
         .span-1 {
-            flex: 0 0 calc(50% - 10px);
+            flex: 0 0 calc(50% - 1rem);
         }
 
         .span-2 {
-            flex: 0 0 calc(100% - 10px);
+            flex: 0 0 calc(100% - 1rem);
+        }
+    }
+
+    .draggable-drag {
+        opacity: 0.1;
+    }
+
+    .draggable-ghost {
+        background: rgba(#000000, 0);
+        border: 1px dashed #999999;
+        width: 100%;
+
+        .draggable-item {
+            opacity: 0;
         }
     }
 }
