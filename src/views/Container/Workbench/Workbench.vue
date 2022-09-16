@@ -4,16 +4,26 @@
             v-model="draggableList"
             :animation="300"
             :forceFallback="true"
-            class="draggable-default flex flex-wrap items-start -m-2"
+            class="draggable-default flex flex-wrap -m-2"
             drag-class="draggable-drag"
             ghost-class="draggable-ghost"
             item-key="index"
             tag="div"
         >
             <template #item="{ element, index }">
-                <n-card :class="`m-2 h-a span-${element.span}`" hoverable>
+                <n-card
+                    :class="`m-2 h-a span-${element.span}`"
+                    :content-style="{ padding: 0 }"
+                    :segmented="{ content: true }"
+                    :title="element.title"
+                    hoverable
+                    size="small"
+                >
+                    <template #header-extra v-if="element.more">
+                        <n-button size="tiny" type="primary" text>查看更多</n-button>
+                    </template>
                     <div class="draggable-item">
-                        <p>{{ element.title }}</p>
+                        <component :is="element.component" />
                     </div>
                 </n-card>
             </template>
@@ -23,15 +33,14 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import { NCard } from "naive-ui";
+import { NCard, NButton } from "naive-ui";
 import VueDraggable from "vuedraggable";
+import { MineInfo, Shortcuts, TaskList } from "./components";
 
 let draggableList = ref([
-    { title: "测试模块1", span: 1, name: "test1" },
-    { title: "测试模块2", span: 1, name: "test2" },
-    { title: "测试模块3", span: 2, name: "test3" },
-    { title: "测试模块4", span: 1, name: "test4" },
-    { title: "测试模块5", span: 1, name: "test5" }
+    { title: "工作台", span: 2, component: MineInfo },
+    { title: "快捷操作", span: 1, component: Shortcuts },
+    { title: "任务列表", span: 1, component: TaskList, more: "/user/list" }
 ]);
 </script>
 

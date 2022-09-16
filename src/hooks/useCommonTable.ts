@@ -3,7 +3,7 @@ import type { DataTableRowKey } from "naive-ui";
 
 export function useCommonTable() {
     // 表格数据
-    let tableData = ref([]);
+    let tableData = ref<any[]>([]);
 
     // 加载状态
     let tableLoading = ref(false);
