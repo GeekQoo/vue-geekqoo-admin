@@ -1,9 +1,9 @@
 <template>
     <div class="workbench-page">
-        <n-card :content-style="{ padding: 0 }" :segmented="{ content: true }" hoverable size="small" title="工作台">
+        <n-card :segmented="{ content: true }" content-style="padding: 0" hoverable size="small" title="工作台">
             <MineInfo />
         </n-card>
-        <n-grid class="mt-4" :cols="workbenchConfig.column === 1 ? 1 : '1 1000:2'" x-gap="16" y-gap="16">
+        <n-grid :cols="workbenchConfig.column === 1 ? 1 : '1 1000:2'" class="mt-4" x-gap="16" y-gap="16">
             <n-grid-item v-for="(item, index) in workbenchList">
                 <vue-draggable
                     v-model="workbenchList[index]"
@@ -18,26 +18,15 @@
                 >
                     <template #item="{ element, index }">
                         <n-card
-                            :content-style="{ padding: 0 }"
                             :segmented="{ content: true }"
                             :title="element.title"
                             class="mt-4 first:mt-0"
+                            content-style="padding: 0"
                             hoverable
                             size="small"
                         >
                             <template v-if="element.more" #header-extra>
-                                <n-button
-                                    size="tiny"
-                                    text
-                                    type="primary"
-                                    @click="
-                                        () => {
-                                            $router.path(item.more);
-                                        }
-                                    "
-                                >
-                                    查看更多
-                                </n-button>
+                                <n-button size="tiny" text type="primary">查看更多</n-button>
                             </template>
                             <div class="draggable-item">
                                 <Shortcuts v-if="element.component === 'Shortcuts'" />
@@ -65,14 +54,8 @@ let workbenchConfig = ref({
 });
 
 let workbenchList = ref([
-    [
-        { title: "快捷操作", component: "Shortcuts" },
-        { title: "任务列表", component: "TaskList", more: "/user/list" }
-    ],
-    [
-        { title: "任务列表", component: "TaskList", more: "/user/list" },
-        { title: "快捷操作", component: "Shortcuts" }
-    ]
+    [{ title: "任务列表", component: "TaskList", more: "/user/list" }],
+    [{ title: "快捷操作", component: "Shortcuts" }]
 ]);
 </script>
 
@@ -91,7 +74,12 @@ let workbenchList = ref([
         border: 1px dashed #999999;
         width: 100%;
 
-        .draggable-item {
+        :deep .n-card-header {
+            opacity: 0;
+        }
+
+        :deep .n-card__content {
+            border-color: transparent;
             opacity: 0;
         }
     }

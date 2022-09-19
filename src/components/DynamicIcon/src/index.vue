@@ -1,5 +1,5 @@
 <template>
-    <n-icon :component="iconCompoent" />
+    <n-icon :component="iconComponent" />
 </template>
 
 <script lang="ts" setup>
@@ -9,5 +9,5 @@ import * as icons from "@vicons/antd";
 
 let props = defineProps(["icon"]);
 
-let iconCompoent = computed(() => (icons as any)[props.icon]);
+let iconComponent = computed(() => (icons as any)[props.icon]);
 </script>
