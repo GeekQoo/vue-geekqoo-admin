@@ -1,59 +1,85 @@
 <template>
     <div class="workbench-page">
-        <vue-draggable
-            v-model="draggableList"
-            :animation="300"
-            :forceFallback="true"
-            class="draggable-default flex flex-wrap -m-2"
-            drag-class="draggable-drag"
-            ghost-class="draggable-ghost"
-            item-key="index"
-            tag="div"
-        >
-            <template #item="{ element, index }">
-                <n-card
-                    :class="`m-2 h-a span-${element.span}`"
-                    :content-style="{ padding: 0 }"
-                    :segmented="{ content: true }"
-                    :title="element.title"
-                    hoverable
-                    size="small"
+        <n-card :content-style="{ padding: 0 }" :segmented="{ content: true }" hoverable size="small" title="工作台">
+            <MineInfo />
+        </n-card>
+        <n-grid class="mt-4" :cols="workbenchConfig.column === 1 ? 1 : '1 1000:2'" x-gap="16" y-gap="16">
+            <n-grid-item v-for="(item, index) in workbenchList">
+                <vue-draggable
+                    v-model="workbenchList[index]"
+                    :animation="300"
+                    :forceFallback="true"
+                    class="draggable-default"
+                    drag-class="draggable-drag"
+                    ghost-class="draggable-ghost"
+                    group="workbench"
+                    item-key="index"
+                    tag="div"
                 >
-                    <template #header-extra v-if="element.more">
-                        <n-button size="tiny" type="primary" text>查看更多</n-button>
+                    <template #item="{ element, index }">
+                        <n-card
+                            :content-style="{ padding: 0 }"
+                            :segmented="{ content: true }"
+                            :title="element.title"
+                            class="mt-4 first:mt-0"
+                            hoverable
+                            size="small"
+                        >
+                            <template v-if="element.more" #header-extra>
+                                <n-button
+                                    size="tiny"
+                                    text
+                                    type="primary"
+                                    @click="
+                                        () => {
+                                            $router.path(item.more);
+                                        }
+                                    "
+                                >
+                                    查看更多
+                                </n-button>
+                            </template>
+                            <div class="draggable-item">
+                                <Shortcuts v-if="element.component === 'Shortcuts'" />
+                                <TaskList v-if="element.component === 'TaskList'" />
+                            </div>
+                        </n-card>
                     </template>
-                    <div class="draggable-item">
-                        <component :is="element.component" />
-                    </div>
-                </n-card>
-            </template>
-        </vue-draggable>
+                </vue-draggable>
+            </n-grid-item>
+        </n-grid>
     </div>
 </template>
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import { NCard, NButton } from "naive-ui";
+import { NButton, NCard, NGrid, NGridItem } from "naive-ui";
 import VueDraggable from "vuedraggable";
 import { MineInfo, Shortcuts, TaskList } from "./components";
+import { usePubilc } from "@/hooks";
 
-let draggableList = ref([
-    { title: "工作台", span: 2, component: MineInfo },
-    { title: "快捷操作", span: 1, component: Shortcuts },
-    { title: "任务列表", span: 1, component: TaskList, more: "/user/list" }
+let { $router } = usePubilc();
+
+let workbenchConfig = ref({
+    column: 2
+});
+
+let workbenchList = ref([
+    [
+        { title: "快捷操作", component: "Shortcuts" },
+        { title: "任务列表", component: "TaskList", more: "/user/list" }
+    ],
+    [
+        { title: "任务列表", component: "TaskList", more: "/user/list" },
+        { title: "快捷操作", component: "Shortcuts" }
+    ]
 ]);
 </script>
 
 <style lang="scss" scoped>
 .workbench-page {
     .draggable-default {
-        .span-1 {
-            flex: 0 0 calc(50% - 1rem);
-        }
-
-        .span-2 {
-            flex: 0 0 calc(100% - 1rem);
-        }
+        height: 100%;
     }
 
     .draggable-drag {
