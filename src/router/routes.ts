@@ -22,6 +22,15 @@ export default [
                 component: () => import("../views/Container/Workbench/Workbench.vue")
             },
             {
+                path: "/form-generator",
+                name: "FormGenerator",
+                meta: {
+                    title: "表单生成器",
+                    breadcrumb: ["表单配置", "表单生成器"]
+                },
+                component: () => import("../views/Container/FormGenerator/FormGenerator.vue")
+            },
+            {
                 path: "/user/list",
                 name: "UserList",
                 meta: {

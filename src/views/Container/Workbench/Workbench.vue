@@ -5,7 +5,7 @@
         </n-card>
         <n-grid :cols="workbenchConfig.column === 1 ? 1 : '1 1000:2'" class="mt-4" x-gap="16" y-gap="16">
             <n-grid-item v-for="(item, index) in workbenchList">
-                <vue-draggable
+                <VueDraggable
                     v-model="workbenchList[index]"
                     :animation="300"
                     :forceFallback="true"
@@ -34,7 +34,7 @@
                             </div>
                         </n-card>
                     </template>
-                </vue-draggable>
+                </VueDraggable>
             </n-grid-item>
         </n-grid>
     </div>
@@ -74,11 +74,11 @@ let workbenchList = ref([
         border: 1px dashed #999999;
         width: 100%;
 
-        :deep .n-card-header {
+        :deep(.n-card-header) {
             opacity: 0;
         }
 
-        :deep .n-card__content {
+        :deep(.n-card__content) {
             border-color: transparent;
             opacity: 0;
         }
