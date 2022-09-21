@@ -1,10 +1,17 @@
 <template>
-    <n-card class="h-100%" :segmented="{ content: true }" hoverable size="small" title="表单预览">
+    <n-card
+        :segmented="{ content: true }"
+        class="h-100%"
+        content-style="padding:0"
+        hoverable
+        size="small"
+        title="表单预览"
+    >
         <VueDraggable
             v-model="dragList"
             :animation="300"
             :forceFallback="true"
-            class="draggable-default h-100%"
+            class="draggable-default h-a flex flex-wrap items-start p-4"
             drag-class="draggable-drag"
             ghost-class="draggable-ghost"
             group="generator"
@@ -12,8 +19,8 @@
             tag="div"
         >
             <template #item="{ element, index }">
-                <div>
-                    <n-button block v-if="element.type === 'button'" />
+                <div :style="{ flex: `0 0 ${(element.row / 6) * 100}%` }" class="default-item box-border p-2">
+                    <n-button v-if="element.type === 'button'" block>{{ element.buttonText }}</n-button>
                     <n-input v-if="element.type === 'input'" />
                 </div>
             </template>
@@ -22,7 +29,7 @@
 </template>
 
 <script lang="ts" setup>
-import { NCard, NButton, NInput } from "naive-ui";
+import { NButton, NCard, NInput } from "naive-ui";
 import VueDraggable from "vuedraggable";
 
 let props = defineProps({

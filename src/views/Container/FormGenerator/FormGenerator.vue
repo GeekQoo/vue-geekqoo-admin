@@ -1,19 +1,13 @@
 <template>
     <div class="form-generator flex">
-        <div class="flex-fixed-200">
-            <ComponentPreview v-model:dragList="componentPreview" />
-        </div>
-        <div class="flex-1 ml-4">
-            <FormPreview v-model:dragList="formPreview" />
-        </div>
+        <ComponentSelector class="flex-fixed-420" />
+        <FormPreview class="flex-1 ml-4" v-model:dragList="formPreview" />
     </div>
 </template>
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import { ComponentPreview, FormPreview } from "./components";
-
-let componentPreview = ref([{ name: "按钮", type: "button" }]);
+import { ComponentSelector, FormPreview } from "./components";
 
 let formPreview = ref([]);
 </script>
