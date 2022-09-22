@@ -1,35 +1,36 @@
 <template>
     <n-card
         :segmented="{ content: true }"
-        class="h-100%"
-        content-style="padding:0"
+        content-style="padding:0;height:calc(100% - 54px)"
+        header-style="line-height:30px"
         hoverable
         size="small"
         title="表单预览"
     >
-        <VueDraggable
-            v-model="dragList"
-            :animation="300"
-            :forceFallback="true"
-            class="draggable-default h-a flex flex-wrap items-start p-4"
-            drag-class="draggable-drag"
-            ghost-class="draggable-ghost"
-            group="generator"
-            item-key="index"
-            tag="div"
-        >
-            <template #item="{ element, index }">
-                <div :style="{ flex: `0 0 ${(element.row / 6) * 100}%` }" class="default-item box-border p-2">
-                    <n-button v-if="element.type === 'button'" block>{{ element.buttonText }}</n-button>
-                    <n-input v-if="element.type === 'input'" />
-                </div>
-            </template>
-        </VueDraggable>
+        <n-scrollbar>
+            <VueDraggable
+                v-model="dragList"
+                :animation="300"
+                :forceFallback="true"
+                class="draggable-default h-a flex flex-wrap items-start p-4"
+                drag-class="draggable-drag"
+                ghost-class="draggable-ghost"
+                group="generator"
+                item-key="index"
+                tag="div"
+            >
+                <template #item="{ element, index }">
+                    <DraggableItem :element="element" />
+                </template>
+            </VueDraggable>
+        </n-scrollbar>
     </n-card>
 </template>
 
 <script lang="ts" setup>
-import { NButton, NCard, NInput } from "naive-ui";
+import { NCard, NScrollbar } from "naive-ui";
+import { computed } from "vue";
+import { DraggableItem } from "../../../components";
 import VueDraggable from "vuedraggable";
 
 let props = defineProps({
@@ -40,6 +41,13 @@ let props = defineProps({
 });
 
 let emits = defineEmits(["update:dragList"]);
+
+// 解决线上v-model报错的问题
+// https://github.com/vuejs/core/issues/5584
+let dragList = computed({
+    get: () => props.dragList,
+    set: (val: any) => emits("update:dragList", val)
+});
 </script>
 
 <style lang="scss" scoped>

@@ -1,69 +1,79 @@
 <template>
     <n-card
         :segmented="{ content: true }"
-        class="h-100%"
-        content-style="padding-top:0"
+        content-style="padding:0;height:calc(100% - 54px)"
+        header-style="line-height:30px"
         hoverable
         size="small"
-        title="组件选择"
+        title="组件配置"
     >
-        <n-divider>选择组件</n-divider>
-        <n-select
-            v-model:value="componentType"
-            :options="componentTypeOptions"
-            label-field="name"
-            placeholder="请选择组件类型"
-            value-field="type"
-            @update:value="changeComponentType"
-        />
-        <template v-if="componentProps.length > 0">
-            <n-divider>组件预览</n-divider>
-            <VueDraggable
-                v-model="componentProps"
-                :animation="300"
-                :clone="cloneComponent"
-                :forceFallback="true"
-                :group="{ name: 'generator', pull: 'clone', put: false }"
-                :sort="false"
-                class="draggable-default h-a flex flex-wrap items-center -m-2"
-                drag-class="draggable-drag"
-                ghost-class="draggable-ghost"
-                item-key="index"
-                tag="div"
-            >
-                <template #item="{ element, index }">
-                    <div :style="{ flex: `0 0 ${(element.row / 6) * 100}%` }" class="default-item box-border p-2">
-                        <n-button v-if="element.type === 'button'" block>{{ element.buttonText }}</n-button>
-                        <n-input v-if="element.type === 'input'" />
-                    </div>
+        <n-scrollbar>
+            <div class="p4 box-border">
+                <n-divider class="important-mt-0">选择组件</n-divider>
+                <n-select
+                    v-model:value="componentType"
+                    :options="componentTypeOptions"
+                    label-field="name"
+                    placeholder="请选择组件类型"
+                    value-field="type"
+                    @update:value="changeComponentType"
+                />
+                <template v-if="componentProps.length > 0">
+                    <n-divider>组件预览</n-divider>
+                    <VueDraggable
+                        v-model="componentProps"
+                        :animation="300"
+                        :clone="cloneComponent"
+                        :forceFallback="true"
+                        :group="{ name: 'generator', pull: 'clone', put: false }"
+                        :sort="false"
+                        class="draggable-default h-a flex flex-wrap items-center -m-2"
+                        drag-class="draggable-drag"
+                        ghost-class="draggable-ghost"
+                        item-key="index"
+                        tag="div"
+                    >
+                        <template #item="{ element, index }">
+                            <DraggableItem :element="element" />
+                        </template>
+                    </VueDraggable>
+                    <n-divider>组件属性</n-divider>
+                    <n-grid v-for="item in componentProps" :x-gap="16" :y-gap="16" cols="2" item-responsive>
+                        <n-grid-item class="flex-y-center" span="2">
+                            <span class="min-w-80px">组件栅格</span>
+                            <n-slider v-model:value="item.row" :max="6" :min="1" :step="1" class="ml-4" />
+                        </n-grid-item>
+                        <n-grid-item class="flex-y-center" span="2 500:1">
+                            <span class="min-w-80px">显示标签</span>
+                            <n-switch v-model:value="item.showLabel" />
+                        </n-grid-item>
+                        <n-grid-item class="flex-y-center" span="2 500:1">
+                            <span class="min-w-80px">标签文字</span>
+                            <n-input v-model:value="item.label" class="ml-4" placeholder="请输入标签文字" />
+                        </n-grid-item>
+                        <n-grid-item class="flex-y-center" span="2 500:1">
+                            <span class="min-w-80px">标签宽度</span>
+                            <n-input v-model:value="item.labelWidth" class="ml-4" placeholder="请输入标签宽度" />
+                        </n-grid-item>
+                        <template v-if="item.type === 'button'">
+                            <n-grid-item class="flex-y-center" span="2 500:1">
+                                <span class="min-w-80px">按钮文字</span>
+                                <n-input v-model:value="item.buttonText" class="ml-4" placeholder="请输入按钮文字" />
+                            </n-grid-item>
+                        </template>
+                    </n-grid>
                 </template>
-            </VueDraggable>
-            <n-divider>组件属性</n-divider>
-            <n-form v-for="item in componentProps" inline label-placement="left" label-width="auto">
-                <n-grid :cols="24" :x-gap="16">
-                    <n-form-item-gi :span="24" label="组件栅格">
-                        <n-slider v-model:value="item.row" :max="6" :min="1" :step="1" />
-                    </n-form-item-gi>
-                    <template v-if="item.type === 'button'">
-                        <n-form-item-gi :span="24" label="按钮文字">
-                            <n-input v-model:value="item.buttonText" placeholder="请输入按钮文字" />
-                        </n-form-item-gi>
-                    </template>
-                </n-grid>
-            </n-form>
-        </template>
+            </div>
+        </n-scrollbar>
     </n-card>
 </template>
 
 <script lang="ts" setup>
-import { NButton, NCard, NDivider, NForm, NFormItemGi, NGrid, NInput, NSelect, NSlider } from "naive-ui";
+import { NCard, NDivider, NGrid, NGridItem, NInput, NScrollbar, NSelect, NSlider, NSwitch } from "naive-ui";
 import { ref } from "vue";
 import { cloneDeep } from "lodash-es";
 import VueDraggable from "vuedraggable";
-
-let props = defineProps({});
-
-let emits = defineEmits([]);
+import { DraggableItem } from "../../../components";
 
 // 组件参数
 let componentProps = ref<any[]>([]);
@@ -71,8 +81,16 @@ let componentProps = ref<any[]>([]);
 // 组件类型选择
 let componentType = ref(null);
 let componentTypeOptions = ref([
-    { name: "输入框", type: "input", row: 6 },
-    { name: "按钮", type: "button", row: 6, buttonText: "示例文字", buttonType: "default" }
+    { name: "输入框", showLabel: true, label: "标签文字", labelWidth: "80", type: "input", row: 6 },
+    {
+        name: "按钮",
+        label: "标签文字",
+        showLabel: false,
+        type: "button",
+        row: 6,
+        buttonText: "按钮文字",
+        buttonType: "default"
+    }
 ]);
 let changeComponentType = (type: string) => {
     componentProps.value = componentTypeOptions.value.filter((item) => item.type === type);

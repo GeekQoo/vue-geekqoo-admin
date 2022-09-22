@@ -1,7 +1,7 @@
 <template>
     <div class="form-generator flex">
-        <ComponentSelector class="flex-fixed-420" />
-        <FormPreview class="flex-1 ml-4" v-model:dragList="formPreview" />
+        <ComponentSelector class="flex-1 mr-2" />
+        <FormPreview class="flex-1 ml-2" v-model:dragList="formPreview" />
     </div>
 </template>
 
