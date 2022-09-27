@@ -20,7 +20,7 @@
                 tag="div"
             >
                 <template #item="{ element, index }">
-                    <DraggableItem :element="element" />
+                    <DraggableItem :element="element" show-menu @delete="onDelete(index)" @edit="onEdit" />
                 </template>
             </VueDraggable>
         </n-scrollbar>
@@ -41,6 +41,19 @@ let props = defineProps({
 });
 
 let emits = defineEmits(["update:dragList"]);
+
+let onEdit = () => {};
+
+let onDelete = (index: number) => {
+    let newList = props.dragList?.filter((citem: any, cindex: number) => cindex !== index);
+    window.$dialog.warning({
+        title: "警告",
+        content: "确定删除该组件吗？",
+        positiveText: "删除",
+        negativeText: "取消",
+        onPositiveClick: () => emits("update:dragList", newList)
+    });
+};
 
 // 解决线上v-model报错的问题
 // https://github.com/vuejs/core/issues/5584
