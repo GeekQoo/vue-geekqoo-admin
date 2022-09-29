@@ -42,7 +42,14 @@ let props = defineProps({
 
 let emits = defineEmits(["update:dragList"]);
 
-let onEdit = () => {};
+let onEdit = () => {
+    window.$notification.warning({
+        content: "提示",
+        meta: "建设中",
+        duration: 2000,
+        keepAliveOnHover: true
+    });
+};
 
 let onDelete = (index: number) => {
     let newList = props.dragList?.filter((citem: any, cindex: number) => cindex !== index);

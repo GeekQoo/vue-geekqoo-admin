@@ -1,7 +1,7 @@
 <template>
     <div
         :style="{ flex: `0 0 ${(element.row / 6) * 100}%` }"
-        class="default-item flex-y-center box-border p-2"
+        class="draggable-item flex-y-center box-border p-2"
         @contextmenu="openContextMenu"
     >
         <span
