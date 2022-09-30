@@ -81,13 +81,26 @@ let componentProps = ref<any[]>([]);
 // 组件类型选择
 let componentType = ref(null);
 let componentTypeOptions = ref([
-    { name: "输入框", showLabel: true, label: "标签文字", labelWidth: "80", type: "input", row: 6 },
+    { name: "输入框", type: "input", row: 6, showLabel: true, labelWidth: "80", label: "标签文字", modelValue: null },
+    {
+        name: "下拉框",
+        type: "select",
+        row: 6,
+        showLabel: true,
+        labelWidth: "80",
+        label: "标签文字",
+        modelValue: null,
+        options: [
+            { label: "测试一", value: 1 },
+            { label: "测试二", value: 2 }
+        ]
+    },
     {
         name: "按钮",
-        label: "标签文字",
-        showLabel: false,
         type: "button",
         row: 6,
+        showLabel: false,
+        label: "标签文字",
         buttonText: "按钮文字",
         buttonType: "default"
     }

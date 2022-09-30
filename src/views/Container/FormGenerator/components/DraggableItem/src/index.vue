@@ -17,7 +17,16 @@
             </n-button>
         </template>
         <template v-if="element.type === 'input'">
-            <n-input class="flex-1" />
+            <n-input v-model:value="element.modelValue" class="flex-1" />
+        </template>
+        <template v-if="element.type === 'select'">
+            <n-select
+                v-model:value="element.modelValue"
+                :options="element.options"
+                :placeholder="`请选择${element.label}`"
+                label-field="label"
+                value-field="value"
+            />
         </template>
         <n-dropdown
             :on-clickoutside="contextMenuClickoutside"
@@ -32,7 +41,7 @@
 </template>
 
 <script lang="ts" setup>
-import { NButton, NDropdown, NInput } from "naive-ui";
+import { NButton, NDropdown, NInput, NSelect } from "naive-ui";
 import { nextTick, ref } from "vue";
 import { renderDynamicIcon } from "@/components/DynamicIcon";
 

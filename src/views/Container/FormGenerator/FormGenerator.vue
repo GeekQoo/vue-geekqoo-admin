@@ -6,10 +6,20 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { ComponentSelector, FormPreview } from "./components";
 
 let formPreview = ref([]);
+
+watch(
+    () => formPreview.value,
+    (val) => {
+        console.log("表单预览", val);
+    },
+    {
+        deep: true
+    }
+);
 </script>
 
 <style lang="scss" scoped>
