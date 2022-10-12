@@ -1,28 +1,28 @@
 <template>
-    <n-element tag="div" class="auth-login flex-center">
+    <n-element class="auth-login flex-center" tag="div">
         <n-card class="login-box w-100 p-2 border-rd-4 filter-drop-shadow">
             <div class="logo-box flex-center">
                 <span>GeekQoo后台模板</span>
             </div>
-            <n-input class="mt-4" v-model:value="loginForm.username" placeholder="请输入用户名" size="large" />
+            <n-input v-model:value="loginForm.username" class="mt-4" placeholder="请输入用户名" size="large" />
             <n-input
                 v-model:value="loginForm.password"
                 class="mt-4"
                 placeholder="请输入密码"
-                type="password"
                 size="large"
+                type="password"
             />
             <div class="mt-4 flex-y-center">
                 <n-checkbox v-model:checked="isSavePassword">保存密码</n-checkbox>
                 <a class="forget-password ml-a cursor-pointer transition-200">忘记密码？</a>
             </div>
-            <n-button class="mt-4" block type="primary" size="large" :loading="loginLoading" @click="onLogin">
+            <n-button :loading="loginLoading" block class="mt-4" size="large" type="primary" @click="onLogin">
                 登录
             </n-button>
             <n-divider>其它账号登录</n-divider>
             <n-space>
-                <n-button type="primary" ghost>测试账号</n-button>
-                <n-button type="primary" ghost>测试账号</n-button>
+                <n-button ghost type="primary">测试账号</n-button>
+                <n-button ghost type="primary">测试账号</n-button>
             </n-space>
         </n-card>
     </n-element>
@@ -52,8 +52,14 @@ let onLogin = () => {
     AUTH_LOGIN({ ...loginForm.value }).then(async (loginRes) => {
         if (loginRes.data.code === 1) {
             storeUser.setToken(loginRes.data.data.token);
-            await storeUser.requestUserData();
-            await $router.push("/");
+            await storeUser.requestUserData().then((userRes) => {
+                let userInfo = userRes as any;
+                // 配置顶部菜单index
+                if (userInfo.menu && userInfo.menu.length > 0) {
+                    storeUser.setHeaderMenuActive(userInfo.menu[0].key);
+                }
+                $router.push("/");
+            });
         }
     });
 };
