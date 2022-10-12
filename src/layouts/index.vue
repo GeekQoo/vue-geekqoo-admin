@@ -11,15 +11,36 @@
 </template>
 
 <script lang="ts" setup>
+import type { MenuOption } from "naive-ui";
 import { NLayout } from "naive-ui";
 import { LayoutSider } from "./LayoutSider";
 import { LayoutHeader } from "./LayoutHeader";
 import { LayoutMain } from "./LayoutMain";
-import { useStoreDesign } from "@/store";
-import { computed } from "vue";
+import { useStoreDesign, useStoreUser } from "@/store";
+import { computed, watch } from "vue";
+import { usePubilc } from "@/hooks";
 
+let { $route } = usePubilc();
+let storeUser = useStoreUser();
 let storeDesign = useStoreDesign();
+
+// 判断当前是不是暗黑主题
 let isDarkTheme = computed(() => storeDesign.getCurrentTheme === "darkTheme");
+
+// 刷新获取用户信息
+if (storeUser.getToken) storeUser.requestUserData();
+
+// 路由变化时更新haderMenuActive
+watch(
+    () => $route.name,
+    () => {
+        storeUser.getUserData?.menu?.forEach((item: MenuOption) => {
+            item.children?.forEach((citem) => {
+                if ($route.name === citem.key) storeUser.setHeaderMenuActive(item.key);
+            });
+        });
+    }
+);
 </script>
 
 <style lang="scss">

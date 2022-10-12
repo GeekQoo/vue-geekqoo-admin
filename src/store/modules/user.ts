@@ -1,9 +1,16 @@
 import { defineStore } from "pinia";
-import { delCookie, getCookie, getSessionStorage, setCookie, setSessionStorage } from "@/utils/storage";
+import {
+    clearSessionStorage,
+    delCookie,
+    getCookie,
+    getSessionStorage,
+    setCookie,
+    setSessionStorage
+} from "@/utils/storage";
 import { GET_USERINFO } from "@/api/auth";
 import { renderDynamicIcon } from "@/components/DynamicIcon";
 import type { MenuOption } from "naive-ui";
-import { useStoreDesign } from "@/store";
+import { useStoreDesign, useStoreNavigation } from "@/store";
 
 interface UserDataProps {
     username?: string;
@@ -22,7 +29,7 @@ export const useStoreUser = defineStore({
     state: (): StateProps => ({
         token: getCookie("token") || "",
         userData: {},
-        headerMenuActive: getSessionStorage("headerMenuActive") || 0
+        headerMenuActive: getSessionStorage("headerMenuActive")
     }),
     getters: {
         getToken: (state): string => state.token,
@@ -65,14 +72,24 @@ export const useStoreUser = defineStore({
         },
         logout() {
             return new Promise((resolve) => {
+                // 清空导航菜单
+                useStoreNavigation().clearNavigation();
+                // 清空顶部菜单activeIndex
+                this.setHeaderMenuActive();
+                // 清空用户信息
                 this.setToken("");
                 this.setUserData({});
                 resolve(true);
             });
         },
-        setHeaderMenuActive(value: string | number) {
-            this.headerMenuActive = value;
-            setSessionStorage("headerMenuActive", value);
+        setHeaderMenuActive(value?: string | number) {
+            if (value || value === 0) {
+                this.headerMenuActive = value;
+                setSessionStorage("headerMenuActive", value);
+            } else {
+                this.headerMenuActive = "";
+                clearSessionStorage("headerMenuActive");
+            }
         }
     }
 });
