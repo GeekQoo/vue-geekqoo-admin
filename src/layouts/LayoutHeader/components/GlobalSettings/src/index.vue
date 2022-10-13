@@ -53,7 +53,6 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import { NDrawer, NDrawerContent, NIcon, NSelect, NColorPicker } from "naive-ui";
 import { Settings28Regular } from "@vicons/fluent";
 import { ThemeSwitch } from "../../ThemeSwitch";
 import { useStoreDesign } from "@/store";

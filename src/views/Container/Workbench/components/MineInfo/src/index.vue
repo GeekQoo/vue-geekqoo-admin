@@ -18,7 +18,6 @@
 </template>
 
 <script lang="ts" setup>
-import { NSpace, NAvatar, NStatistic } from "naive-ui";
 import { useStoreUser } from "@/store";
 
 let storeUser = useStoreUser();

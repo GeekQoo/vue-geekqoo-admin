@@ -20,7 +20,6 @@
 <script lang="ts" setup>
 import { useCommonTable } from "@/hooks";
 import { onMounted, ref } from "vue";
-import { NDataTable, NTabs, NTabPane } from "naive-ui";
 import type { DataTableColumns } from "naive-ui";
 
 interface RowProps {

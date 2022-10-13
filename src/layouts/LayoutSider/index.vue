@@ -11,6 +11,5 @@
 </template>
 
 <script lang="ts" setup>
-import { NLayoutSider } from "naive-ui";
 import { SiderMenu } from "./components/SiderMenu";
 </script>

@@ -29,7 +29,6 @@
 </template>
 
 <script lang="ts" setup>
-import { NButton, NCard, NCheckbox, NDivider, NElement, NInput, NSpace } from "naive-ui";
 import { ref } from "vue";
 import { useStoreUser } from "@/store";
 import { usePubilc } from "@/hooks";

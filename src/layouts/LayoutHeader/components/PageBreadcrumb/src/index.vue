@@ -7,7 +7,6 @@
 </template>
 
 <script lang="ts" setup>
-import { NBreadcrumb, NBreadcrumbItem } from "naive-ui";
 import { usePubilc } from "@/hooks";
 
 let { $route } = usePubilc();

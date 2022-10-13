@@ -30,7 +30,6 @@
 </template>
 
 <script lang="ts" setup>
-import { NDropdown, NIcon, NScrollbar, NSpace, NTag, NButton } from "naive-ui";
 import { BarsOutlined } from "@vicons/antd";
 import { ref } from "vue";
 import { useStoreNavigation, useStoreUser } from "@/store";

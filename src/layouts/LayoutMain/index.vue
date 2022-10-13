@@ -12,7 +12,6 @@
 </template>
 
 <script lang="ts" setup>
-import { NLayoutContent } from "naive-ui";
 import { GlobalLoading } from "@/components/GlobalLoading";
 import { useStoreDesign } from "@/store";
 

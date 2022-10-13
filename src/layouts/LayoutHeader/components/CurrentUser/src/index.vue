@@ -11,7 +11,6 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import { NDropdown, NAvatar } from "naive-ui";
 import { useStoreUser } from "@/store";
 import { renderDynamicIcon } from "@/components/DynamicIcon";
 import { usePubilc } from "@/hooks";

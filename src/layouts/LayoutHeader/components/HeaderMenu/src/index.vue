@@ -6,7 +6,6 @@
 
 <script lang="ts" setup>
 import { computed } from "vue";
-import { NMenu } from "naive-ui";
 import { useStoreUser } from "@/store";
 import { usePubilc } from "@/hooks";
 

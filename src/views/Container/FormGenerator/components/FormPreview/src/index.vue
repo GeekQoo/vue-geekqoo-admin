@@ -28,7 +28,6 @@
 </template>
 
 <script lang="ts" setup>
-import { NCard, NScrollbar } from "naive-ui";
 import { computed } from "vue";
 import { DraggableItem } from "../../../components";
 import VueDraggable from "vuedraggable";

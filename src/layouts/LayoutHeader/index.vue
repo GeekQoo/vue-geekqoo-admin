@@ -15,7 +15,6 @@
 </template>
 
 <script lang="ts" setup>
-import { NLayoutHeader, NSpace } from "naive-ui";
 import { HeaderMenu, NavigationTags, GlobalSettings, CurrentUser, FullScreen, PageBreadcrumb } from "./components";
 import { useStoreDesign } from "@/store";
 

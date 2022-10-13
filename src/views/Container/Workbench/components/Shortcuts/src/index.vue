@@ -12,6 +12,5 @@
 </template>
 
 <script lang="ts" setup>
-import { NCard, NGrid, NGridItem } from "naive-ui";
 import { DynamicIcon } from "@/components/DynamicIcon";
 </script>
