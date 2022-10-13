@@ -23,7 +23,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { WeatherMoon16Filled, WeatherSunny28Filled } from "@vicons/fluent";
-import { NIcon, NSwitch } from "naive-ui";
 import { useStoreDesign } from "@/store";
 
 let storeDesign = useStoreDesign();

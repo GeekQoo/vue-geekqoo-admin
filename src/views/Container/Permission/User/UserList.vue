@@ -32,7 +32,6 @@
 <script lang="ts" setup>
 import { h, onMounted, ref } from "vue";
 import type { DataTableColumns, PaginationProps } from "naive-ui";
-import { NSpace, NButton, NCard, NDataTable } from "naive-ui";
 import type { TableSearchbarConfig, TableSearchbarData, TableSearchbarOptions } from "@/components/TableSearchbar";
 import { TableSearchbar } from "@/components/TableSearchbar";
 import { TableActions } from "@/components/TableActions";

@@ -8,10 +8,6 @@
     </div>
 </template>
 
-<script lang="ts" setup>
-import { NResult, NSpin } from "naive-ui";
-</script>
-
 <style lang="scss" scoped>
 .global-loading {
     background: #ffffff;

@@ -30,7 +30,6 @@
 </template>
 
 <script lang="ts" setup>
-import { NSpace, NButton, NSwitch } from "naive-ui";
 import { PropType } from "vue";
 import type { TableButtonActions, TableSwitchActions } from "./types";
 

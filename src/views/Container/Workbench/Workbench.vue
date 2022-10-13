@@ -42,7 +42,6 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import { NButton, NCard, NGrid, NGridItem } from "naive-ui";
 import VueDraggable from "vuedraggable";
 import { MineInfo, Shortcuts, TaskList } from "./components";
 import { usePubilc } from "@/hooks";

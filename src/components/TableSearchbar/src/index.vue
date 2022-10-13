@@ -73,7 +73,6 @@
 
 <script lang="ts" setup>
 import { onMounted, PropType, ref } from "vue";
-import { NButton, NDatePicker, NGrid, NGridItem, NInput, NSelect, NSpace } from "naive-ui";
 import type { TableSearchbarConfig, TableSearchbarData, TableSearchbarOptions } from "@/components/TableSearchbar";
 import _lodash from "lodash-es";
 

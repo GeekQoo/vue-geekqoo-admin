@@ -1,11 +1,14 @@
 import { createApp } from "vue";
 import App from "./App.vue";
-import { setupAssets } from "./plugins";
+import { setupAssets, setupNaive } from "./plugins";
 import { setupRouter } from "./router";
 import { setupStore } from "./store";
 
 const bootstrap = () => {
     const app = createApp(App);
+
+    // 按需引入naive-ui组件
+    setupNaive(app);
 
     // 配置引入资源
     setupAssets();

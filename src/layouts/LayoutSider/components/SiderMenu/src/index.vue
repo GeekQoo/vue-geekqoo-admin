@@ -12,7 +12,6 @@
 
 <script lang="ts" setup>
 import { computed, ref, watch } from "vue";
-import { NMenu } from "naive-ui";
 import { usePubilc } from "@/hooks";
 import { useStoreDesign, useStoreUser } from "@/store";
 

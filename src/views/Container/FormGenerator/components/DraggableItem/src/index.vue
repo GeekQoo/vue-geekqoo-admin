@@ -41,7 +41,6 @@
 </template>
 
 <script lang="ts" setup>
-import { NButton, NDropdown, NInput, NSelect } from "naive-ui";
 import { nextTick, ref } from "vue";
 import { renderDynamicIcon } from "@/components/DynamicIcon";
 

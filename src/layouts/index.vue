@@ -12,7 +12,6 @@
 
 <script lang="ts" setup>
 import type { MenuOption } from "naive-ui";
-import { NLayout } from "naive-ui";
 import { LayoutSider } from "./LayoutSider";
 import { LayoutHeader } from "./LayoutHeader";
 import { LayoutMain } from "./LayoutMain";

@@ -9,7 +9,6 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import { NIcon } from "naive-ui";
 import { FullscreenOutlined, FullscreenExitOutlined } from "@vicons/antd";
 
 // 切换全屏图标

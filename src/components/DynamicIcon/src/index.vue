@@ -3,7 +3,6 @@
 </template>
 
 <script lang="ts" setup>
-import { NIcon } from "naive-ui";
 import { computed } from "vue";
 import * as icons from "@vicons/antd";
 

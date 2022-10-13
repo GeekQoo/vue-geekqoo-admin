@@ -69,7 +69,6 @@
 </template>
 
 <script lang="ts" setup>
-import { NCard, NDivider, NGrid, NGridItem, NInput, NScrollbar, NSelect, NSlider, NSwitch } from "naive-ui";
 import { ref } from "vue";
 import { cloneDeep } from "lodash-es";
 import VueDraggable from "vuedraggable";
