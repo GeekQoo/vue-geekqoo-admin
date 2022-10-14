@@ -16,7 +16,7 @@ import { LayoutSider } from "./LayoutSider";
 import { LayoutHeader } from "./LayoutHeader";
 import { LayoutMain } from "./LayoutMain";
 import { useStoreDesign, useStoreUser } from "@/store";
-import { computed, watch } from "vue";
+import { computed, onMounted, watch } from "vue";
 import { usePubilc } from "@/hooks";
 
 let { $route } = usePubilc();
@@ -27,18 +27,23 @@ let storeDesign = useStoreDesign();
 let isDarkTheme = computed(() => storeDesign.getCurrentTheme === "darkTheme");
 
 // 刷新获取用户信息
-if (storeUser.getToken) storeUser.requestUserData();
+onMounted(async () => {
+    await storeUser.requestUserData();
+    updateHeaderMenuActive();
+});
 
-// 路由变化时更新haderMenuActive
+// 更新headerMenuActive
+let updateHeaderMenuActive = () => {
+    storeUser.getUserData?.menu?.forEach((item: MenuOption) => {
+        item.children?.forEach((citem) => {
+            if ($route.name === citem.key) storeUser.setHeaderMenuActive(item.key);
+        });
+    });
+};
+
 watch(
     () => $route.name,
-    () => {
-        storeUser.getUserData?.menu?.forEach((item: MenuOption) => {
-            item.children?.forEach((citem) => {
-                if ($route.name === citem.key) storeUser.setHeaderMenuActive(item.key);
-            });
-        });
-    }
+    () => updateHeaderMenuActive()
 );
 </script>
 
