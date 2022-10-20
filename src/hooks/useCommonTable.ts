@@ -15,10 +15,22 @@ export function useCommonTable() {
         tableSelection.value = rowKeys;
     };
 
+    // 分页预设
+    let tablePaginationPreset = {
+        page: 1,
+        pageSize: 10,
+        itemCount: 0,
+        pageSizes: [10, 50, 100],
+        showSizePicker: true,
+        showQuickJumper: true,
+        displayOrder: ["size-picker", "pages", "quick-jumper"]
+    };
+
     return {
         tableData,
         tableLoading,
         tableSelection,
+        tablePaginationPreset,
         changeTableSelection
     };
 }

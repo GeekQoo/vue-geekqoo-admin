@@ -30,8 +30,8 @@
 </template>
 
 <script lang="ts" setup>
-import { h, onMounted, ref } from "vue";
-import type { DataTableColumns, PaginationProps } from "naive-ui";
+import { h, onMounted, reactive, ref } from "vue";
+import type { DataTableColumns } from "naive-ui";
 import type { TableSearchbarConfig, TableSearchbarData, TableSearchbarOptions } from "@/components/TableSearchbar";
 import { TableSearchbar } from "@/components/TableSearchbar";
 import { TableActions } from "@/components/TableActions";
@@ -86,7 +86,7 @@ let searchForm = ref<TableSearchbarData>({
 let getSearchOptions = () => {};
 
 // 数据列表
-let { tableData, tableLoading, tableSelection, changeTableSelection } = useCommonTable();
+let { tableData, tableLoading, tableSelection, tablePaginationPreset, changeTableSelection } = useCommonTable();
 
 let tableColumns = ref<DataTableColumns<RowProps>>([
     {
@@ -164,21 +164,15 @@ let tableColumns = ref<DataTableColumns<RowProps>>([
     }
 ]);
 
-let tablePagination = ref<PaginationProps>({
-    page: 1,
-    pageSize: 10,
-    itemCount: 0,
-    pageSizes: [10, 50, 100],
-    showSizePicker: true,
-    showQuickJumper: true,
-    displayOrder: ["size-picker", "pages", "quick-jumper"],
+let tablePagination = reactive({
+    ...tablePaginationPreset,
     onChange: (page: number) => {
-        tablePagination.value.page = page;
+        tablePagination.page = page;
         getTableData();
     },
     onUpdatePageSize: (pageSize: number) => {
-        tablePagination.value.pageSize = pageSize;
-        tablePagination.value.page = 1;
+        tablePagination.pageSize = pageSize;
+        tablePagination.page = 1;
         getTableData();
     }
 });
@@ -187,7 +181,7 @@ let getTableData = () => {
     tableLoading.value = true;
     GET_USER_LIST({}).then((res) => {
         tableData.value = res.data.data;
-        tablePagination.value.itemCount = res.data.total;
+        tablePagination.itemCount = res.data.total;
         tableLoading.value = false;
     });
 };
