@@ -1,25 +1,20 @@
 <template>
-    <div class="form-generator flex">
-        <ComponentSelector class="flex-1 mr-2" />
-        <FormPreview v-model:dragList="formPreview" class="flex-1 ml-2" />
-    </div>
+    <n-element class="form-generator" tag="div">
+        <div class="flex">
+            <component-selector class="flex-fixed-300" />
+            <form-preview v-model="componentProps" class="ml mr" />
+            <form-props v-model="componentProps" class="flex-fixed-300" />
+        </div>
+    </n-element>
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from "vue";
-import { ComponentSelector, FormPreview } from "./components";
+import { ref } from "vue";
+import { ComponentSelector, FormPreview, FormProps } from "./components";
+import type { FormGeneratorProps } from "./components";
 
-let formPreview = ref([]);
-
-watch(
-    () => formPreview.value,
-    (val) => {
-        console.log("表单预览", val);
-    },
-    {
-        deep: true
-    }
-);
+// 选中组件属性
+let componentProps = ref<FormGeneratorProps>({});
 </script>
 
 <style lang="scss" scoped>
