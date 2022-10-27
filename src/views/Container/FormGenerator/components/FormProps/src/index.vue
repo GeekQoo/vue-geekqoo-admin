@@ -25,18 +25,10 @@
                                 <n-form-item label="是否必填">
                                     <n-switch v-model:value="modelValue.showRequireMark" />
                                 </n-form-item>
-                                <template v-if="modelValue.type === 'button'">
-                                    <n-form-item label="按钮文字">
-                                        <n-input v-model:value="modelValue.buttonText" placeholder="请输入按钮文字" />
-                                    </n-form-item>
-                                    <n-form-item label="按钮类型">
-                                        <n-select
-                                            v-model:value="modelValue.buttonType"
-                                            :options="buttonTypeOptions"
-                                            placeholder="请选择按钮类型"
-                                        />
-                                    </n-form-item>
-                                </template>
+                                <!--按钮属性-->
+                                <form-props-button v-if="modelValue.type === 'button'" v-model="modelValue" />
+                                <!--下拉框属性-->
+                                <form-props-select v-if="modelValue.type === 'select'" v-model="modelValue" />
                             </n-form>
                         </n-tab-pane>
                         <n-tab-pane name="表单属性" />
@@ -51,6 +43,7 @@
 import type { PropType } from "vue";
 import { computed, reactive } from "vue";
 import type { FormGeneratorProps } from "../../../types";
+import { FormPropsButton, FormPropsSelect } from "../../../components";
 
 let props = defineProps({
     modelValue: {
