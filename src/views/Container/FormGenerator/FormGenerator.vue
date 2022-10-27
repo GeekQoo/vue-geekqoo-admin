@@ -1,7 +1,7 @@
 <template>
     <n-element class="form-generator" tag="div">
         <div class="flex">
-            <component-selector class="flex-fixed-300" />
+            <form-components class="flex-fixed-300" />
             <form-preview v-model="componentProps" class="ml mr" />
             <form-props v-model="componentProps" class="flex-fixed-300" />
         </div>
@@ -10,8 +10,8 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import { ComponentSelector, FormPreview, FormProps } from "./components";
-import type { FormGeneratorProps } from "./components";
+import { FormComponents, FormPreview, FormProps } from "./components";
+import type { FormGeneratorProps } from "./types";
 
 // 选中组件属性
 let componentProps = ref<FormGeneratorProps>({});

@@ -50,7 +50,7 @@
 <script lang="ts" setup>
 import type { PropType } from "vue";
 import { computed, reactive } from "vue";
-import type { FormGeneratorProps } from "../../../components";
+import type { FormGeneratorProps } from "../../../types";
 
 let props = defineProps({
     modelValue: {
