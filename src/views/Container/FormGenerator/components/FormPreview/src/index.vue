@@ -52,29 +52,7 @@
                                         </template>
                                     </n-button>
                                 </div>
-                                <n-form-item
-                                    :label="element.label"
-                                    :label-width="element.labelWidth"
-                                    :show-label="element.showLabel"
-                                    :show-require-mark="element.showRequireMark"
-                                >
-                                    <template v-if="element.type === 'button'">
-                                        <n-button :type="element.buttonType" block>
-                                            {{ element.buttonText }}
-                                        </n-button>
-                                    </template>
-                                    <template v-if="element.type === 'input'">
-                                        <n-input :placeholder="`请输入${element.label}`" />
-                                    </template>
-                                    <template v-if="element.type === 'select'">
-                                        <n-select
-                                            :options="element.options"
-                                            :placeholder="`请选择${element.label}`"
-                                            label-field="label"
-                                            value-field="value"
-                                        />
-                                    </template>
-                                </n-form-item>
+                                <form-preview-item :element="element" />
                             </div>
                         </template>
                     </VueDraggable>
@@ -89,6 +67,7 @@ import { ref } from "vue";
 import VueDraggable from "vuedraggable";
 import { DynamicIcon } from "@/components/DynamicIcon";
 import { cloneDeep } from "lodash-es";
+import { FormPreviewItem } from "../../../components";
 
 let props = defineProps({
     modelValue: { type: Object, default: () => ({}) }

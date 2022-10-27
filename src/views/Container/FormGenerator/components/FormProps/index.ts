@@ -1,3 +1,1 @@
-import FormProps from "./src/index.vue";
-
-export { FormProps };
+export { default as FormProps } from "./src/index.vue";
