@@ -14,9 +14,9 @@
                 <n-button type="error">删除</n-button>
             </n-space>
             <n-data-table
-                :loading="tableLoading"
                 :columns="tableColumns"
                 :data="tableData"
+                :loading="tableLoading"
                 :pagination="tablePagination"
                 :row-key="(row) => row.id"
                 :single-line="false"
@@ -32,9 +32,8 @@
 <script lang="ts" setup>
 import { h, onMounted, reactive, ref } from "vue";
 import type { DataTableColumns } from "naive-ui";
-import type { TableSearchbarConfig, TableSearchbarData, TableSearchbarOptions } from "@/components/TableSearchbar";
-import { TableSearchbar } from "@/components/TableSearchbar";
-import { TableActions } from "@/components/TableActions";
+import type { TableSearchbarConfig, TableSearchbarData, TableSearchbarOptions } from "@/components/Table";
+import { TableSearchbar, TableActions } from "@/components/Table";
 import { DynamicIcon } from "@/components/DynamicIcon";
 import { GET_MENU_LIST } from "@/api/permission/menu";
 import { useCommonTable } from "@/hooks";

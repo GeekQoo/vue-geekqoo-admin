@@ -73,8 +73,8 @@
 
 <script lang="ts" setup>
 import { onMounted, PropType, ref } from "vue";
-import type { TableSearchbarConfig, TableSearchbarData, TableSearchbarOptions } from "@/components/TableSearchbar";
-import _lodash from "lodash-es";
+import type { TableSearchbarConfig, TableSearchbarData, TableSearchbarOptions } from "@/components/Table";
+import { cloneDeep } from "lodash-es";
 
 let props = defineProps({
     config: {
@@ -97,19 +97,19 @@ let emits = defineEmits(["update:form", "search", "reset"]);
 let defaultForm = ref({});
 
 onMounted(() => {
-    defaultForm.value = _lodash.cloneDeep(props.form);
+    defaultForm.value = cloneDeep(props.form);
 });
 
 // 搜索功能
 let onSearch = async () => {
-    let cloneForm = _lodash.cloneDeep(props.form);
+    let cloneForm = cloneDeep(props.form);
     await emits("update:form", cloneForm);
     emits("search", cloneForm);
 };
 
 // 重置功能
 let onReset = async () => {
-    let cloneForm = _lodash.cloneDeep(defaultForm.value);
+    let cloneForm = cloneDeep(defaultForm.value);
     await emits("update:form", cloneForm);
     emits("reset", cloneForm);
 };

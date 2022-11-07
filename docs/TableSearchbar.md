@@ -122,5 +122,5 @@ let searchForm = ref<TableSearchbarData>({
 组件导出以下类型定义：
 
 ```typescript
-import type { TableSearchbarConfig, TableSearchbarOptions, TableSearchbarData } from "@/components/GkSearchbar";
+import type { TableSearchbarConfig, TableSearchbarOptions, TableSearchbarData } from "@/components/Table";
 ```
