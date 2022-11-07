@@ -3,7 +3,7 @@
         <template v-for="item in config">
             <n-grid-item :span="item.span || 1">
                 <div class="flex-y-center">
-                    <span class="flex-fixed-80">{{ item.label }}：</span>
+                    <span :style="`flex:0 0 ${item.labelWidth || 'auto'}`">{{ item.label }}：</span>
                     <n-input
                         v-if="item.type === 'input'"
                         v-model:value="form[item.prop]"
