@@ -12,15 +12,7 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
     return {
         plugins: [
             vue(),
-            unocss({
-                exclude: ["node_modules", ".git", ".idea", "dist", "public", "build"],
-                rules: [[/^flex-fixed-(\d+)$/, ([, d]) => ({ flex: `0 0 ${d}px` })]],
-                shortcuts: {
-                    "flex-center": "flex justify-center items-center",
-                    "flex-x-center": "flex justify-center",
-                    "flex-y-center": "flex items-center"
-                }
-            }),
+            unocss(),
             viteMockServe({
                 mockPath: "mock",
                 localEnabled: command === "serve",
@@ -54,8 +46,8 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
         },
         server: {
             host: true, // 指定服务器应该监听哪个 IP 地址。 如果将此设置为 0.0.0.0 或者 true 将监听所有地址，包括局域网和公网地址。
-            port: 2333, // 指定开发服务器端口。
-            open: true, // 是否自动打开浏览器。
+            port: 23333, // 指定开发服务器端口。
+            open: false, // 是否自动打开浏览器。
             cors: false, // 为开发服务器配置 CORS。
             proxy: {
                 // "/api": {
