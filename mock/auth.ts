@@ -37,18 +37,6 @@ export default [
                         ]
                     },
                     {
-                        label: "表单配置",
-                        key: 1,
-                        icon: "AppstoreAddOutlined",
-                        children: [
-                            {
-                                label: "表单生成器",
-                                key: "FormGenerator"
-                            }
-                        ]
-                    },
-
-                    {
                         label: "用户管理",
                         key: 2,
                         icon: "UserOutlined",
