@@ -18,7 +18,7 @@
                 :columns="tableColumns"
                 :data="tableData"
                 :pagination="tablePagination"
-                :row-key="(row) => row.id"
+                :row-key="tableRowKey"
                 :single-line="false"
                 bordered
                 remote
@@ -37,12 +37,12 @@ import { TableSearchbar, TableActions } from "@/components/Table";
 import { GET_USER_LIST } from "@/api/permission/user";
 import { useCommonTable } from "@/hooks";
 
-type RowProps = {
+interface RowProps {
     id: string | number;
     username: string;
     nickname: string;
     phone: string | number;
-};
+}
 
 onMounted(() => {
     getSearchOptions();
@@ -86,6 +86,8 @@ let getSearchOptions = () => {};
 
 // 数据列表
 let { tableData, tableLoading, tableSelection, tablePaginationPreset, changeTableSelection } = useCommonTable();
+
+let tableRowKey = (row: RowProps) => row.id;
 
 let tableColumns = ref<DataTableColumns<RowProps>>([
     {

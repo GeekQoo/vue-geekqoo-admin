@@ -18,7 +18,7 @@
                 :data="tableData"
                 :loading="tableLoading"
                 :pagination="tablePagination"
-                :row-key="(row) => row.id"
+                :row-key="tableRowKey"
                 :single-line="false"
                 bordered
                 remote
@@ -38,11 +38,12 @@ import { DynamicIcon } from "@/components/DynamicIcon";
 import { GET_MENU_LIST } from "@/api/permission/menu";
 import { useCommonTable } from "@/hooks";
 
-type RowProps = {
+interface RowProps {
+    id: string | number;
     name: string;
     parentName: string;
     icon: string;
-};
+}
 
 onMounted(() => {
     getSearchOptions();
@@ -79,6 +80,8 @@ let getSearchOptions = () => {};
 
 // 数据列表
 let { tableData, tableLoading, tableSelection, tablePaginationPreset, changeTableSelection } = useCommonTable();
+
+let tableRowKey = (row: RowProps) => row.id;
 
 let tableColumns = ref<DataTableColumns<RowProps>>([
     {

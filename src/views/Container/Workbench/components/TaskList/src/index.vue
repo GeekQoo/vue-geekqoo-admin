@@ -8,7 +8,7 @@
             :loading="tableLoading"
             :columns="tableColumns"
             :data="tableData"
-            :row-key="(row) => row.id"
+            :row-key="tableRowKey"
             :single-line="false"
             bordered
             remote
@@ -23,6 +23,7 @@ import { onMounted, ref } from "vue";
 import type { DataTableColumns } from "naive-ui";
 
 interface RowProps {
+    id: string | number;
     taskName: string;
     createName: string;
     createTime: string;
@@ -33,6 +34,8 @@ onMounted(() => {
 });
 
 let { tableData, tableLoading } = useCommonTable();
+
+let tableRowKey = (row: RowProps) => row.id;
 
 let tableColumns = ref<DataTableColumns<RowProps>>([
     {
@@ -54,7 +57,12 @@ let tableColumns = ref<DataTableColumns<RowProps>>([
 
 let getTableData = () => {
     for (let i = 0; i < 5; i++) {
-        tableData.value.push({ taskName: "今天需要写12小时的代码", createName: "资本家", createTime: "2022-09-16" });
+        tableData.value.push({
+            id: i,
+            taskName: "今天需要写12小时的代码",
+            createName: "资本家",
+            createTime: "2022-09-16"
+        });
     }
 };
 </script>
