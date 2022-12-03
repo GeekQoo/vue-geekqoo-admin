@@ -3,7 +3,7 @@
         <template v-for="item in config">
             <n-grid-item :span="item.span || 1">
                 <div class="flex-y-center">
-                    <span :style="`flex:0 0 ${item.labelWidth || 'auto'}`">{{ item.label }}：</span>
+                    <span :style="`flex: 0 0 ${item.labelWidth || 80}px`">{{ item.label }}：</span>
                     <n-input
                         v-if="item.type === 'input'"
                         v-model:value="form[item.prop]"
@@ -15,8 +15,10 @@
                     <n-select
                         v-if="item.type === 'select'"
                         v-model:value="form[item.prop]"
+                        :label-field="item.labelField || 'label'"
                         :options="options[item.prop]"
                         :placeholder="`请选择${item.label}`"
+                        :value-field="item.valueField || 'value'"
                         class="flex-auto"
                         clearable
                     />
@@ -66,6 +68,7 @@
             <n-space justify="end">
                 <n-button type="primary" @click="onSearch">查询</n-button>
                 <n-button type="error" @click="onReset">重置</n-button>
+                <slot name="buttons" />
             </n-space>
         </n-grid-item>
     </n-grid>

@@ -1,8 +1,9 @@
-# TableSearchbar 列表搜索栏 V0.0.1
+# TableSearchbar 列表搜索栏 V0.0.2
 
 ## 介绍
 
-TableSearchbar 是一个基于 naive-ui 封装的基础列表搜索栏组件，目前支持输入框、下拉框、时间日期选择器。
+-   TableSearchbar 是一个基于 naive-ui 封装的基础列表搜索栏组件，目前支持输入框、下拉框、时间日期选择器。
+-   更新时间：2022-12-03
 
 ## 现有功能
 
@@ -21,9 +22,11 @@ TableSearchbar 是一个基于 naive-ui 封装的基础列表搜索栏组件，�
 ```typescript
 export type TableSearchbarConfig = Array<{
     label: string; // 当前项名称
-    labelWidth?: string; // 当前项名称宽度，不设置则自适应
+    labelWidth?: string; // 当前项名称宽度
     prop: string; // 对应字段名
     type: string; // 类型
+    labelField?: string; // 选项标签字段名
+    valueField?: string; // 选项值字段名
     dateFormat?: string; // 时间格式，适用于date/datetime/datetimerange，如不设置，默认为时间戳
     span?: number; // 占用列数，默认为1
 }>;
@@ -116,6 +119,12 @@ let searchForm = ref<TableSearchbarData>({
     demoDatetimerange: null
 });
 ```
+
+## 插槽
+
+| 名称    | 说明       |
+| ------- | ---------- |
+| buttons | 自定义按钮 |
 
 ## 类型定义
 
