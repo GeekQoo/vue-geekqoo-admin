@@ -1,7 +1,7 @@
 import { ref } from "vue";
 import type { DataTableRowKey } from "naive-ui";
 
-export function useCommonTable() {
+export function useCommonTable(dataTableRowKey: DataTableRowKey = "id") {
     // 表格数据
     let tableData = ref<any[]>([]);
 
@@ -9,6 +9,8 @@ export function useCommonTable() {
     let tableLoading = ref(false);
 
     // 选中
+    let tableRowKey = (row: UnknownObject) => row[dataTableRowKey] as DataTableRowKey;
+
     let tableSelection = ref<DataTableRowKey[]>([]);
 
     let changeTableSelection = (rowKeys: DataTableRowKey[]) => {
@@ -29,6 +31,7 @@ export function useCommonTable() {
     return {
         tableData,
         tableLoading,
+        tableRowKey,
         tableSelection,
         tablePaginationPreset,
         changeTableSelection

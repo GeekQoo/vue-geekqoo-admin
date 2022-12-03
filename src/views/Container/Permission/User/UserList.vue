@@ -85,9 +85,8 @@ let searchForm = ref<TableSearchbarData>({
 let getSearchOptions = () => {};
 
 // 数据列表
-let { tableData, tableLoading, tableSelection, tablePaginationPreset, changeTableSelection } = useCommonTable();
-
-let tableRowKey = (row: RowProps) => row.id;
+let { tableData, tableLoading, tableRowKey, tableSelection, changeTableSelection, tablePaginationPreset } =
+    useCommonTable();
 
 let tableColumns = ref<DataTableColumns<RowProps>>([
     {

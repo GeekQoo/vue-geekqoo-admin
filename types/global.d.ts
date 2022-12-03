@@ -4,3 +4,7 @@ interface Window {
     $message: import("naive-ui").MessageProviderInst;
     $notification: import("naive-ui").NotificationProviderInst;
 }
+
+declare interface UnknownObject {
+    [propName: string]: unknown;
+}
