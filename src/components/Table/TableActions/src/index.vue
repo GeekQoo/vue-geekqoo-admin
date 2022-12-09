@@ -5,7 +5,9 @@
                 v-for="item in buttonActions"
                 :color="item.color || undefined"
                 :disabled="item.disabled ? item.disabled() : false"
+                :secondary="item.secondary"
                 :size="item.size || 'small'"
+                :tertiary="item.tertiary"
                 :type="item.type || 'primary'"
                 @click="item.onClick"
             >
@@ -22,8 +24,8 @@
                 :unchecked-value="item.uncheckedValue"
                 @update:value="item.onChange"
             >
-                <template #checked v-if="item.checkedText">{{ item.checkedText }}</template>
-                <template #unchecked v-if="item.uncheckedText">{{ item.uncheckedText }}</template>
+                <template v-if="item.checkedText" #checked>{{ item.checkedText }}</template>
+                <template v-if="item.uncheckedText" #unchecked>{{ item.uncheckedText }}</template>
             </n-switch>
         </template>
     </n-space>
