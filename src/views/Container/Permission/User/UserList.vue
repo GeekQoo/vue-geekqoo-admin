@@ -10,13 +10,13 @@
         </n-card>
         <n-card class="mt" hoverable>
             <n-space class="mb">
-                <n-button type="primary">新增</n-button>
-                <n-button type="error">删除</n-button>
+                <n-button secondary type="primary">新增</n-button>
+                <n-button secondary type="error">删除</n-button>
             </n-space>
             <n-data-table
-                :loading="tableLoading"
                 :columns="tableColumns"
                 :data="tableData"
+                :loading="tableLoading"
                 :pagination="tablePagination"
                 :row-key="tableRowKey"
                 :single-line="false"
@@ -33,7 +33,7 @@
 import { h, onMounted, reactive, ref } from "vue";
 import type { DataTableColumns } from "naive-ui";
 import type { TableSearchbarConfig, TableSearchbarData, TableSearchbarOptions } from "@/components/Table";
-import { TableSearchbar, TableActions } from "@/components/Table";
+import { TableActions, TableSearchbar } from "@/components/Table";
 import { GET_USER_LIST } from "@/api/permission/user";
 import { useCommonTable } from "@/hooks";
 
@@ -147,12 +147,14 @@ let tableColumns = ref<DataTableColumns<RowProps>>([
                 buttonActions: [
                     {
                         label: "编辑",
+                        tertiary: true,
                         onClick: () => {
                             console.log(111, row);
                         }
                     },
                     {
                         label: "删除",
+                        tertiary: true,
                         type: "error",
                         onClick: () => {
                             console.log(222, row);
