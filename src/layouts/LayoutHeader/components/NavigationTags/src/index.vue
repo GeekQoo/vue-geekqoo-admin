@@ -45,7 +45,7 @@ let navigationTo = (nav: NavigationProps) => {
     storeUser.getUserData?.menu?.forEach((item) => {
         item.children?.forEach((citem) => {
             if (citem.key === nav.name) {
-                storeUser.setHeaderMenuActive(item.key as string | number);
+                // storeUser.setHeaderMenuActive(item.key as string | number);
                 $router.push({ name: nav.name });
             }
         });

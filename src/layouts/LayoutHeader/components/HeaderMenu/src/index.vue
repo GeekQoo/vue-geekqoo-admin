@@ -25,7 +25,7 @@ let menuOptions = computed(() => {
 });
 
 let handleUpdateMenu = (key: string | number) => {
-    storeUser.setHeaderMenuActive(key);
+    // storeUser.setHeaderMenuActive(key);
     storeUser.getUserData.menu?.forEach((item) => {
         if (key === item.key && item.children && item.children.length) {
             $router.push({ name: item.children[0].key as string });
