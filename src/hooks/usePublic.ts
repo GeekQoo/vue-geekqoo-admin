@@ -1,6 +1,6 @@
 import { useRoute, useRouter } from "vue-router";
 
-export function usePubilc() {
+export function usePublic() {
     // 路由
     let $route = useRoute();
     let $router = useRouter();

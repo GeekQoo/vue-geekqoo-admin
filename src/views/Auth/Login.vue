@@ -31,11 +31,11 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { useStoreUser } from "@/store";
-import { usePubilc } from "@/hooks";
+import { usePublic } from "@/hooks";
 import { AUTH_LOGIN } from "@/api/auth";
 
 let storeUser = useStoreUser();
-let { $router } = usePubilc();
+let { $router } = usePublic();
 
 let loginForm = ref({
     username: "",

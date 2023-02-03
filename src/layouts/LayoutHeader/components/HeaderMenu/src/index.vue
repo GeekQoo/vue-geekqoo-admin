@@ -7,10 +7,10 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 import { useStoreUser } from "@/store";
-import { usePubilc } from "@/hooks";
+import { usePublic } from "@/hooks";
 
 let storeUser = useStoreUser();
-let { $router } = usePubilc();
+let { $router } = usePublic();
 
 let menuActive = computed(() => storeUser.getHeaderMenuActive);
 

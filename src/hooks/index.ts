@@ -1,2 +1,2 @@
-export * from "./usePubilc";
+export * from "./usePublic";
 export * from "./useCommonTable";

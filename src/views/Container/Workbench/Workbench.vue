@@ -44,9 +44,9 @@
 import { ref } from "vue";
 import VueDraggable from "vuedraggable";
 import { MineInfo, Shortcuts, TaskList } from "./components";
-import { usePubilc } from "@/hooks";
+import { usePublic } from "@/hooks";
 
-let { $router } = usePubilc();
+let { $router } = usePublic();
 
 let workbenchConfig = ref({
     column: 2

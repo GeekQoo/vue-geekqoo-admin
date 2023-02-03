@@ -12,12 +12,12 @@
 
 <script lang="ts" setup>
 import { computed, ref, watch } from "vue";
-import { usePubilc } from "@/hooks";
+import { usePublic } from "@/hooks";
 import { useStoreDesign, useStoreUser } from "@/store";
 
 let storeUser = useStoreUser();
 let storeDesign = useStoreDesign();
-let { $route, $router } = usePubilc();
+let { $route, $router } = usePublic();
 
 // 当前选中
 let menuActive = computed(() => $route.name as string);

@@ -17,9 +17,9 @@ import { LayoutHeader } from "./LayoutHeader";
 import { LayoutMain } from "./LayoutMain";
 import { useStoreDesign, useStoreUser } from "@/store";
 import { computed, onMounted, watch } from "vue";
-import { usePubilc } from "@/hooks";
+import { usePublic } from "@/hooks";
 
-let { $route } = usePubilc();
+let { $route } = usePublic();
 let storeUser = useStoreUser();
 let storeDesign = useStoreDesign();
 

@@ -13,10 +13,10 @@
 import { ref } from "vue";
 import { useStoreUser } from "@/store";
 import { renderDynamicIcon } from "@/components/DynamicIcon";
-import { usePubilc } from "@/hooks";
+import { usePublic } from "@/hooks";
 
 let storeUser = useStoreUser();
-let { $router } = usePubilc();
+let { $router } = usePublic();
 
 let settingOptions = ref([
     { label: "用户中心", key: "userCenter", icon: renderDynamicIcon("UserOutlined") },

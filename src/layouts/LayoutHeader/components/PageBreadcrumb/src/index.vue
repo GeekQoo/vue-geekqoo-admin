@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts" setup>
-import { usePubilc } from "@/hooks";
+import { usePublic } from "@/hooks";
 
-let { $route } = usePubilc();
+let { $route } = usePublic();
 </script>
