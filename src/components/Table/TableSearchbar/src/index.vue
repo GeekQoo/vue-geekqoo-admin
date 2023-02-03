@@ -75,7 +75,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, PropType, ref } from "vue";
+import { onMounted, ref } from "vue";
 import type { TableSearchbarConfig, TableSearchbarData, TableSearchbarOptions } from "@/components/Table";
 import { cloneDeep } from "lodash-es";
 

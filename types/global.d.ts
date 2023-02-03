@@ -1,10 +1,10 @@
-interface Window {
-    $loadingBar: import("naive-ui").LoadingBarProviderInst;
-    $dialog: import("naive-ui").DialogProviderInst;
-    $message: import("naive-ui").MessageProviderInst;
-    $notification: import("naive-ui").NotificationProviderInst;
-}
+import type { PropType as VuePropType } from "vue";
 
-declare interface UnknownObject {
-    [propName: string]: unknown;
+declare global {
+    // 常见复用类型
+    declare type UnKnownObject = Record<string, unknown>; // 未知对象
+    declare type Nullable<T> = T | null;
+
+    // vue类型
+    declare type PropType<T> = VuePropType<T>;
 }

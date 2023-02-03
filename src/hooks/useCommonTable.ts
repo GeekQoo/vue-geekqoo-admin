@@ -1,19 +1,19 @@
 import { ref } from "vue";
-import type { DataTableRowKey } from "naive-ui";
 
-export function useCommonTable(dataTableRowKey: DataTableRowKey = "id") {
+export function useCommonTable(rowKeyName: string = "id") {
     // 表格数据
-    let tableData = ref<any[]>([]);
+    let tableData = ref<UnKnownObject[]>([]);
 
     // 加载状态
     let tableLoading = ref(false);
 
+    // 表格行key
+    let tableRowKey = (row: UnKnownObject) => row[rowKeyName] as string | number;
+
     // 选中
-    let tableRowKey = (row: UnknownObject) => row[dataTableRowKey] as DataTableRowKey;
+    let tableSelection = ref<string | number[]>([]);
 
-    let tableSelection = ref<DataTableRowKey[]>([]);
-
-    let changeTableSelection = (rowKeys: DataTableRowKey[]) => {
+    let changeTableSelection = (rowKeys: string | number[]) => {
         tableSelection.value = rowKeys;
     };
 

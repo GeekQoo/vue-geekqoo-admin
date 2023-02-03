@@ -32,7 +32,6 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType } from "vue";
 import type { TableButtonActions, TableSwitchActions } from "./types";
 
 let props = defineProps({
