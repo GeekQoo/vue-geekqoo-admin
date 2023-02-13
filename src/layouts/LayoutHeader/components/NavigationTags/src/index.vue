@@ -7,7 +7,6 @@
                         v-for="item in storeNavigation.getNavigation"
                         :closable="storeNavigation.getNavigation.length > 1"
                         :type="$route.name === item.name ? 'primary' : 'default'"
-                        closable
                         size="medium"
                         @click="navigationTo(item)"
                         @close.stop="deleteNavigation(item)"

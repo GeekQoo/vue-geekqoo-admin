@@ -4,9 +4,9 @@
             <MineInfo />
         </n-card>
         <n-grid :cols="workbenchConfig.column === 1 ? 1 : '1 1000:2'" class="mt-4" x-gap="16" y-gap="16">
-            <n-grid-item v-for="(item, index) in workbenchList">
+            <n-grid-item v-for="(pItem, pIndex) in workbenchList">
                 <VueDraggable
-                    v-model="workbenchList[index]"
+                    v-model="workbenchList[pIndex]"
                     :animation="300"
                     :forceFallback="true"
                     class="draggable-default"
