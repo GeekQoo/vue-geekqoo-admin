@@ -12,9 +12,9 @@
 
 <script lang="ts" setup>
 import type { MenuOption } from "naive-ui";
-import { LayoutSider } from "./LayoutSider";
-import { LayoutHeader } from "./LayoutHeader";
-import { LayoutMain } from "./LayoutMain";
+import LayoutSider from "./LayoutSider/LayoutSider.vue";
+import LayoutHeader from "./LayoutHeader/LayoutHeader.vue";
+import LayoutMain from "./LayoutMain/LayoutMain.vue";
 import { useStoreDesign, useStoreUser } from "@/store";
 import { computed, onMounted, watch } from "vue";
 import { usePublic } from "@/hooks";
