@@ -3,20 +3,17 @@ import { clearLocalStorage, getLocalStorage, setLocalStorage } from "@/utils/sto
 
 export const useStoreNavigation = defineStore({
     id: "navigation",
-    state: (): { navigation: Array<any> } => ({
-        navigation: getLocalStorage("navigation") || [],
+    state: (): { navigation: App.NavigationProps[] } => ({
+        navigation: getLocalStorage("navigation") || []
     }),
-    getters: {
-        getNavigation: (state): Array<any> => state.navigation,
-    },
     actions: {
-        setNavigation(value: Array<any>) {
+        setNavigation(value: App.NavigationProps[]) {
             this.navigation = value;
             setLocalStorage("navigation", value);
         },
         clearNavigation() {
             this.navigation = [];
             clearLocalStorage("navigation");
-        },
-    },
+        }
+    }
 });

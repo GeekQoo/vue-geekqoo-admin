@@ -16,10 +16,10 @@ export function setupRouter(app: App<Element>) {
 // 路由守卫
 router.beforeEach((to, from, next) => {
     let storeNavigation = useStoreNavigation();
-    let navigation: Array<any> = storeNavigation.getNavigation;
+    let navigation: App.NavigationProps[] = storeNavigation.navigation;
     let navigationItem = {
-        title: to.meta.title,
-        name: to.name
+        title: to.meta.title as string,
+        name: to.name as string
     };
 
     if (navigationItem.title) {

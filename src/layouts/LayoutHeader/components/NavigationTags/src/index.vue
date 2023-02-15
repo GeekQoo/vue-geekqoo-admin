@@ -4,8 +4,8 @@
             <n-scrollbar x-scrollable>
                 <n-space :wrap="false">
                     <n-tag
-                        v-for="item in storeNavigation.getNavigation"
-                        :closable="storeNavigation.getNavigation.length > 1"
+                        v-for="item in storeNavigation.navigation"
+                        :closable="storeNavigation.navigation.length > 1"
                         :type="$route.name === item.name ? 'primary' : 'default'"
                         size="medium"
                         @click="navigationTo(item)"
@@ -32,7 +32,6 @@
 import { BarsOutlined } from "@vicons/antd";
 import { ref } from "vue";
 import { useStoreNavigation, useStoreUser } from "@/store";
-import type { NavigationProps } from "./types";
 import { usePublic } from "@/hooks";
 
 let { $route, $router } = usePublic();
@@ -40,7 +39,7 @@ let storeNavigation = useStoreNavigation();
 let storeUser = useStoreUser();
 
 // 导航跳转
-let navigationTo = (nav: NavigationProps) => {
+let navigationTo = (nav: App.NavigationProps) => {
     storeUser.getUserData?.menu?.forEach((item) => {
         item.children?.forEach((citem) => {
             if (citem.key === nav.name) {
@@ -52,8 +51,8 @@ let navigationTo = (nav: NavigationProps) => {
 };
 
 // 删除导航
-let deleteNavigation = (item: NavigationProps) => {
-    let nav = storeNavigation.getNavigation.filter((citem) => item !== citem);
+let deleteNavigation = (item: App.NavigationProps) => {
+    let nav = storeNavigation.navigation.filter((citem) => item !== citem);
     storeNavigation.setNavigation(nav);
     if ($route.name === item.name) navigationTo(nav[0]);
 };
@@ -72,7 +71,7 @@ let handelSetting = (key: string | number) => {
 
 // 删除全部
 let deleteAllNavigation = () => {
-    let nav = storeNavigation.getNavigation.filter((item: NavigationProps, index: number) => index === 0);
+    let nav = storeNavigation.navigation.filter((item, index: number) => index === 0);
     storeNavigation.setNavigation(nav);
     navigationTo(nav[0]);
 };
