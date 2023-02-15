@@ -1,7 +1,7 @@
 <template>
     <n-layout-header>
         <div class="toolbar flex-y-center">
-            <header-menu v-if="storeDesign.getMenuMode === 'linkage'" />
+            <header-menu v-if="storeDesign.menuMode === 'linkage'" />
             <page-breadcrumb v-else />
             <n-space class="ml-a" align="center" size="medium">
                 <full-screen />

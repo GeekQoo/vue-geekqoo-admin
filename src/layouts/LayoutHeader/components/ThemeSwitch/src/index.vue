@@ -28,7 +28,7 @@ import { useStoreDesign } from "@/store";
 let storeDesign = useStoreDesign();
 
 // 切换主题
-let isDarkTheme = ref(storeDesign.getCurrentTheme === "darkTheme");
+let isDarkTheme = ref(storeDesign.currentTheme === "darkTheme");
 let themeSwitchStyle = () => ({ background: "#333333" });
 let handleCurrentTheme = (val: boolean) => {
     val ? storeDesign.setCurrentTheme("darkTheme") : storeDesign.setCurrentTheme("lightTheme");

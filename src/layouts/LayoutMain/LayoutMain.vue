@@ -1,9 +1,9 @@
 <template>
     <n-layout-content :native-scrollbar="false">
         <div class="page-container">
-            <GlobalLoading v-if="storeDesign.getGlobalLoading" />
+            <GlobalLoading v-if="storeDesign.globalLoading" />
             <router-view v-slot="{ Component }">
-                <transition :name="storeDesign.getPageAnimation" mode="out-in" appear>
+                <transition :name="storeDesign.pageAnimation" mode="out-in" appear>
                     <component :is="Component" />
                 </transition>
             </router-view>

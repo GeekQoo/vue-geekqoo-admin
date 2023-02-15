@@ -33,7 +33,7 @@ let menuOptions = ref<any[]>([]);
 
 let setMenu = () => {
     expandedKeys.value = [storeUser.getHeaderMenuActive];
-    if (storeDesign.getMenuMode === "linkage") {
+    if (storeDesign.menuMode === "linkage") {
         let currentMenu: any[] = [];
         storeUser.getUserData.menu?.forEach((item) => {
             if (item.key === storeUser.getHeaderMenuActive) currentMenu.push(item);
@@ -45,7 +45,7 @@ let setMenu = () => {
 };
 
 watch(
-    () => [storeUser, storeDesign.getMenuMode],
+    () => [storeUser, storeDesign.menuMode],
     () => setMenu(),
     { deep: true, immediate: true }
 );

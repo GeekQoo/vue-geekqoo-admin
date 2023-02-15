@@ -24,7 +24,7 @@ let storeUser = useStoreUser();
 let storeDesign = useStoreDesign();
 
 // 判断当前是不是暗黑主题
-let isDarkTheme = computed(() => storeDesign.getCurrentTheme === "darkTheme");
+let isDarkTheme = computed(() => storeDesign.currentTheme === "darkTheme");
 
 // 刷新获取用户信息
 onMounted(async () => {

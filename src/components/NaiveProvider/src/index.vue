@@ -42,18 +42,18 @@ const storeDesign = useStoreDesign();
 
 // 当前主题
 let currentTheme = computed(() => {
-    return storeDesign.getCurrentTheme === "darkTheme" ? darkTheme : lightTheme;
+    return storeDesign.currentTheme === "darkTheme" ? darkTheme : lightTheme;
 });
 
 let getThemeOverrides = computed(() => {
     return {
         common: {
-            primaryColor: storeDesign.getThemeColor,
-            primaryColorHover: lighten(storeDesign.getThemeColor, 6),
-            primaryColorPressed: lighten(storeDesign.getThemeColor, 6)
+            primaryColor: storeDesign.themeColor,
+            primaryColorHover: lighten(storeDesign.themeColor, 6),
+            primaryColorPressed: lighten(storeDesign.themeColor, 6)
         },
         LoadingBar: {
-            colorLoading: storeDesign.getThemeColor
+            colorLoading: storeDesign.themeColor
         }
     };
 });

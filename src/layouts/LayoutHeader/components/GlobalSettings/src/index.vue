@@ -13,7 +13,7 @@
                     <span>切换动画</span>
                     <n-select
                         :options="pageAnimationPreset"
-                        :value="storeDesign.getPageAnimation"
+                        :value="storeDesign.pageAnimation"
                         class="ml-a w-36"
                         @update:value="changePageAnimation"
                     />
@@ -21,7 +21,7 @@
                 <div class="flex-y-center mb">
                     <span>主题颜色</span>
                     <n-color-picker
-                        :value="storeDesign.getThemeColor"
+                        :value="storeDesign.themeColor"
                         :show-alpha="false"
                         :swatches="themeColorPreset"
                         class="ml-a w-36"
@@ -31,7 +31,7 @@
                 <div class="flex-y-center mb">
                     <span>页面大小</span>
                     <n-select
-                        :value="storeDesign.getPageZoom"
+                        :value="storeDesign.pageZoom"
                         :options="pageZoomPreset"
                         class="ml-a w-36"
                         @update:value="changePageZoom"
@@ -40,7 +40,7 @@
                 <div class="flex-y-center mb">
                     <span>菜单模式</span>
                     <n-select
-                        :value="storeDesign.getMenuMode"
+                        :value="storeDesign.menuMode"
                         :options="menuModePreset"
                         class="ml-a w-36"
                         @update:value="changeMenuMode"
