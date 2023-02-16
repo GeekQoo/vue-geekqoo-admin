@@ -9,18 +9,11 @@ import {
 } from "@/utils/storage";
 import { GET_USERINFO } from "@/api/auth";
 import { renderDynamicIcon } from "@/components/DynamicIcon";
-import type { MenuOption } from "naive-ui";
 import { useStoreDesign, useStoreNavigation } from "@/store";
-
-interface UserDataProps {
-    username?: string;
-    avatar?: string;
-    menu?: MenuOption[];
-}
 
 interface StateProps {
     token: string;
-    userData: UserDataProps;
+    userData: App.UserDataProps;
     headerMenuActive: string;
 }
 

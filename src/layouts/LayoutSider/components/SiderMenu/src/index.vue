@@ -14,7 +14,6 @@
 import { computed, ref, watch } from "vue";
 import { usePublic } from "@/hooks";
 import { useStoreDesign, useStoreUser } from "@/store";
-import type { MenuOption } from "naive-ui";
 
 let storeUser = useStoreUser();
 let storeDesign = useStoreDesign();
@@ -30,7 +29,7 @@ let expandedKeys = ref<string[]>([]);
 let handleUpdateMenu = (key: string) => $router.push({ name: key });
 
 // 菜单内容
-let menuOptions = ref<MenuOption[]>([]);
+let menuOptions = ref<App.MenuProps[]>([]);
 
 let setMenu = () => {
     expandedKeys.value = [storeUser.headerMenuActive];
