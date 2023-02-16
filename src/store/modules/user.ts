@@ -31,9 +31,6 @@ export const useStoreUser = defineStore({
         userData: {},
         headerMenuActive: getSessionStorage("headerMenuActive")
     }),
-    getters: {
-        getUserData: (state): UserDataProps => state.userData as any
-    },
     actions: {
         setToken(value?: string) {
             if (value) {
@@ -43,9 +40,6 @@ export const useStoreUser = defineStore({
                 this.token = "";
                 delCookie("token");
             }
-        },
-        setUserData(value: UserDataProps) {
-            this.userData = value as any;
         },
         requestUserData() {
             let storeDesign = useStoreDesign();
@@ -61,7 +55,7 @@ export const useStoreUser = defineStore({
                 GET_USERINFO({}).then((res) => {
                     if (res.data.code === 1) {
                         res.data.data.menu = getMenus(res.data.data.menu);
-                        this.setUserData(res.data.data);
+                        this.userData = res.data.data;
                         storeDesign.setGlobalLoading(false);
                         resolve(res.data.data);
                     }
@@ -76,7 +70,7 @@ export const useStoreUser = defineStore({
                 this.setHeaderMenuActive();
                 // 清空用户信息
                 this.setToken("");
-                this.setUserData({});
+                this.userData = {};
                 resolve(true);
             });
         },

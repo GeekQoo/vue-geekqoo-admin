@@ -2,8 +2,8 @@
     <div class="current-user">
         <n-dropdown :options="settingOptions" trigger="hover" @select="handelSetting">
             <div class="flex-y-center cursor-pointer">
-                <n-avatar round size="small" :src="storeUser.getUserData.avatar" />
-                <span class="ml-2">{{ storeUser.getUserData.username }}</span>
+                <n-avatar round size="small" :src="storeUser.userData.avatar" />
+                <span class="ml-2">{{ storeUser.userData.username }}</span>
             </div>
         </n-dropdown>
     </div>

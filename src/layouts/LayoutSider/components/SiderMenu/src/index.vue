@@ -14,6 +14,7 @@
 import { computed, ref, watch } from "vue";
 import { usePublic } from "@/hooks";
 import { useStoreDesign, useStoreUser } from "@/store";
+import type { MenuOption } from "naive-ui";
 
 let storeUser = useStoreUser();
 let storeDesign = useStoreDesign();
@@ -23,26 +24,23 @@ let { $route, $router } = usePublic();
 let menuActive = computed(() => $route.name as string);
 
 // 当前展开
-let expandedKeys = ref<any[]>([]);
+let expandedKeys = ref<string[]>([]);
 
 // 菜单点击跳转
 let handleUpdateMenu = (key: string) => $router.push({ name: key });
 
 // 菜单内容
-let menuOptions = ref<any[]>([]);
+let menuOptions = ref<MenuOption[]>([]);
 
 let setMenu = () => {
     expandedKeys.value = [storeUser.headerMenuActive];
     if (storeDesign.menuMode === "linkage") {
-        let currentMenu: any[] = [];
-        storeUser.getUserData.menu?.forEach((item) => {
-            if (item.key === storeUser.headerMenuActive) {
-                currentMenu.push(item);
-            }
-        });
-        menuOptions.value = currentMenu;
+        menuOptions.value =
+            storeUser.userData.menu?.filter((item) => {
+                return item.key === storeUser.headerMenuActive;
+            }) || [];
     } else {
-        menuOptions.value = storeUser.getUserData.menu as any[];
+        menuOptions.value = storeUser.userData.menu || [];
     }
 };
 

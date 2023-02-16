@@ -11,7 +11,6 @@
 </template>
 
 <script lang="ts" setup>
-import type { MenuOption } from "naive-ui";
 import LayoutSider from "./LayoutSider/LayoutSider.vue";
 import LayoutHeader from "./LayoutHeader/LayoutHeader.vue";
 import LayoutMain from "./LayoutMain/LayoutMain.vue";
@@ -34,7 +33,7 @@ onMounted(async () => {
 
 // 更新headerMenuActive
 let updateHeaderMenuActive = () => {
-    storeUser.getUserData.menu?.forEach((item) => {
+    storeUser.userData.menu?.forEach((item) => {
         item.children?.forEach((citem) => {
             if ($route.name === citem.key) {
                 storeUser.setHeaderMenuActive(item.key as string);

@@ -40,7 +40,7 @@ let storeUser = useStoreUser();
 
 // 导航跳转
 let navigationTo = (nav: App.NavigationProps) => {
-    storeUser.getUserData.menu?.forEach((item) => {
+    storeUser.userData.menu?.forEach((item) => {
         item.children?.forEach((citem) => {
             if (citem.key === nav.name) {
                 $router.push({ name: nav.name });

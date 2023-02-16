@@ -1,9 +1,9 @@
 <template>
     <div class="flex items-center p-4">
         <div class="flex items-center">
-            <n-avatar round :size="88" :src="storeUser.getUserData.avatar" />
+            <n-avatar round :size="88" :src="storeUser.userData.avatar" />
             <div class="ml-4">
-                <p class="m-0 pt-2">早安，{{ storeUser.getUserData.username }}，今天又是充满活力的一天！</p>
+                <p class="m-0 pt-2">早安，{{ storeUser.userData.username }}，今天又是充满活力的一天！</p>
                 <p class="m-0 pt-2">今日多云转晴，20℃ - 25℃！</p>
             </div>
         </div>

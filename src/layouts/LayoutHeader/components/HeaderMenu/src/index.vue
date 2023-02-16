@@ -15,7 +15,7 @@ let { $router } = usePublic();
 let menuActive = computed(() => storeUser.headerMenuActive);
 
 let menuOptions = computed(() => {
-    return storeUser.getUserData.menu?.map((item) => {
+    return storeUser.userData.menu?.map((item) => {
         return {
             label: item.label,
             key: item.key,
@@ -25,7 +25,7 @@ let menuOptions = computed(() => {
 });
 
 let handleUpdateMenu = (key: string) => {
-    storeUser.getUserData.menu?.forEach((item) => {
+    storeUser.userData.menu?.forEach((item) => {
         if (key === item.key && item.children && item.children.length > 0) {
             $router.push({ name: item.children[0].key as string });
         }
