@@ -51,14 +51,8 @@ let onLogin = () => {
     AUTH_LOGIN({ ...loginForm.value }).then(async (loginRes) => {
         if (loginRes.data.code === 1) {
             storeUser.setToken(loginRes.data.data.token);
-            await storeUser.requestUserData().then((userRes) => {
-                let userInfo = userRes as any;
-                // 配置顶部菜单index
-                if (userInfo.menu && userInfo.menu.length > 0) {
-                    storeUser.setHeaderMenuActive(userInfo.menu[0].key);
-                }
-                $router.push("/");
-            });
+            await storeUser.requestUserData();
+            await $router.push("/");
         }
     });
 };
