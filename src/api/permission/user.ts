@@ -6,7 +6,7 @@ export function GET_USER_LIST(params: object) {
     return httpRequest("/api/getUserList", "get", {
         params,
         headers: {
-            token: useStoreUser().getToken
+            token: useStoreUser().token
         }
     });
 }

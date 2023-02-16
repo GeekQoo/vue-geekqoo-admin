@@ -6,7 +6,7 @@ export function GET_MENU_LIST(params: object) {
     return httpRequest("/api/getMenuList", "get", {
         params,
         headers: {
-            token: useStoreUser().getToken
+            token: useStoreUser().token
         }
     });
 }

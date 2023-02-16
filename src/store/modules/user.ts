@@ -21,7 +21,7 @@ interface UserDataProps {
 interface StateProps {
     token: string;
     userData: UserDataProps;
-    headerMenuActive: string | number;
+    headerMenuActive: string;
 }
 
 export const useStoreUser = defineStore({
@@ -32,9 +32,7 @@ export const useStoreUser = defineStore({
         headerMenuActive: getSessionStorage("headerMenuActive")
     }),
     getters: {
-        getToken: (state): string => state.token,
-        getUserData: (state): UserDataProps => state.userData as any,
-        getHeaderMenuActive: (state): string | number => state.headerMenuActive
+        getUserData: (state): UserDataProps => state.userData as any
     },
     actions: {
         setToken(value?: string) {
@@ -82,8 +80,8 @@ export const useStoreUser = defineStore({
                 resolve(true);
             });
         },
-        setHeaderMenuActive(value?: string | number) {
-            if (value || value === 0) {
+        setHeaderMenuActive(value?: string) {
+            if (value || value === "0") {
                 this.headerMenuActive = value;
                 setSessionStorage("headerMenuActive", value);
             } else {

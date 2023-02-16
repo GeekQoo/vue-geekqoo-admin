@@ -13,7 +13,7 @@ export function GET_USERINFO(params: object) {
     return httpRequest("/api/getUserinfo", "get", {
         params,
         headers: {
-            token: useStoreUser().getToken
+            token: useStoreUser().token
         }
     });
 }

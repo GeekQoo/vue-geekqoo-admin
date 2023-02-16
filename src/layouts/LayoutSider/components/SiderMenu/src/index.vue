@@ -32,11 +32,13 @@ let handleUpdateMenu = (key: string) => $router.push({ name: key });
 let menuOptions = ref<any[]>([]);
 
 let setMenu = () => {
-    expandedKeys.value = [storeUser.getHeaderMenuActive];
+    expandedKeys.value = [storeUser.headerMenuActive];
     if (storeDesign.menuMode === "linkage") {
         let currentMenu: any[] = [];
         storeUser.getUserData.menu?.forEach((item) => {
-            if (item.key === storeUser.getHeaderMenuActive) currentMenu.push(item);
+            if (item.key === storeUser.headerMenuActive) {
+                currentMenu.push(item);
+            }
         });
         menuOptions.value = currentMenu;
     } else {

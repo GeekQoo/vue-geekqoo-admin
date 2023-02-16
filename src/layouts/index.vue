@@ -34,9 +34,11 @@ onMounted(async () => {
 
 // 更新headerMenuActive
 let updateHeaderMenuActive = () => {
-    storeUser.getUserData?.menu?.forEach((item: MenuOption) => {
+    storeUser.getUserData.menu?.forEach((item) => {
         item.children?.forEach((citem) => {
-            if ($route.name === citem.key) storeUser.setHeaderMenuActive(item.key);
+            if ($route.name === citem.key) {
+                storeUser.setHeaderMenuActive(item.key as string);
+            }
         });
     });
 };

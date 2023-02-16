@@ -40,10 +40,9 @@ let storeUser = useStoreUser();
 
 // 导航跳转
 let navigationTo = (nav: App.NavigationProps) => {
-    storeUser.getUserData?.menu?.forEach((item) => {
+    storeUser.getUserData.menu?.forEach((item) => {
         item.children?.forEach((citem) => {
             if (citem.key === nav.name) {
-                // storeUser.setHeaderMenuActive(item.key as string | number);
                 $router.push({ name: nav.name });
             }
         });

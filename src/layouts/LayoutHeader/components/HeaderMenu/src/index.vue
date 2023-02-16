@@ -12,7 +12,7 @@ import { usePublic } from "@/hooks";
 let storeUser = useStoreUser();
 let { $router } = usePublic();
 
-let menuActive = computed(() => storeUser.getHeaderMenuActive);
+let menuActive = computed(() => storeUser.headerMenuActive);
 
 let menuOptions = computed(() => {
     return storeUser.getUserData.menu?.map((item) => {
@@ -24,10 +24,9 @@ let menuOptions = computed(() => {
     });
 });
 
-let handleUpdateMenu = (key: string | number) => {
-    // storeUser.setHeaderMenuActive(key);
+let handleUpdateMenu = (key: string) => {
     storeUser.getUserData.menu?.forEach((item) => {
-        if (key === item.key && item.children && item.children.length) {
+        if (key === item.key && item.children && item.children.length > 0) {
             $router.push({ name: item.children[0].key as string });
         }
     });
