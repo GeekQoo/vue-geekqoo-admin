@@ -11,9 +11,9 @@ export function useCommonTable(rowKeyName: string = "id") {
     let tableRowKey = (row: UnKnownObject) => row[rowKeyName] as string | number;
 
     // 选中
-    let tableSelection = ref<string | number[]>([]);
+    let tableSelection = ref<(string | number)[]>([]);
 
-    let changeTableSelection = (rowKeys: string | number[]) => {
+    let changeTableSelection = (rowKeys: (string | number)[]) => {
         tableSelection.value = rowKeys;
     };
 
