@@ -1,11 +1,11 @@
 <template>
-    <div>
-        <template v-for="index in 100">
-            <span style="display: block">角色管理{{ index }}</span>
-        </template>
-    </div>
+    <n-card hoverable>
+        <DynamicTable />
+    </n-card>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { DynamicTable } from "@/components/DynamicTable";
+</script>
 
 <style scoped></style>
