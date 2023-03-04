@@ -1,6 +1,6 @@
 <template>
     <n-card hoverable>
-        <DynamicTable />
+        <DynamicTable debug />
     </n-card>
 </template>
 

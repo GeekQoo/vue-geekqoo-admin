@@ -1,6 +1,7 @@
 import type { App } from "vue";
 import {
     create,
+    NAlert,
     NAvatar,
     NBreadcrumb,
     NBreadcrumbItem,
@@ -50,6 +51,7 @@ import {
 
 const naive = create({
     components: [
+        NAlert,
         NAvatar,
         NBreadcrumb,
         NBreadcrumbItem,
