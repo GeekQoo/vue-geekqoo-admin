@@ -1,27 +1,31 @@
 <template>
     <div class="dynamic-table">
         <n-space class="mb-20px">
-            <n-button secondary type="primary" @click="openTableHeaderModal">配置表头</n-button>
-            <n-button secondary type="success" @click="addTableRow">新增行</n-button>
-            <n-button secondary type="error" @click="deleteTableRow">删除行</n-button>
+            <n-button secondary type="primary" @click="openHeaderModal">配置表头</n-button>
+            <n-button :disabled="tableHeader.length <= 0" secondary type="success" @click="addTableRow">
+                新增行
+            </n-button>
+            <n-button :disabled="tableHeader.length <= 0" secondary type="error" @click="deleteTableRow">
+                删除行
+            </n-button>
         </n-space>
         <!--表头配置-->
-        <n-modal v-model:show="tableHeaderModal.show">
-            <n-card class="w-500px" closable title="配置表头" @close="closeTableHeaderModal">
-                <n-dynamic-input v-model:value="tableHeader" :on-create="() => ({ title: '', key: '' })">
+        <n-modal v-model:show="headerModal.show">
+            <n-card class="w-500px" closable title="配置表头" @close="closeHeaderModal">
+                <n-dynamic-input v-model:value="headerModal.list" :on-create="() => ({ title: '', key: '' })">
                     <template #create-button-default>新增</template>
                     <template #default="{ index, value }">
                         <n-grid x-gap="10" y-gap="10">
                             <n-grid-item :span="12">
                                 <n-input
-                                    v-model:value="tableHeader[index].title"
+                                    v-model:value="headerModal.list[index].title"
                                     placeholder="请输入表头标题"
                                     type="text"
                                 />
                             </n-grid-item>
                             <n-grid-item :span="12">
                                 <n-input
-                                    v-model:value="tableHeader[index].key"
+                                    v-model:value="headerModal.list[index].key"
                                     placeholder="请输入表头Key"
                                     type="text"
                                 />
@@ -29,7 +33,9 @@
                         </n-grid>
                     </template>
                 </n-dynamic-input>
-                <n-alert class="mt-20px" type="warning">重新生成表头会清空已输入数据，请谨慎处理！</n-alert>
+                <n-alert v-if="tableHeader.length > 0" class="mt-20px" type="warning">
+                    重新生成表头会清空已输入数据，请谨慎处理！
+                </n-alert>
                 <n-space class="mt-20px">
                     <n-button type="primary" @click="setTableHeader">生成表头</n-button>
                 </n-space>
@@ -38,14 +44,14 @@
         </n-modal>
         <n-data-table
             :columns="tableColumns"
-            :data="tableData"
+            :data="tableRow"
             :row-key="tableRowKey"
             :single-line="false"
             bordered
             striped
             @update:checked-row-keys="changeTableSelection"
         />
-        <pre v-if="debug">{{ JSON.stringify(tableData, null, 2) }}</pre>
+        <pre v-if="debug">{{ JSON.stringify(tableRow, null, 2) }}</pre>
     </div>
 </template>
 
@@ -60,29 +66,32 @@ let props = defineProps({
     debug: { type: Boolean, default: false }
 });
 
-onMounted(() => setTableData());
+onMounted(() => setTableRow());
 
 let { tableRowKey, tableSelection, changeTableSelection } = useCommonTable("key");
 
 // 表头设置
-let tableHeaderModal = ref({ show: false });
+let headerModal = ref<{ show: boolean; list: DynamicTableHeaderProps[] }>({
+    show: false,
+    list: []
+});
 
-let openTableHeaderModal = () => {
-    tableHeaderModal.value.show = true;
+let openHeaderModal = () => {
+    headerModal.value.show = true;
 };
 
-let closeTableHeaderModal = () => {
-    tableHeaderModal.value.show = false;
-};
-
-let setTableHeader = () => {
-    tableColumns.value = createTableColumns();
-    setTableData();
-    tableData.value = [];
-    closeTableHeaderModal();
+let closeHeaderModal = () => {
+    headerModal.value.show = false;
 };
 
 let tableHeader = ref<DynamicTableHeaderProps[]>([]);
+
+let setTableHeader = () => {
+    closeHeaderModal();
+    tableHeader.value = headerModal.value.list;
+    tableColumns.value = createTableColumns();
+    setTableRow();
+};
 
 // 表格列配置
 let tableColumnCount = ref(0);
@@ -97,7 +106,7 @@ let createTableColumns = () => {
                 return h(NInput, {
                     value: row.name,
                     placeholder: `请输入${item.title}`,
-                    onUpdateValue: (v) => (tableData.value[index][item.key] = v)
+                    onUpdateValue: (v) => (tableRow.value[index][item.key] = v)
                 });
             }
         };
@@ -105,10 +114,10 @@ let createTableColumns = () => {
     return [{ type: "selection" }, ...dynamicData];
 };
 
-let tableColumns = ref(createTableColumns());
+let tableColumns = ref();
 
 // 表格数据配置
-let tableData = ref<DynamicTableRowProps[]>([]);
+let tableRow = ref<DynamicTableRowProps[]>([]);
 
 let createTableRow = () => {
     let keyArray: string[] = tableHeader.value.map((item) => item.key);
@@ -122,16 +131,16 @@ let createTableRow = () => {
     };
 };
 
-let setTableData = () => {
-    tableData.value = [];
+let setTableRow = () => {
+    tableRow.value = [];
     for (let i = 0; i < tableColumnCount.value; i++) {
-        tableData.value.push(createTableRow());
+        tableRow.value.push(createTableRow());
     }
 };
 
 let addTableRow = () => {
     tableColumnCount.value += 1;
-    tableData.value.push(createTableRow());
+    tableRow.value.push(createTableRow());
 };
 
 let deleteTableRow = () => {
@@ -139,6 +148,6 @@ let deleteTableRow = () => {
         window.$message.error("请先选择要删除的行");
         return false;
     }
-    tableData.value = tableData.value.filter((item) => !tableSelection.value.includes(item.key));
+    tableRow.value = tableRow.value.filter((item) => !tableSelection.value.includes(item.key));
 };
 </script>
