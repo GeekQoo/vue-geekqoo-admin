@@ -56,17 +56,34 @@
 </template>
 
 <script lang="ts" setup>
-import { h, ref } from "vue";
+import { h, nextTick, onMounted, ref } from "vue";
 import type { DataTableColumns } from "naive-ui";
 import { NInput } from "naive-ui";
 import { useCommonTable } from "@/hooks";
 import type { DynamicTableHeaderProps, DynamicTableRowProps } from "@/components/DynamicTable";
 
 let props = defineProps({
-    debug: { type: Boolean, default: false }
+    debug: {
+        type: Boolean,
+        default: false
+    },
+    tableHeader: {
+        type: Array as PropType<DynamicTableHeaderProps[]>,
+        default: () => []
+    }
 });
 
+let emits = defineEmits(["update:tableHeader"]);
+
 let { tableRowKey, tableSelection, changeTableSelection, checkTableSelectionEmpty } = useCommonTable("key");
+
+// 初始化
+let init = () => {
+    headerModal.value.list = props.tableHeader;
+    setTableHeader();
+};
+
+onMounted(() => init());
 
 // 表头配置
 let headerModal = ref<{
@@ -81,10 +98,9 @@ let openHeaderModal = () => (headerModal.value.show = true);
 
 let closeHeaderModal = () => (headerModal.value.show = false);
 
-let tableHeader = ref<DynamicTableHeaderProps[]>([]);
-
-let setTableHeader = () => {
-    tableHeader.value = headerModal.value.list;
+let setTableHeader = async () => {
+    emits("update:tableHeader", headerModal.value.list);
+    await nextTick();
     tableColumns.value = createTableColumns();
     clearTableRow();
     closeHeaderModal();
@@ -92,7 +108,7 @@ let setTableHeader = () => {
 
 // NDataTable列配置
 let createTableColumns = () => {
-    let dynamicData: DataTableColumns<DynamicTableRowProps> = tableHeader.value.map((item) => {
+    let dynamicData: DataTableColumns<DynamicTableRowProps> = props.tableHeader.map((item) => {
         return {
             title: item.title,
             key: item.key,
@@ -106,7 +122,7 @@ let createTableColumns = () => {
             }
         };
     });
-    return [{ type: "selection" }, ...dynamicData];
+    return dynamicData.length > 0 ? [{ type: "selection" }, ...dynamicData] : [];
 };
 
 let tableColumns = ref();
@@ -117,7 +133,7 @@ let tableRowCount = ref(0);
 let tableRow = ref<DynamicTableRowProps[]>([]);
 
 let createTableRow = () => {
-    let keyArray = tableHeader.value.map((item) => item.key);
+    let keyArray = props.tableHeader.map((item) => item.key);
     let tableRow: DynamicTableRowProps = Object.fromEntries(keyArray.map((key) => [key, ""]));
     return { key: new Date().getTime(), ...tableRow };
 };
