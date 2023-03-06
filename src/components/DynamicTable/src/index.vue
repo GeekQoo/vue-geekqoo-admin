@@ -56,7 +56,7 @@
 </template>
 
 <script lang="ts" setup>
-import { h, onMounted, ref } from "vue";
+import { h, ref } from "vue";
 import type { DataTableColumns } from "naive-ui";
 import { NInput } from "naive-ui";
 import { useCommonTable } from "@/hooks";
@@ -66,36 +66,31 @@ let props = defineProps({
     debug: { type: Boolean, default: false }
 });
 
-onMounted(() => setTableRow());
+let { tableRowKey, tableSelection, changeTableSelection, checkTableSelectionEmpty } = useCommonTable("key");
 
-let { tableRowKey, tableSelection, changeTableSelection } = useCommonTable("key");
-
-// 表头设置
-let headerModal = ref<{ show: boolean; list: DynamicTableHeaderProps[] }>({
+// 表头配置
+let headerModal = ref<{
+    show: boolean;
+    list: DynamicTableHeaderProps[];
+}>({
     show: false,
     list: []
 });
 
-let openHeaderModal = () => {
-    headerModal.value.show = true;
-};
+let openHeaderModal = () => (headerModal.value.show = true);
 
-let closeHeaderModal = () => {
-    headerModal.value.show = false;
-};
+let closeHeaderModal = () => (headerModal.value.show = false);
 
 let tableHeader = ref<DynamicTableHeaderProps[]>([]);
 
 let setTableHeader = () => {
-    closeHeaderModal();
     tableHeader.value = headerModal.value.list;
     tableColumns.value = createTableColumns();
-    setTableRow();
+    clearTableRow();
+    closeHeaderModal();
 };
 
-// 表格列配置
-let tableColumnCount = ref(0);
-
+// NDataTable列配置
 let createTableColumns = () => {
     let dynamicData: DataTableColumns<DynamicTableRowProps> = tableHeader.value.map((item) => {
         return {
@@ -116,38 +111,29 @@ let createTableColumns = () => {
 
 let tableColumns = ref();
 
-// 表格数据配置
+// NDataTable行配置
+let tableRowCount = ref(0);
+
 let tableRow = ref<DynamicTableRowProps[]>([]);
 
 let createTableRow = () => {
-    let keyArray: string[] = tableHeader.value.map((item) => item.key);
-    let tableRow: DynamicTableRowProps = {};
-    keyArray.forEach((item) => {
-        tableRow[item] = "";
-    });
-    return {
-        key: new Date().getTime(),
-        ...tableRow
-    };
+    let keyArray = tableHeader.value.map((item) => item.key);
+    let tableRow: DynamicTableRowProps = Object.fromEntries(keyArray.map((key) => [key, ""]));
+    return { key: new Date().getTime(), ...tableRow };
 };
 
-let setTableRow = () => {
+let clearTableRow = () => {
     tableRow.value = [];
-    for (let i = 0; i < tableColumnCount.value; i++) {
-        tableRow.value.push(createTableRow());
-    }
+    tableRowCount.value = 0;
 };
 
 let addTableRow = () => {
-    tableColumnCount.value += 1;
+    tableRowCount.value += 1;
     tableRow.value.push(createTableRow());
 };
 
 let deleteTableRow = () => {
-    if (tableSelection.value.length === 0) {
-        window.$message.error("请先选择要删除的行");
-        return false;
-    }
+    checkTableSelectionEmpty("请先选择要删除的行");
     tableRow.value = tableRow.value.filter((item) => !tableSelection.value.includes(item.key));
 };
 </script>
