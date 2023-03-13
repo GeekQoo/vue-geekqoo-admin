@@ -2,7 +2,7 @@ import { MockMethod } from "vite-plugin-mock";
 
 export default [
     {
-        url: "/mock/api/getUserList",
+        url: "/mock/api/user",
         method: "get",
         timeout: 1000,
         response: () => ({
@@ -20,6 +20,16 @@ export default [
             total: 50,
             pageSize: 10,
             currentPage: 1
+        })
+    },
+    {
+        url: "/mock/api/user",
+        method: "delete",
+        timeout: 1000,
+        response: () => ({
+            code: 1,
+            message: "ok",
+            type: "success"
         })
     },
     {

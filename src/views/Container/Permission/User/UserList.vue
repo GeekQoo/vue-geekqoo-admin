@@ -5,13 +5,13 @@
                 v-model:form="searchForm"
                 :config="searchConfig"
                 :options="searchOptions"
-                @search="onSubmit"
+                @search="onSearch"
             />
         </n-card>
         <n-card class="mt" hoverable>
             <n-space class="mb">
                 <n-button secondary type="primary">新增</n-button>
-                <n-button secondary type="error">删除</n-button>
+                <n-button secondary type="error" @click="onDelete()">删除</n-button>
             </n-space>
             <n-data-table
                 :columns="tableColumns"
@@ -34,7 +34,7 @@ import { h, onMounted, reactive, ref } from "vue";
 import type { DataTableColumns } from "naive-ui";
 import type { TableSearchbarConfig, TableSearchbarData, TableSearchbarOptions } from "@/components/Table";
 import { TableActions, TableSearchbar } from "@/components/Table";
-import { GET_USER_LIST } from "@/api/permission/user";
+import { DELETE_USERS, GET_USER_LIST } from "@/api/permission/user";
 import { useCommonTable } from "@/hooks";
 
 interface RowProps {
@@ -84,6 +84,10 @@ let searchForm = ref<TableSearchbarData>({
 
 let getSearchOptions = () => {};
 
+let onSearch = () => {
+    getTableData();
+};
+
 // 数据列表
 let { tableData, tableLoading, tableRowKey, tableSelection, changeTableSelection, tablePaginationPreset } =
     useCommonTable();
@@ -117,7 +121,7 @@ let tableColumns = ref<DataTableColumns<RowProps>>([
         key: "status",
         align: "center",
         width: 100,
-        render(row) {
+        render() {
             return h(TableActions, {
                 type: "switch",
                 switchActions: [
@@ -148,16 +152,14 @@ let tableColumns = ref<DataTableColumns<RowProps>>([
                     {
                         label: "编辑",
                         tertiary: true,
-                        onClick: () => {
-                            console.log(111, row);
-                        }
+                        onClick: () => {}
                     },
                     {
                         label: "删除",
                         tertiary: true,
                         type: "error",
                         onClick: () => {
-                            console.log(222, row);
+                            onDelete(row.id);
                         }
                     }
                 ]
@@ -181,15 +183,34 @@ let tablePagination = reactive({
 
 let getTableData = () => {
     tableLoading.value = true;
-    GET_USER_LIST({}).then((res) => {
+    GET_USER_LIST({
+        ...searchForm.value
+    }).then((res) => {
         tableData.value = res.data.data;
         tablePagination.itemCount = res.data.total;
         tableLoading.value = false;
     });
 };
 
-let onSubmit = () => {
-    console.log(searchForm.value);
-    console.log(tableSelection.value);
+// 删除
+let onDelete = (id?: string | number) => {
+    if (!id && tableSelection.value.length < 1) {
+        window.$message.error("请选择要删除的数据");
+        return false;
+    }
+    window.$dialog.warning({
+        title: "警告",
+        content: `确定删除${id ? "该" : "选中"}用户吗？`,
+        positiveText: "删除",
+        negativeText: "取消",
+        onPositiveClick: () => {
+            DELETE_USERS({ ids: tableSelection.value.join(",") }).then((res) => {
+                if (res.data.code === 1) {
+                    window.$message.success("删除成功");
+                    onSearch();
+                }
+            });
+        }
+    });
 };
 </script>
