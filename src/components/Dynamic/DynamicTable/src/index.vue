@@ -56,7 +56,7 @@ import { h, nextTick, onMounted, ref, watch } from "vue";
 import type { DataTableColumns } from "naive-ui";
 import { NInput } from "naive-ui";
 import { useCommonTable } from "@/hooks";
-import type { DynamicTableHeaderProps, DynamicTableRowProps } from "@/components/DynamicTable";
+import type { DynamicTableHeaderProps, DynamicTableRowProps } from "@/components/Dynamic/DynamicTable";
 
 let props = defineProps({
     debug: {

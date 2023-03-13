@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import { DynamicTable } from "@/components/DynamicTable";
+import { DynamicTable } from "@/components/Dynamic";
 
 import { ref, watch } from "vue";
 
