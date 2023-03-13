@@ -12,7 +12,7 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { useStoreUser } from "@/store";
-import { renderDynamicIcon } from "@/components/DynamicIcon";
+import { renderDynamicIcon } from "@/components/Dynamic";
 import { usePublic } from "@/hooks";
 
 let storeUser = useStoreUser();

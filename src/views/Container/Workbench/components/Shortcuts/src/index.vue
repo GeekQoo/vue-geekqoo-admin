@@ -12,5 +12,5 @@
 </template>
 
 <script lang="ts" setup>
-import { DynamicIcon } from "@/components/DynamicIcon";
+import { DynamicIcon } from "@/components/Dynamic";
 </script>

@@ -8,7 +8,7 @@ import {
     setSessionStorage
 } from "@/utils/storage";
 import { GET_USERINFO } from "@/api/auth";
-import { renderDynamicIcon } from "@/components/DynamicIcon";
+import { renderDynamicIcon } from "@/components/Dynamic";
 import { useStoreDesign, useStoreNavigation } from "@/store";
 
 interface StateProps {
