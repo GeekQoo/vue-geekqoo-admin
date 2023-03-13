@@ -95,7 +95,7 @@ let tableColumns = ref<DataTableColumns<RowProps>>([
         title: "菜单图标",
         key: "icon",
         align: "center",
-        width: 80,
+        width: 100,
         render: (row) => h(DynamicIcon, { icon: row.icon, size: 25 })
     },
     {
