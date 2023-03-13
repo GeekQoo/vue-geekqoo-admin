@@ -13,14 +13,6 @@ export function useCommonTable(rowKeyName: string = "id") {
     // 选中
     let tableSelection = ref<(string | number)[]>([]);
 
-    // 选中为空校验
-    let checkTableSelectionEmpty = (message: string) => {
-        if (tableSelection.value.length === 0) {
-            window.$message.error(message);
-            return false;
-        }
-    };
-
     let changeTableSelection = (rowKeys: (string | number)[]) => {
         tableSelection.value = rowKeys;
     };
@@ -42,7 +34,6 @@ export function useCommonTable(rowKeyName: string = "id") {
         tableRowKey,
         tableSelection,
         tablePaginationPreset,
-        changeTableSelection,
-        checkTableSelectionEmpty
+        changeTableSelection
     };
 }

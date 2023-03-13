@@ -75,7 +75,7 @@ let props = defineProps({
 
 let emits = defineEmits(["update:header", "update:data"]);
 
-let { tableRowKey, tableSelection, changeTableSelection, checkTableSelectionEmpty } = useCommonTable("key");
+let { tableRowKey, tableSelection, changeTableSelection } = useCommonTable("key");
 
 // 表头配置
 let headerModal = ref<{
@@ -147,7 +147,10 @@ let addTableRow = () => {
 };
 
 let deleteTableRow = () => {
-    checkTableSelectionEmpty("请先选择要删除的行");
+    if (tableSelection.value.length < 1) {
+        window.$message.error("请先选择要删除的行");
+        return false;
+    }
     tableData.value = tableData.value.filter((item) => !tableSelection.value.includes(item.key));
 };
 </script>
