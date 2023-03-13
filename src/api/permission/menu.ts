@@ -3,7 +3,7 @@ import { useStoreUser } from "@/store";
 
 // 获取菜单列表
 export function GET_MENU_LIST(params: object) {
-    return httpRequest("/api/getMenuList", "get", {
+    return httpRequest("/api/menu", "get", {
         params,
         headers: {
             token: useStoreUser().token

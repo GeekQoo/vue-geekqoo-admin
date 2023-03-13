@@ -33,7 +33,7 @@ export default [
         })
     },
     {
-        url: "/mock/api/getMenuList",
+        url: "/mock/api/menu",
         method: "get",
         timeout: 1000,
         response: () => ({
