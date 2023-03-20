@@ -6,3 +6,4 @@ declare module "*.vue" {
 declare module "autoprefixer";
 declare module "lodash-es";
 declare module "dayjs";
+declare module "@vueuse/core";
