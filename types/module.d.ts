@@ -5,4 +5,5 @@ declare module "*.vue" {
 }
 declare module "autoprefixer";
 declare module "lodash-es";
+declare module "@vueuse/core";
 declare module "dayjs";
