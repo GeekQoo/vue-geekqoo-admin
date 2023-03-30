@@ -15,7 +15,7 @@ import LayoutSider from "./LayoutSider/LayoutSider.vue";
 import LayoutHeader from "./LayoutHeader/LayoutHeader.vue";
 import LayoutMain from "./LayoutMain/LayoutMain.vue";
 import { useStoreDesign, useStoreUser } from "@/store";
-import { computed, onMounted, watch } from "vue";
+import { computed, watch } from "vue";
 import { usePublic } from "@/hooks";
 
 let { $route } = usePublic();
@@ -24,12 +24,6 @@ let storeDesign = useStoreDesign();
 
 // 判断当前是不是暗黑主题
 let isDarkTheme = computed(() => storeDesign.currentTheme === "darkTheme");
-
-// 刷新获取用户信息
-onMounted(async () => {
-    await storeUser.requestUserData();
-    updateHeaderMenuActive();
-});
 
 // 更新headerMenuActive
 let updateHeaderMenuActive = () => {
@@ -43,8 +37,9 @@ let updateHeaderMenuActive = () => {
 };
 
 watch(
-    () => $route.name,
-    () => updateHeaderMenuActive()
+    () => $route,
+    () => updateHeaderMenuActive(),
+    { deep: true, immediate: true }
 );
 </script>
 
