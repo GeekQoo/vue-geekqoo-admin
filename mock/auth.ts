@@ -28,30 +28,36 @@ export default [
                     {
                         label: "仪表盘",
                         key: "0",
+                        type: 1,
                         icon: "ProjectOutlined",
                         children: [
                             {
                                 label: "工作台",
-                                key: "Workbench"
+                                key: "Workbench",
+                                type: 2
                             }
                         ]
                     },
                     {
                         label: "用户管理",
                         key: "1",
+                        type: 1,
                         icon: "UserOutlined",
                         children: [
                             {
                                 label: "用户列表",
-                                key: "UserList"
+                                key: "UserList",
+                                type: 2
                             },
                             {
                                 label: "角色列表",
-                                key: "RoleList"
+                                key: "RoleList",
+                                type: 2
                             },
                             {
                                 label: "菜单列表",
-                                key: "MenuList"
+                                key: "MenuList",
+                                type: 2
                             }
                         ]
                     }

@@ -19,7 +19,9 @@ declare global {
         }
 
         // 菜单信息
-        type MenuProps = MenuOption;
+        interface MenuProps extends MenuOption {
+            type: string | number; // 1:目录 2:菜单 3:按钮
+        }
 
         // 用户信息
         interface UserDataProps {
