@@ -21,6 +21,7 @@ declare global {
         // 菜单信息
         type MenuProps = MenuOption & {
             type: string | number; // 1:目录 2:菜单 3:按钮
+            children?: MenuProps[];
         };
 
         // 用户信息
