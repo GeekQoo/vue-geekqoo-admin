@@ -7,15 +7,17 @@
                 <layout-main :class="{ 'layout-default-background': !isDarkTheme }" />
             </n-layout>
         </n-layout>
+        <GlobalLoading v-if="storeDesign.globalLoading" />
     </div>
 </template>
 
 <script lang="ts" setup>
+import { GlobalLoading } from "@/components/GlobalLoading";
 import LayoutSider from "./LayoutSider/LayoutSider.vue";
 import LayoutHeader from "./LayoutHeader/LayoutHeader.vue";
 import LayoutMain from "./LayoutMain/LayoutMain.vue";
 import { useStoreDesign, useStoreUser } from "@/store";
-import { computed, watch } from "vue";
+import { computed, onMounted, watch } from "vue";
 import { usePublic } from "@/hooks";
 
 let { $route } = usePublic();
@@ -36,10 +38,15 @@ let updateHeaderMenuActive = () => {
     });
 };
 
+onMounted(async () => {
+    await storeUser.requestUserData();
+    updateHeaderMenuActive();
+});
+
 watch(
     () => $route,
     () => updateHeaderMenuActive(),
-    { deep: true, immediate: true }
+    { deep: true }
 );
 </script>
 
