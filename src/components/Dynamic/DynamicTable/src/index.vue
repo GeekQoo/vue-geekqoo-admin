@@ -7,7 +7,19 @@
         </n-space>
         <!--表头配置-->
         <n-modal v-model:show="headerModal.show">
-            <n-card class="w-500px" closable title="配置表头" @close="closeHeaderModal">
+            <n-card class="w-800px" closable title="配置表头" @close="closeHeaderModal">
+                <n-grid class="mb-10px" style="width: calc(100% - 88px)" x-gap="10" y-gap="10">
+                    <n-grid-item :span="12">
+                        <n-tag class="w-100% flex-center" :bordered="false" type="primary" size="large">
+                            表头标题
+                        </n-tag>
+                    </n-grid-item>
+                    <n-grid-item :span="12">
+                        <n-tag class="w-100% flex-center" :bordered="false" type="primary" size="large">
+                            表头key
+                        </n-tag>
+                    </n-grid-item>
+                </n-grid>
                 <n-dynamic-input v-model:value="headerModal.list" :on-create="() => ({ title: '', key: '' })">
                     <template #create-button-default>新增</template>
                     <template #default="{ index, value }">
@@ -15,6 +27,7 @@
                             <n-grid-item :span="12">
                                 <n-input
                                     v-model:value="headerModal.list[index].title"
+                                    class="w-100%"
                                     placeholder="请输入表头标题"
                                     type="text"
                                 />
@@ -22,6 +35,7 @@
                             <n-grid-item :span="12">
                                 <n-input
                                     v-model:value="headerModal.list[index].key"
+                                    class="w-100%"
                                     placeholder="请输入表头Key"
                                     type="text"
                                 />
@@ -52,7 +66,7 @@
 </template>
 
 <script lang="ts" setup>
-import { h, nextTick, onMounted, ref, watch } from "vue";
+import { h, nextTick, ref, watch } from "vue";
 import type { DataTableColumns } from "naive-ui";
 import { NInput } from "naive-ui";
 import { useCommonTable } from "@/hooks";
