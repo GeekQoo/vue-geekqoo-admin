@@ -9,22 +9,24 @@
         <n-modal v-model:show="headerModal.show">
             <n-card class="w-800px" closable title="配置表头" @close="closeHeaderModal">
                 <n-grid class="mb-10px" style="width: calc(100% - 88px)" x-gap="10" y-gap="10">
-                    <n-grid-item :span="12">
-                        <n-tag class="w-100% flex-center" :bordered="false" type="primary" size="large">
-                            表头标题
-                        </n-tag>
+                    <n-grid-item :span="6">
+                        <n-tag :bordered="false" class="w-100% flex-center" size="large" type="primary">表头标题</n-tag>
                     </n-grid-item>
-                    <n-grid-item :span="12">
-                        <n-tag class="w-100% flex-center" :bordered="false" type="primary" size="large">
-                            表头key
-                        </n-tag>
+                    <n-grid-item :span="6">
+                        <n-tag :bordered="false" class="w-100% flex-center" size="large" type="primary">表头key</n-tag>
+                    </n-grid-item>
+                    <n-grid-item :span="6">
+                        <n-tag :bordered="false" class="w-100% flex-center" size="large" type="primary">组件类型</n-tag>
+                    </n-grid-item>
+                    <n-grid-item :span="6">
+                        <n-tag :bordered="false" class="w-100% flex-center" size="large" type="primary">数据来源</n-tag>
                     </n-grid-item>
                 </n-grid>
                 <n-dynamic-input v-model:value="headerModal.list" :on-create="() => ({ title: '', key: '' })">
                     <template #create-button-default>新增</template>
                     <template #default="{ index, value }">
                         <n-grid x-gap="10" y-gap="10">
-                            <n-grid-item :span="12">
+                            <n-grid-item :span="6">
                                 <n-input
                                     v-model:value="headerModal.list[index].title"
                                     class="w-100%"
@@ -32,12 +34,26 @@
                                     type="text"
                                 />
                             </n-grid-item>
-                            <n-grid-item :span="12">
+                            <n-grid-item :span="6">
                                 <n-input
                                     v-model:value="headerModal.list[index].key"
                                     class="w-100%"
                                     placeholder="请输入表头Key"
                                     type="text"
+                                />
+                            </n-grid-item>
+                            <n-grid-item :span="6">
+                                <n-select
+                                    v-model:value="headerModal.list[index].type"
+                                    :options="typeOptions"
+                                    placeholder="请选择组件类型"
+                                />
+                            </n-grid-item>
+                            <n-grid-item :span="6">
+                                <n-select
+                                    v-model:value="headerModal.list[index].source"
+                                    :options="dataSource"
+                                    placeholder="请选择数据来源"
                                 />
                             </n-grid-item>
                         </n-grid>
@@ -68,7 +84,7 @@
 <script lang="ts" setup>
 import { h, nextTick, ref, watch } from "vue";
 import type { DataTableColumns } from "naive-ui";
-import { NInput } from "naive-ui";
+import { NInput, NSelect } from "naive-ui";
 import { useCommonTable } from "@/hooks";
 import type { DynamicTableHeaderProps, DynamicTableRowProps } from "@/components/Dynamic/DynamicTable";
 
@@ -84,12 +100,21 @@ let props = defineProps({
     data: {
         type: Array as PropType<DynamicTableRowProps[]>,
         default: () => []
+    },
+    dataSource: {
+        type: Array as PropType<{ label: string; value: string }[]>,
+        default: () => []
     }
 });
 
 let emits = defineEmits(["update:header", "update:data"]);
 
 let { tableRowKey, tableSelection, changeTableSelection } = useCommonTable("key");
+
+let typeOptions = [
+    { label: "输入框", value: "input" },
+    { label: "下拉框", value: "select" }
+];
 
 // 表头配置
 let headerModal = ref<{
@@ -120,11 +145,22 @@ let createTableColumns = () => {
             key: item.key,
             align: "center",
             render: (row: DynamicTableRowProps, index: number) => {
-                return h(NInput, {
-                    value: row[item.key],
-                    placeholder: `请输入${item.title}`,
-                    onUpdateValue: (v) => (tableData.value[index][item.key] = v)
-                });
+                if (item.type === "input") {
+                    return h(NInput, {
+                        value: row[item.key],
+                        placeholder: `请输入${item.title}`,
+                        onUpdateValue: (v) => (tableData.value[index][item.key] = v)
+                    });
+                } else if (item.type === "select") {
+                    return h(NSelect, {
+                        value: row[item.key],
+                        options: [],
+                        placeholder: `请选择${item.title}`,
+                        onUpdateValue: (v) => (tableData.value[index][item.key] = v)
+                    });
+                } else {
+                    return "组件异常";
+                }
             }
         };
     });
@@ -146,7 +182,7 @@ let tableRowCount = ref(tableData.value.length);
 
 let createTableRow = () => {
     let keyArray = props.header.map((item) => item.key);
-    let tableRow: DynamicTableRowProps = Object.fromEntries(keyArray.map((key) => [key, ""]));
+    let tableRow: DynamicTableRowProps = Object.fromEntries(keyArray.map((key) => [key, null]));
     return { key: new Date().getTime(), ...tableRow };
 };
 
