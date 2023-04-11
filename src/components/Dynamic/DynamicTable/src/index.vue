@@ -46,15 +46,19 @@
                                 <n-select
                                     v-model:value="headerModal.list[index].type"
                                     :options="typeOptions"
+                                    class="w-100%"
                                     placeholder="请选择组件类型"
                                 />
                             </n-grid-item>
                             <n-grid-item :span="6">
                                 <n-select
+                                    v-if="headerModal.list[index].type === 'select'"
                                     v-model:value="headerModal.list[index].source"
                                     :options="dataSource"
+                                    class="w-100%"
                                     placeholder="请选择数据来源"
                                 />
+                                <n-tag v-else class="w-100% flex-center" size="large">无需数据源</n-tag>
                             </n-grid-item>
                         </n-grid>
                     </template>
@@ -83,28 +87,27 @@
 
 <script lang="ts" setup>
 import { h, nextTick, ref, watch } from "vue";
-import type { DataTableColumns } from "naive-ui";
+import type { DataTableColumns, SelectGroupOption, SelectOption } from "naive-ui";
 import { NInput, NSelect } from "naive-ui";
 import { useCommonTable } from "@/hooks";
 import type { DynamicTableHeaderProps, DynamicTableRowProps } from "@/components/Dynamic/DynamicTable";
 
-let props = defineProps({
-    debug: {
-        type: Boolean,
-        default: false
-    },
-    header: {
-        type: Array as PropType<DynamicTableHeaderProps[]>,
-        default: () => []
-    },
-    data: {
-        type: Array as PropType<DynamicTableRowProps[]>,
-        default: () => []
-    },
-    dataSource: {
-        type: Array as PropType<{ label: string; value: string }[]>,
-        default: () => []
-    }
+interface Props {
+    // 是否显示代码，默认false
+    debug: boolean;
+    // 表头配置
+    header: DynamicTableHeaderProps[];
+    // 表格数据
+    data: DynamicTableRowProps[];
+    // 下拉框数据来源
+    dataSource: (SelectOption | SelectGroupOption)[];
+}
+
+let props = withDefaults(defineProps<Props>(), {
+    debug: false,
+    header: () => [],
+    data: () => [],
+    dataSource: () => []
 });
 
 let emits = defineEmits(["update:header", "update:data"]);
@@ -137,6 +140,21 @@ let setTableHeader = async () => {
     closeHeaderModal();
 };
 
+// 选项管理
+let optionList = ref<Record<string, (SelectOption | SelectGroupOption)[]>>({});
+
+let setOptionList = () => {
+    props.dataSource.forEach((item) => {
+        optionList.value[item.value as string] = item.defaultOptions as (SelectOption | SelectGroupOption)[];
+    });
+};
+
+watch(
+    () => props.dataSource,
+    (val) => setOptionList(),
+    { deep: true, immediate: true }
+);
+
 // NDataTable列配置
 let createTableColumns = () => {
     let dynamicData: DataTableColumns<DynamicTableRowProps> = props.header.map((item) => {
@@ -144,23 +162,26 @@ let createTableColumns = () => {
             title: item.title,
             key: item.key,
             align: "center",
+            maxWidth: 500,
+            resizable: true,
             render: (row: DynamicTableRowProps, index: number) => {
                 if (item.type === "input") {
                     return h(NInput, {
                         value: row[item.key],
+                        clearable: true,
                         placeholder: `请输入${item.title}`,
                         onUpdateValue: (v) => (tableData.value[index][item.key] = v)
                     });
                 } else if (item.type === "select") {
                     return h(NSelect, {
                         value: row[item.key],
-                        options: [],
+                        filterable: true,
+                        clearable: true,
+                        options: optionList.value[item.source as string],
                         placeholder: `请选择${item.title}`,
                         onUpdateValue: (v) => (tableData.value[index][item.key] = v)
                     });
-                } else {
-                    return "组件异常";
-                }
+                } else return "组件异常";
             }
         };
     });
