@@ -9,17 +9,10 @@
         <n-modal v-model:show="headerModal.show">
             <n-card class="w-800px" closable title="配置表头" @close="closeHeaderModal">
                 <n-grid class="mb-10px" style="width: calc(100% - 88px)" x-gap="10" y-gap="10">
-                    <n-grid-item :span="6">
-                        <n-tag :bordered="false" class="w-100% flex-center" size="large" type="primary">表头标题</n-tag>
-                    </n-grid-item>
-                    <n-grid-item :span="6">
-                        <n-tag :bordered="false" class="w-100% flex-center" size="large" type="primary">表头key</n-tag>
-                    </n-grid-item>
-                    <n-grid-item :span="6">
-                        <n-tag :bordered="false" class="w-100% flex-center" size="large" type="primary">组件类型</n-tag>
-                    </n-grid-item>
-                    <n-grid-item :span="6">
-                        <n-tag :bordered="false" class="w-100% flex-center" size="large" type="primary">数据来源</n-tag>
+                    <n-grid-item v-for="item in ['表头标题', '表头key', '组件类型', '数据来源']" :span="6">
+                        <n-tag :bordered="false" class="w-100% flex-center" size="large" type="primary">
+                            {{ item }}
+                        </n-tag>
                     </n-grid-item>
                 </n-grid>
                 <n-dynamic-input v-model:value="headerModal.list" :on-create="() => ({ title: '', key: '' })">
@@ -98,7 +91,7 @@ interface Props {
     // 表头配置
     header: DynamicTableHeaderProps[];
     // 表格数据
-    data: DynamicTableRowProps[];
+    value: DynamicTableRowProps[];
     // 下拉框数据来源
     dataSource: (SelectOption | SelectGroupOption)[];
 }
@@ -106,11 +99,11 @@ interface Props {
 let props = withDefaults(defineProps<Props>(), {
     debug: false,
     header: () => [],
-    data: () => [],
+    value: () => [],
     dataSource: () => []
 });
 
-let emits = defineEmits(["update:header", "update:data"]);
+let emits = defineEmits(["update:header", "update:value"]);
 
 let { tableRowKey, tableSelection, changeTableSelection } = useCommonTable("key");
 
@@ -120,10 +113,7 @@ let typeOptions = [
 ];
 
 // 表头配置
-let headerModal = ref<{
-    show: boolean;
-    list: DynamicTableHeaderProps[];
-}>({
+let headerModal = ref({
     show: false,
     list: props.header
 });
@@ -191,11 +181,11 @@ let createTableColumns = () => {
 let tableColumns = ref(createTableColumns());
 
 // NDataTable行配置
-let tableData = ref<DynamicTableRowProps[]>(props.data);
+let tableData = ref<DynamicTableRowProps[]>(props.value);
 
 watch(
     () => tableData.value,
-    (val) => emits("update:data", val),
+    (val) => emits("update:value", val),
     { deep: true }
 );
 

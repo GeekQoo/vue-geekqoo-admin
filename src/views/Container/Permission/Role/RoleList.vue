@@ -1,6 +1,6 @@
 <template>
     <n-card hoverable>
-        <DynamicTable v-model:data="tableData" v-model:header="tableHeader" :data-source="tableDataSource" debug />
+        <DynamicTable v-model:value="tableData" v-model:header="tableHeader" :data-source="tableDataSource" debug />
     </n-card>
 </template>
 
