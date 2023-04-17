@@ -33,7 +33,7 @@ onMounted(() => {
     getTableData();
 });
 
-let { tableData, tableLoading, tableRowKey } = useCommonTable();
+let { tableData, tableLoading, tableRowKey } = useCommonTable<RowProps>("id");
 
 let tableColumns = ref<DataTableColumns<RowProps>>([
     {

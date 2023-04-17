@@ -105,7 +105,7 @@ let props = withDefaults(defineProps<Props>(), {
 
 let emits = defineEmits(["update:header", "update:value"]);
 
-let { tableRowKey, tableSelection, changeTableSelection } = useCommonTable("key");
+let { tableRowKey, tableSelection, changeTableSelection } = useCommonTable<DynamicTableRowProps>("key");
 
 let typeOptions = [
     { label: "输入框", value: "input" },

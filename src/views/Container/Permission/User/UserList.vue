@@ -90,7 +90,7 @@ let onSearch = () => {
 
 // 数据列表
 let { tableData, tableLoading, tableRowKey, tableSelection, changeTableSelection, tablePaginationPreset } =
-    useCommonTable();
+    useCommonTable<RowProps>("id");
 
 let tableColumns = ref<DataTableColumns<RowProps>>([
     {
