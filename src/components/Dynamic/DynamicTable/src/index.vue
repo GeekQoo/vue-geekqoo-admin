@@ -1,9 +1,13 @@
 <template>
     <div class="dynamic-table">
         <n-space class="mb-20px">
-            <n-button secondary type="primary" @click="openHeaderModal">配置表头</n-button>
-            <n-button :disabled="header.length <= 0" secondary type="success" @click="addTableRow"> 新增行</n-button>
-            <n-button :disabled="header.length <= 0" secondary type="error" @click="deleteTableRow"> 删除行</n-button>
+            <n-button v-if="headerConfigurable" secondary type="primary" @click="openHeaderModal">配置表头</n-button>
+            <n-button v-if="addable" :disabled="header.length <= 0" secondary type="success" @click="addTableRow">
+                新增行
+            </n-button>
+            <n-button v-if="deletable" :disabled="header.length <= 0" secondary type="error" @click="deleteTableRow">
+                删除行
+            </n-button>
         </n-space>
         <!--表头配置-->
         <n-modal v-model:show="headerModal.show">
@@ -94,13 +98,20 @@ interface Props {
     value: DynamicTableRowProps[];
     // 下拉框数据来源
     dataSource: (SelectOption | SelectGroupOption)[];
+    // 按钮配置
+    headerConfigurable?: boolean;
+    addable?: boolean;
+    deletable?: boolean;
 }
 
 let props = withDefaults(defineProps<Props>(), {
     debug: false,
     header: () => [],
     value: () => [],
-    dataSource: () => []
+    dataSource: () => [],
+    headerConfigurable: true,
+    addable: true,
+    deletable: true
 });
 
 let emits = defineEmits(["update:header", "update:value"]);
@@ -113,10 +124,7 @@ let typeOptions = [
 ];
 
 // 表头配置
-let headerModal = ref({
-    show: false,
-    list: props.header
-});
+let headerModal = ref({ show: false, list: props.header });
 
 let openHeaderModal = () => (headerModal.value.show = true);
 
@@ -171,7 +179,7 @@ let createTableColumns = () => {
                         placeholder: `请选择${item.title}`,
                         onUpdateValue: (v) => (tableData.value[index][item.key] = v)
                     });
-                } else return "组件异常";
+                } else return "暂无组件";
             }
         };
     });
