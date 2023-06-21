@@ -37,18 +37,21 @@ export const useStoreUser = defineStore({
         requestUserData() {
             let storeDesign = useStoreDesign();
             storeDesign.setGlobalLoading(true);
-            let getMenus = (menu: any[]) => {
-                return menu.map((item: any) => {
+            let getMenus = (menu: App.MenuProps[]) => {
+                return menu.map((item) => {
                     if (item.icon) item.icon = renderDynamicIcon(item.icon as any);
                     if (item.children) item.children = getMenus(item.children);
                     return item;
                 });
             };
             return new Promise((resolve) => {
-                GET_USERINFO({}).then((res) => {
+                GET_USERINFO<App.UserDataProps>({}).then((res) => {
                     if (res.data.code === 1) {
-                        res.data.data.menu = getMenus(res.data.data.menu);
-                        this.userData = res.data.data;
+                        let menus = getMenus(res.data.data!.menu!);
+                        this.userData = {
+                            ...res.data.data,
+                            menu: menus as any
+                        };
                         storeDesign.setGlobalLoading(false);
                         resolve(res.data.data);
                     }

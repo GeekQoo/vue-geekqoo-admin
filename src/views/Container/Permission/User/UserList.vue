@@ -92,7 +92,7 @@ let onSearch = () => {
 let { tableData, tableLoading, tableRowKey, tableSelection, changeTableSelection, tablePaginationPreset } =
     useCommonTable<RowProps>("id");
 
-let tableColumns = ref<DataTableColumns<RowProps>>([
+let tableColumns: DataTableColumns<RowProps> = [
     {
         type: "selection"
     },
@@ -166,7 +166,7 @@ let tableColumns = ref<DataTableColumns<RowProps>>([
             });
         }
     }
-]);
+];
 
 let tablePagination = reactive({
     ...tablePaginationPreset,
@@ -183,11 +183,11 @@ let tablePagination = reactive({
 
 let getTableData = () => {
     tableLoading.value = true;
-    GET_USER_LIST({
+    GET_USER_LIST<RowProps[]>({
         ...searchForm.value
     }).then((res) => {
-        tableData.value = res.data.data;
-        tablePagination.itemCount = res.data.total;
+        tableData.value = res.data.data ?? [];
+        tablePagination.itemCount = res.data.total ?? 0;
         tableLoading.value = false;
     });
 };

@@ -82,7 +82,7 @@ let getSearchOptions = () => {};
 let { tableData, tableLoading, tableRowKey, tableSelection, changeTableSelection, tablePaginationPreset } =
     useCommonTable<RowProps>("id");
 
-let tableColumns = ref<DataTableColumns<RowProps>>([
+let tableColumns: DataTableColumns<RowProps> = [
     {
         type: "selection"
     },
@@ -120,23 +120,19 @@ let tableColumns = ref<DataTableColumns<RowProps>>([
                     {
                         label: "编辑",
                         tertiary: true,
-                        onClick: () => {
-                            console.log(111, row);
-                        }
+                        onClick: () => {}
                     },
                     {
                         label: "删除",
                         tertiary: true,
                         type: "error",
-                        onClick: () => {
-                            console.log(222, row);
-                        }
+                        onClick: () => {}
                     }
                 ]
             });
         }
     }
-]);
+];
 
 let tablePagination = reactive({
     ...tablePaginationPreset,
@@ -153,9 +149,9 @@ let tablePagination = reactive({
 
 let getTableData = () => {
     tableLoading.value = true;
-    GET_MENU_LIST({}).then((res) => {
-        tableData.value = res.data.data;
-        tablePagination.itemCount = res.data.total;
+    GET_MENU_LIST<RowProps[]>({}).then((res) => {
+        tableData.value = res.data.data ?? [];
+        tablePagination.itemCount = res.data.total ?? 0;
         tableLoading.value = false;
     });
 };

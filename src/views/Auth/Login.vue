@@ -48,9 +48,9 @@ let loginLoading = ref(false);
 
 let onLogin = () => {
     loginLoading.value = true;
-    AUTH_LOGIN({ ...loginForm.value }).then(async (loginRes) => {
-        if (loginRes.data.code === 1) {
-            storeUser.setToken(loginRes.data.data.token);
+    AUTH_LOGIN<{ token: string }>({ ...loginForm.value }).then(async (res) => {
+        if (res.data.code === 1) {
+            storeUser.setToken(res.data.data?.token);
             await storeUser.requestUserData();
             await $router.push("/");
         }
