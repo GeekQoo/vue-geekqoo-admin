@@ -15,22 +15,22 @@ export const useStoreDesign = defineStore({
     actions: {
         setCurrentTheme(value: string) {
             this.currentTheme = value;
-            setLocalStorage("currentTheme", value);
+            setLocalStorage<string>("currentTheme", value);
         },
         setPageAnimation(value: string) {
             this.pageAnimation = value;
-            setLocalStorage("pageAnimation", value);
+            setLocalStorage<string>("pageAnimation", value);
         },
         setThemeColor(value: string) {
             this.themeColor = value;
-            setLocalStorage("themeColor", value);
+            setLocalStorage<string>("themeColor", value);
         },
         setPageZoom(value: number) {
             this.pageZoom = value;
         },
         setMenuMode(value: string) {
             this.menuMode = value;
-            setLocalStorage("menuMode", value);
+            setLocalStorage<string>("menuMode", value);
         },
         setGlobalLoading(value: boolean) {
             this.globalLoading = value;

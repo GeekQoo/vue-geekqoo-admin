@@ -9,7 +9,7 @@ export const useStoreNavigation = defineStore({
     actions: {
         setNavigation(value: App.NavigationProps[]) {
             this.navigation = value;
-            setLocalStorage("navigation", value);
+            setLocalStorage<App.NavigationProps[]>("navigation", value);
         },
         clearNavigation() {
             this.navigation = [];

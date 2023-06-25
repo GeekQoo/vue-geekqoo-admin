@@ -73,7 +73,7 @@ export const useStoreUser = defineStore({
         setHeaderMenuActive(value?: string) {
             if (value || value === "0") {
                 this.headerMenuActive = value;
-                setSessionStorage("headerMenuActive", value);
+                setSessionStorage<string>("headerMenuActive", value);
             } else {
                 this.headerMenuActive = "";
                 clearSessionStorage("headerMenuActive");

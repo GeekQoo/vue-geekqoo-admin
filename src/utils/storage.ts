@@ -1,31 +1,39 @@
 // cookie
-export function setCookie(c_name: string, value: any, expire: number) {
-    let date = new Date();
-    date.setSeconds(date.getSeconds() + expire);
-
-    document.cookie = c_name + "=" + escape(value) + "; expires=" + date.toUTCString() + "; path=/";
+export function setCookie(name: string, value: string, expireSeconds: number): void {
+    const date = new Date();
+    const encodedValue = encodeURIComponent(value);
+    date.setSeconds(date.getSeconds() + expireSeconds);
+    document.cookie = `${name}=${encodedValue}; expires=${date.toUTCString()}; path=/`;
 }
 
-export function getCookie(c_name: string) {
-    let arr,
-        reg = new RegExp("(^| )" + c_name + "=([^;]*)(;|$)");
-    if ((arr = document.cookie.match(reg))) return unescape(arr[2]);
-    else return "";
+export function getCookie(name: string): string {
+    return (
+        document.cookie
+            .split(";")
+            .map((c) => c.trim())
+            .find((c) => c.substring(0, name.length + 1) === `${name}=`)
+            ?.substring(name.length + 1) || ""
+    );
 }
 
-export function delCookie(c_name: string) {
-    setCookie(c_name, "", -1);
+export function delCookie(name: string): void {
+    const expires = new Date(0).toUTCString();
+    document.cookie = `${name}=;expires=${expires};path=/`;
 }
 
 // LocalStorage
-export function setLocalStorage(key: string, value: any) {
+export function setLocalStorage<T = unknown>(key: string, value: T) {
     clearLocalStorage(key);
     return localStorage.setItem(key, JSON.stringify(value));
 }
 
 export function getLocalStorage(key: string) {
-    let value: any = localStorage.getItem(key);
-    return JSON.parse(value);
+    try {
+        let value = localStorage.getItem(key);
+        return value ? JSON.parse(value) : "";
+    } catch (error) {
+        return "";
+    }
 }
 
 // 清除 LocalStorage
@@ -34,13 +42,17 @@ export function clearLocalStorage(key: string) {
 }
 
 // 设置 SessionStorage
-export function setSessionStorage(key: string, value: any) {
+export function setSessionStorage<T = unknown>(key: string, value: unknown) {
     return sessionStorage.setItem(key, JSON.stringify(value));
 }
 
 export function getSessionStorage(key: string) {
-    let value: any = sessionStorage.getItem(key);
-    return JSON.parse(value);
+    try {
+        let value = sessionStorage.getItem(key);
+        return value ? JSON.parse(value) : "";
+    } catch (error) {
+        return "";
+    }
 }
 
 //清除 SessionStorage
