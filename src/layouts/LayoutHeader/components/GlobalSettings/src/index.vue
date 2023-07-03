@@ -21,9 +21,9 @@
                 <div class="flex-y-center mb">
                     <span>主题颜色</span>
                     <n-color-picker
-                        :value="storeDesign.themeColor"
                         :show-alpha="false"
                         :swatches="themeColorPreset"
+                        :value="storeDesign.themeColor"
                         class="ml-a w-36"
                         @update:value="changeThemeColor"
                     />
@@ -31,8 +31,8 @@
                 <div class="flex-y-center mb">
                     <span>页面大小</span>
                     <n-select
-                        :value="storeDesign.pageZoom"
                         :options="pageZoomPreset"
+                        :value="storeDesign.pageZoom"
                         class="ml-a w-36"
                         @update:value="changePageZoom"
                     />
@@ -40,8 +40,8 @@
                 <div class="flex-y-center mb">
                     <span>菜单模式</span>
                     <n-select
-                        :value="storeDesign.menuMode"
                         :options="menuModePreset"
+                        :value="storeDesign.menuMode"
                         class="ml-a w-36"
                         @update:value="changeMenuMode"
                     />
@@ -56,7 +56,7 @@ import { ref } from "vue";
 import { Settings28Regular } from "@vicons/fluent";
 import { ThemeSwitch } from "../../ThemeSwitch";
 import { useStoreDesign } from "@/store";
-import { pageAnimationPreset, themeColorPreset, pageZoomPreset, menuModePreset } from "@/setttings/theme";
+import { menuModePreset, pageAnimationPreset, pageZoomPreset, themeColorPreset } from "@/setttings/theme";
 
 let storeDesign = useStoreDesign();
 
@@ -74,7 +74,7 @@ let changeThemeColor = (val: string) => {
 
 // 页面缩放
 let changePageZoom = (val: number) => {
-    (document.body.style as any).zoom = val;
+    document.body.style.cssText = `zoom: ${val}`;
     storeDesign.setPageZoom(val);
 };
 

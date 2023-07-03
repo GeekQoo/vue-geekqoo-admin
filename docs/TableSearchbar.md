@@ -3,7 +3,7 @@
 ## 介绍
 
 -   TableSearchbar 是一个基于 naive-ui 封装的基础列表搜索栏组件，目前支持输入框、下拉框、时间日期选择器。
--   更新时间：2022-12-03
+-   更新时间：2023-7-3
 
 ## 现有功能
 
@@ -73,13 +73,13 @@ let searchConfig = ref<TableSearchbarConfig>([
 搜索条件列表，目前仅用于下拉框。如果配置了没生效，有可能是下面两种情况：
 
 1. 配置项中的类型不是`select`
-2. 配置项中的字段名未和`propName`保持一致
+2. 配置项中的字段名未和`key`保持一致
 
 #### 配置项参考
 
 ```typescript
 export type TableSearchbarOptions = {
-    [propName: string]: Array<SelectOption | SelectGroupOption>;
+    [key: string]: Array<SelectOption | SelectGroupOption>;
 };
 ```
 
@@ -98,13 +98,13 @@ let searchbarOptions = ref<TableSearchbarOptions>({
 
 ### data
 
-搜索条件数据，`propName`需要和配置项参数名保持一致。
+搜索条件数据，`key`需要和配置项参数名保持一致。
 
 #### 配置项参考
 
 ```typescript
 export type TableSearchbarData = {
-    [propName: string]: any; // 参数
+    [key: string]: Nullable<unknown>; // 参数
 };
 ```
 

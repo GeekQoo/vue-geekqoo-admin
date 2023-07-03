@@ -12,8 +12,9 @@ export type TableSearchbarConfig = Array<{
 }>;
 
 export type TableSearchbarOptions = {
-    [propName: string]: Array<SelectOption | SelectGroupOption>;
+    [key: string]: Array<SelectOption | SelectGroupOption>;
 };
+
 export type TableSearchbarData = {
-    [propName: string]: any; // 参数
+    [key: string]: Nullable<unknown>; // 参数
 };
