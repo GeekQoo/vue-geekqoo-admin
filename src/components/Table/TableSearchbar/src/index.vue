@@ -79,20 +79,18 @@ import { onMounted, ref } from "vue";
 import type { TableSearchbarConfig, TableSearchbarData, TableSearchbarOptions } from "@/components/Table";
 import { cloneDeep } from "lodash-es";
 
-let props = defineProps({
-    config: {
-        type: Array as PropType<TableSearchbarConfig>,
-        default: () => []
-    },
-    options: {
-        type: Object as PropType<TableSearchbarOptions>,
-        default: () => {}
-    },
-    form: {
-        type: Object as PropType<TableSearchbarData>,
-        default: () => {}
+let props = withDefaults(
+    defineProps<{
+        config: TableSearchbarConfig;
+        options: TableSearchbarOptions;
+        form: TableSearchbarData;
+    }>(),
+    {
+        config: () => [],
+        options: () => ({}),
+        form: () => ({})
     }
-});
+);
 
 let emits = defineEmits(["update:form", "search", "reset"]);
 

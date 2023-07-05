@@ -20,14 +20,14 @@
 <script lang="ts" setup>
 import type { TableButtonActions } from "./types";
 
-let props = defineProps({
-    type: {
-        type: String as PropType<"button">,
-        default: "button"
-    },
-    buttonActions: {
-        type: Array as PropType<TableButtonActions>,
-        default: []
+let props = withDefaults(
+    defineProps<{
+        type: "button";
+        buttonActions?: TableButtonActions;
+    }>(),
+    {
+        type: "button",
+        buttonActions: () => []
     }
-});
+);
 </script>
