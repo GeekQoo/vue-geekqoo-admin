@@ -9,27 +9,14 @@ let service: AxiosInstance = axios.create({
 });
 
 // 请求拦截
-interface ConfigProps extends InternalAxiosRequestConfig {
-    hasLoading?: boolean;
-}
-
 service.interceptors.request.use(
-    (config: ConfigProps) => config,
+    (config: InternalAxiosRequestConfig) => config,
     (error) => Promise.reject(error)
 );
 
-// 响应类型
-interface RequestResProps<T = unknown> {
-    code: number;
-    data?: T;
-    total?: Nullable<number>;
-
-    [key: string]: unknown;
-}
-
 // 响应拦截
 service.interceptors.response.use(
-    (response: AxiosResponse<RequestResProps>) => response,
+    (response: AxiosResponse<App.ResponseProps>) => response,
     (error) => {
         checkStatus(error?.response?.status);
         return Promise.reject(error.response);
@@ -41,7 +28,7 @@ export function httpRequest<T>(
     url: string,
     method: Method,
     config?: UnKnownObject
-): Promise<AxiosResponse<RequestResProps<T>>> {
+): Promise<AxiosResponse<App.ResponseProps<T>>> {
     return service({
         url,
         method,

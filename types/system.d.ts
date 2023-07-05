@@ -2,6 +2,15 @@ import type { MenuOption } from "naive-ui";
 
 declare global {
     declare namespace App {
+        // 响应类型
+        interface ResponseProps<T = unknown> {
+            code: number;
+            data?: T;
+            total?: Nullable<number>;
+
+            [key: string]: unknown;
+        }
+
         // 路由导航条
         interface NavigationProps {
             title: string;
