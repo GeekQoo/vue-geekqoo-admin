@@ -1,4 +1,4 @@
-# TableActions 数据表格基础交互组件 V0.0.1
+# TableActions 数据表格基础交互组件 V0.0.2
 
 ## 介绍
 
@@ -8,7 +8,7 @@ TableActions 是一个基础的数据表格交互组件，用于快速配置 n-d
 
 ### type
 
-交互类型，目前支持`button`和`switch`。
+交互类型，目前支持`button`。
 
 ### buttonActions
 
@@ -46,46 +46,6 @@ return h(TableActions, {
             type: "error",
             onClick: () => {
                 console.log(222, row);
-            }
-        }
-    ]
-});
-```
-
-### switchActions
-
-当`type`为`switch`时，用于配置开关列表。
-
-#### 配置项参考
-
-```typescript
-export type TableSwitchActions = {
-    defaultValue: boolean | string | number; // 非受控模式下的默认值
-    checkedValue?: boolean | string | number; // 选中时的值
-    uncheckedValue?: boolean | string | number; // 未选中时的值
-    checkedText?: string; // 选中时的文本,
-    uncheckedText?: string; // 未选中时的文本,
-    onChange?: (value: boolean | string | number) => void; // 变化时回调函数
-    disabled?: () => boolean; // 是否禁用
-    size?: "small" | "medium" | "large"; // 大小
-}[];
-```
-
-#### demo
-
-```typescript
-return h(TableActions, {
-    type: "switch",
-    switchActions: [
-        {
-            checkedValue: 1,
-            uncheckedValue: 0,
-            defaultValue: 0,
-            checkedText: "启用",
-            uncheckedText: "禁用",
-            size: "medium",
-            onChange: (value: any) => {
-                window.$message.info(`当前状态：${value}`);
             }
         }
     ]

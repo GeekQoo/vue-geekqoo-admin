@@ -12,7 +12,7 @@ export type TableSearchbarConfig = Array<{
 }>;
 
 export type TableSearchbarOptions = {
-    [key: string]: Array<SelectOption | SelectGroupOption>;
+    [key: string]: (SelectOption | SelectGroupOption)[];
 };
 
 export type TableSearchbarData = {

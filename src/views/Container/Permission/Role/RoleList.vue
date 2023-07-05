@@ -5,10 +5,9 @@
 </template>
 
 <script lang="ts" setup>
+import { onMounted, ref, watch } from "vue";
 import type { DynamicTableHeaderProps } from "@/components/Dynamic";
 import { DynamicTable } from "@/components/Dynamic";
-
-import { onMounted, ref, watch } from "vue";
 
 let tableHeader = ref<DynamicTableHeaderProps[]>([
     { title: "测试表头1", key: "test1", type: "select", source: "source2" },

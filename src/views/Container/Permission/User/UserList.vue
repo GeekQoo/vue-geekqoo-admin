@@ -117,30 +117,6 @@ let tableColumns: DataTableColumns<RowProps> = [
         align: "center"
     },
     {
-        title: "状态",
-        key: "status",
-        align: "center",
-        width: 100,
-        render() {
-            return h(TableActions, {
-                type: "switch",
-                switchActions: [
-                    {
-                        checkedValue: 1,
-                        uncheckedValue: 0,
-                        defaultValue: 0,
-                        checkedText: "启用",
-                        uncheckedText: "禁用",
-                        size: "medium",
-                        onChange: (value: any) => {
-                            window.$message.info(`当前状态：${value}`);
-                        }
-                    }
-                ]
-            });
-        }
-    },
-    {
         title: "操作",
         key: "actions",
         align: "center",
