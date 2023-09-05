@@ -23,6 +23,7 @@
                 bordered
                 remote
                 striped
+                :checked-row-keys="tableSelection"
                 @update:checked-row-keys="changeTableSelection"
             />
         </n-card>

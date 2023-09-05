@@ -76,6 +76,7 @@
             :single-line="false"
             bordered
             striped
+            :checked-row-keys="tableSelection"
             @update:checked-row-keys="changeTableSelection"
         />
         <pre v-if="debug">{{ JSON.stringify(tableData, null, 2) }}</pre>
