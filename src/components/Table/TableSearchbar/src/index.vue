@@ -11,6 +11,7 @@
                         class="flex-auto"
                         clearable
                         type="text"
+                        @click="onComponentClick"
                     />
                     <n-select
                         v-if="item.type === 'select'"
@@ -21,6 +22,7 @@
                         :value-field="item.valueField || 'value'"
                         class="flex-auto"
                         clearable
+                        @click="onComponentClick"
                     />
                     <!--日期时间组件-->
                     <template v-if="item.dateFormat">
@@ -32,6 +34,7 @@
                             :value-format="item.dateFormat"
                             class="flex-auto"
                             clearable
+                            @click="onComponentClick"
                         />
                         <n-date-picker
                             v-if="item.type === 'datetimerange'"
@@ -41,6 +44,7 @@
                             class="flex-auto"
                             clearable
                             type="datetimerange"
+                            @click="onComponentClick"
                         />
                     </template>
                     <template v-else>
@@ -51,6 +55,7 @@
                             :type="item.type"
                             class="flex-auto"
                             clearable
+                            @click="onComponentClick"
                         />
                         <n-date-picker
                             v-if="item.type === 'datetimerange'"
@@ -59,6 +64,7 @@
                             class="flex-auto"
                             clearable
                             type="datetimerange"
+                            @click="onComponentClick"
                         />
                     </template>
                 </div>
@@ -75,24 +81,32 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import type { TableSearchbarConfig, TableSearchbarData, TableSearchbarOptions } from "@/components/Table";
 import { cloneDeep } from "lodash-es";
+import { useThrottleFn } from "@vueuse/core";
 
 let props = withDefaults(
     defineProps<{
+        autoSearch?: boolean;
         config: TableSearchbarConfig;
         options: TableSearchbarOptions;
         form: TableSearchbarData;
     }>(),
     {
+        autoSearch: () => false,
         config: () => [],
         options: () => ({}),
         form: () => ({})
     }
 );
 
-let emits = defineEmits(["update:form", "search", "reset"]);
+let emits = defineEmits(["update:form", "search", "componentClick", "reset"]);
+
+let form = computed({
+    get: () => props.form,
+    set: (value) => emits("update:form", value)
+});
 
 // 默认值
 let defaultForm = ref({});
@@ -101,17 +115,34 @@ onMounted(() => {
     defaultForm.value = cloneDeep(props.form);
 });
 
+// 聚焦事件
+let onComponentClick = () => {
+    emits("componentClick", form.value);
+};
+
 // 搜索功能
 let onSearch = async () => {
-    let cloneForm = cloneDeep(props.form);
-    await emits("update:form", cloneForm);
-    emits("search", cloneForm);
+    emits("search", form.value);
 };
 
 // 重置功能
 let onReset = async () => {
-    let cloneForm = cloneDeep(defaultForm.value);
-    await emits("update:form", cloneForm);
-    emits("reset", cloneForm);
+    emits("reset", defaultForm.value);
 };
+
+let throttleSearch = useThrottleFn(() => {
+    onSearch();
+}, 200);
+
+watch(
+    () => cloneDeep(form.value),
+    () => {
+        if (props.autoSearch) {
+            throttleSearch();
+        }
+    },
+    {
+        deep: true
+    }
+);
 </script>
