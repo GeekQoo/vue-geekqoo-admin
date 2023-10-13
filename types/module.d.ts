@@ -7,6 +7,7 @@ declare module "autoprefixer";
 declare module "lodash-es";
 declare module "@vueuse/core";
 declare module "dayjs";
+declare module "bpmn-js-properties-panel";
 
 // Naive-ui
 interface Window {

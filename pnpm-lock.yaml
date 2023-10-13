@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@bpmn-io/properties-panel':
+    specifier: ^3.10.0
+    version: 3.10.0(@lezer/common@1.1.0)
   '@vicons/antd':
     specifier: ^0.12.0
     version: 0.12.0
@@ -22,7 +25,7 @@ dependencies:
     version: 14.0.0
   bpmn-js-properties-panel:
     specifier: ^5.5.0
-    version: 5.5.0(@bpmn-io/properties-panel@3.9.0)(bpmn-js@14.0.0)(camunda-bpmn-js-behaviors@1.1.0)(diagram-js@12.4.0)(preact@10.18.1)
+    version: 5.5.0(@bpmn-io/properties-panel@3.10.0)(bpmn-js@14.0.0)(camunda-bpmn-js-behaviors@1.1.0)(diagram-js@12.4.0)(preact@10.18.1)
   dayjs:
     specifier: ^1.11.7
     version: 1.11.7
@@ -181,8 +184,8 @@ packages:
       lezer-feel: 1.2.0
     dev: false
 
-  /@bpmn-io/properties-panel@3.9.0(@lezer/common@1.1.0):
-    resolution: {integrity: sha512-W+d31wVD8ZflnzIGLL1KpEKPTjeUKHP2YS2xqFXVGaCNM0uRvgjvpd4C44fOfXeWa3dLKCJKBJDz7TBkk9Fhvw==}
+  /@bpmn-io/properties-panel@3.10.0(@lezer/common@1.1.0):
+    resolution: {integrity: sha512-rRJkWfEMol48Tz8HvHL60nmoH6rC3vW18QxMEHPG+pN/VN9rcJEiBjuiINzoaLSyum3SPrEmEvUPyhKh42jmhw==}
     dependencies:
       '@bpmn-io/feel-editor': 0.9.1(@lezer/common@1.1.0)
       '@codemirror/view': 6.21.3
@@ -1214,7 +1217,7 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /bpmn-js-properties-panel@5.5.0(@bpmn-io/properties-panel@3.9.0)(bpmn-js@14.0.0)(camunda-bpmn-js-behaviors@1.1.0)(diagram-js@12.4.0)(preact@10.18.1):
+  /bpmn-js-properties-panel@5.5.0(@bpmn-io/properties-panel@3.10.0)(bpmn-js@14.0.0)(camunda-bpmn-js-behaviors@1.1.0)(diagram-js@12.4.0)(preact@10.18.1):
     resolution: {integrity: sha512-GOWJUNxyBdw5saPBgoSdQYsixHhPEKpvqDJtdLMAOEcdbAXmbSrDDfn1OxutByFmvMLY5G9K1xiyQ1xZ0uN0Rg==}
     peerDependencies:
       '@bpmn-io/properties-panel': '>= 3.7'
@@ -1223,7 +1226,7 @@ packages:
       diagram-js: '>= 11.9'
     dependencies:
       '@bpmn-io/extract-process-variables': 0.8.0
-      '@bpmn-io/properties-panel': 3.9.0(@lezer/common@1.1.0)
+      '@bpmn-io/properties-panel': 3.10.0(@lezer/common@1.1.0)
       array-move: 3.0.1
       bpmn-js: 14.0.0
       camunda-bpmn-js-behaviors: 1.1.0(bpmn-js@14.0.0)(camunda-bpmn-moddle@7.0.1)(zeebe-bpmn-moddle@1.0.0)
