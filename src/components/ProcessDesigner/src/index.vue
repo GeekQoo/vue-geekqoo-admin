@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref, watch } from "vue";
+import { onMounted, onUnmounted, watch } from "vue";
 import { useThrottleFn } from "@vueuse/core";
 import translate from "@/plugins/bpmn/i18n";
 import BpmnModeler from "bpmn-js/lib/Modeler";
@@ -19,10 +19,10 @@ let props = withDefaults(defineProps<{ xml: string }>(), {
 let emits = defineEmits(["update:xml"]);
 
 // 建模
-let modeler = ref<any>("");
+let modeler: any = null;
 
 let onModeling = async () => {
-    [modeler.value] = await Promise.all([
+    [modeler] = await Promise.all([
         new BpmnModeler({
             container: "#canvas",
             propertiesPanel: {
@@ -37,14 +37,14 @@ let onModeling = async () => {
             moddleExtensions: {}
         })
     ]);
-    await modeler.value.createDiagram();
+    await modeler.createDiagram();
 };
 
 onMounted(async () => {
     await onModeling();
     if (props.xml) {
         try {
-            await modeler.value.importXML(props.xml);
+            await modeler.importXML(props.xml);
         } catch (err) {
             console.log("err", err);
         }
@@ -53,7 +53,7 @@ onMounted(async () => {
 
 // 流程变更
 watch(
-    () => modeler.value,
+    () => modeler,
     (val) => {
         if (val) {
             val.on("commandStack.changed", modelerChange);
@@ -67,9 +67,13 @@ let modelerChange = useThrottleFn(() => {
 
 // 保存
 let onSave = async () => {
-    let { xml } = await modeler.value.saveXML({ format: true });
+    let { xml } = await modeler.saveXML({ format: true });
     emits("update:xml", xml);
 };
+
+onUnmounted(() => {
+    modeler.destroy();
+});
 </script>
 
 <style lang="scss">

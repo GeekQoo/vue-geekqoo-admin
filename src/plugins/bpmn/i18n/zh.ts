@@ -130,7 +130,8 @@ export default {
     "ID must be unique.": "ID必须唯一",
     "ID must not be empty.": "ID不能为空",
     //属性面板的参数
-    Id: "编号",
+    Id: "ID",
+    ID: "ID",
     Name: "名称",
     General: "常规",
     Details: "详情",
@@ -154,7 +155,6 @@ export default {
     "Form Fields": "表单字段",
     "Business Key": "业务key",
     "Form Field": "表单字段",
-    ID: "编号",
     Type: "类型",
     Label: "名称",
     "Default Value": "默认值",
