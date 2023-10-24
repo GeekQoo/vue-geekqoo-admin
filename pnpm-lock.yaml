@@ -1,9 +1,5 @@
 lockfileVersion: '6.0'
 
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
-
 dependencies:
   '@bpmn-io/properties-panel':
     specifier: ^3.10.0
@@ -2910,3 +2906,7 @@ packages:
   /zeebe-bpmn-moddle@1.0.0:
     resolution: {integrity: sha512-ZXEe+0s6Z1jf0hfK4VfRr71p4FcXkYz+MxVx6vMCiey2KVZqY1uj6KCpzK9+tEJzTdxGRS3FymK3oxAkjzs1GA==}
     dev: false
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
