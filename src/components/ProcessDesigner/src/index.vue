@@ -2,16 +2,18 @@
     <div class="process-designer wh-100% relative">
         <div id="canvas" class="wh-100%" />
         <div v-show="debug" id="properties" class="absolute right-20px top-20px" />
+        <NodeConfig v-model:show="NodeConfigDrawer.show" :id="NodeConfigDrawer.id" :modeler="modeler" />
     </div>
 </template>
 
 <script lang="ts" setup>
-import { onMounted, onUnmounted } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import { useThrottleFn } from "@vueuse/core";
+import dayjs from "dayjs";
 import translate from "./utils/i18n";
 import BpmnModeler from "bpmn-js/lib/Modeler";
 import { BpmnPropertiesPanelModule, BpmnPropertiesProviderModule } from "bpmn-js-properties-panel";
-import dayjs from "dayjs";
+import { NodeConfig } from "./components";
 
 let props = withDefaults(
     defineProps<{
@@ -97,6 +99,10 @@ let onWatchModeler = () => {
                 break;
             case "bpmn:UserTask":
                 window.$message.success(`选中用户任务，ID为${e.element.id}`);
+                NodeConfigDrawer.value = {
+                    show: true,
+                    id: e.element.id
+                };
                 break;
             case "bpmn:ExclusiveGateway":
                 window.$message.success(`选中排他网关，ID为${e.element.id}`);
@@ -118,6 +124,12 @@ let onAutoSave = useThrottleFn(async () => {
     let { xml } = await modeler.saveXML({ format: true });
     emits("update:xml", xml);
 }, 1000);
+
+// 节点配置
+let NodeConfigDrawer = ref<{ show: boolean; id: string }>({
+    show: false,
+    id: ""
+});
 
 onUnmounted(() => {
     modeler.destroy();

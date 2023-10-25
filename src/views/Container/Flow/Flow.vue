@@ -22,7 +22,7 @@ let getXml = () => {
     <bpmn:incoming>Flow_0syynkn</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0syynkn" sourceRef="task_1" targetRef="Event_0eojx0h" />
-    <bpmn:userTask id="task_1" name="测试">
+    <bpmn:userTask id="task_1" name="">
     <bpmn:incoming>Flow_0ofkit1</bpmn:incoming>
     <bpmn:outgoing>Flow_0syynkn</bpmn:outgoing>
     </bpmn:userTask>
