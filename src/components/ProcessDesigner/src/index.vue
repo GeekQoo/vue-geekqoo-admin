@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 import { onMounted, onUnmounted } from "vue";
 import { useThrottleFn } from "@vueuse/core";
-import translate from "@/plugins/bpmn/i18n";
+import translate from "./utils/i18n";
 import BpmnModeler from "bpmn-js/lib/Modeler";
 import { BpmnPropertiesPanelModule, BpmnPropertiesProviderModule } from "bpmn-js-properties-panel";
 import dayjs from "dayjs";
@@ -85,11 +85,31 @@ let onWatchModeler = () => {
         onAutoSave();
     });
     modeler.on("element.click", (e: any) => {
-        if (e.element.type === "bpmn:Process") {
-            window.$message.success(`选中流程，ID为${e.element.id}`);
-        } else {
-            window.$message.success(`选中节点，ID为${e.element.id}`);
-            console.log(e.element);
+        switch (e.element.type) {
+            case "bpmn:Process":
+                window.$message.success(`选中流程，ID为${e.element.id}`);
+                break;
+            case "bpmn:StartEvent":
+                window.$message.success(`选中开始节点，ID为${e.element.id}`);
+                break;
+            case "bpmn:EndEvent":
+                window.$message.success(`选中结束节点，ID为${e.element.id}`);
+                break;
+            case "bpmn:UserTask":
+                window.$message.success(`选中用户任务，ID为${e.element.id}`);
+                break;
+            case "bpmn:ExclusiveGateway":
+                window.$message.success(`选中排他网关，ID为${e.element.id}`);
+                break;
+            case "bpmn:ParallelGateway":
+                window.$message.success(`选中并行网关，ID为${e.element.id}`);
+                break;
+            case "bpmn:SequenceFlow":
+                window.$message.success(`选中连线，ID为${e.element.id}`);
+                break;
+            default:
+                window.$message.success(`选中节点，ID为${e.element.id}`);
+                break;
         }
     });
 };
