@@ -1,7 +1,7 @@
 <template>
     <div class="process-designer wh-100% relative">
         <div id="canvas" class="wh-100%" />
-        <div id="properties" class="absolute right-20px top-20px" />
+        <div v-show="debug" id="properties" class="absolute right-20px top-20px" />
     </div>
 </template>
 
@@ -13,7 +13,16 @@ import BpmnModeler from "bpmn-js/lib/Modeler";
 import { BpmnPropertiesPanelModule, BpmnPropertiesProviderModule } from "bpmn-js-properties-panel";
 import dayjs from "dayjs";
 
-let props = withDefaults(defineProps<{ xml: string }>(), { xml: "" });
+let props = withDefaults(
+    defineProps<{
+        xml: string;
+        debug?: boolean;
+    }>(),
+    {
+        xml: "",
+        debug: false
+    }
+);
 
 let emits = defineEmits(["update:xml"]);
 
@@ -51,7 +60,6 @@ let onModeling = async () => {
             additionalModules: [
                 BpmnPropertiesPanelModule,
                 BpmnPropertiesProviderModule,
-                // 汉化
                 { translate: ["value", translate("zh")] }
             ],
             moddleExtensions: {}
@@ -73,12 +81,15 @@ onMounted(async () => {
 // 流程监听
 let onWatchModeler = () => {
     // 自动更新xml
-    modeler.on("commandStack.changed", onAutoSave);
-    modeler.on("selection.changed", (e: any) => {
-        if (e.newSelection.length > 0) {
-            console.log(1, e.newSelection[0]);
-            let modeling = modeler.get("modeling");
-            // modeling.updateProperties(e.newSelection[0], { id: "test", name: "测试" });
+    modeler.on("commandStack.changed", () => {
+        onAutoSave();
+    });
+    modeler.on("element.click", (e: any) => {
+        if (e.element.type === "bpmn:Process") {
+            window.$message.success(`选中流程，ID为${e.element.id}`);
+        } else {
+            window.$message.success(`选中节点，ID为${e.element.id}`);
+            console.log(e.element);
         }
     });
 };
