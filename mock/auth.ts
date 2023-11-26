@@ -60,19 +60,6 @@ export default [
                                 type: 2
                             }
                         ]
-                    },
-                    {
-                        label: "流程管理",
-                        key: "2",
-                        type: 1,
-                        icon: "DeploymentUnitOutlined",
-                        children: [
-                            {
-                                label: "流程设计",
-                                key: "Flow",
-                                type: 2
-                            }
-                        ]
                     }
                 ]
             },

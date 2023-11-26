@@ -47,15 +47,6 @@ export default [
                     breadcrumb: ["用户管理", "菜单列表"]
                 },
                 component: () => import("../views/Container/Permission/Menu/MenuList.vue")
-            },
-            {
-                path: "/flow",
-                name: "Flow",
-                meta: {
-                    title: "流程管理",
-                    breadcrumb: ["流程管理"]
-                },
-                component: () => import("../views/Container/Flow/Flow.vue")
             }
         ]
     }
