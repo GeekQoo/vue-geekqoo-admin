@@ -2,7 +2,16 @@ import type { AxiosInstance, AxiosResponse, InternalAxiosRequestConfig, Method }
 import axios from "axios";
 import { checkStatus } from "./checkStatus";
 
-let service: AxiosInstance = axios.create({
+interface ResponseProps<T = unknown> {
+    code: number;
+    data?: T;
+    msg?: string;
+    total?: Nullable<number>;
+
+    [key: string]: unknown;
+}
+
+const service: AxiosInstance = axios.create({
     timeout: 30000,
     withCredentials: true,
     baseURL: import.meta.env.VITE_API_URL
@@ -16,9 +25,9 @@ service.interceptors.request.use(
 
 // 响应拦截
 service.interceptors.response.use(
-    (response: AxiosResponse<App.ResponseProps>) => response,
+    (response: AxiosResponse<ResponseProps>) => response,
     (error) => {
-        checkStatus(error?.response?.status);
+        checkStatus(error?.response?.status, error?.response?.statusText);
         return Promise.reject(error.response);
     }
 );
@@ -28,7 +37,7 @@ export function httpRequest<T>(
     url: string,
     method: Method,
     config?: UnKnownObject
-): Promise<AxiosResponse<App.ResponseProps<T>>> {
+): Promise<AxiosResponse<ResponseProps<T>>> {
     return service({
         url,
         method,

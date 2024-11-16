@@ -1,6 +1,6 @@
 // 错误提示
-let errorMessage = (message: string) => {
-    console.log(message);
+const errorMessage = (msg: string) => {
+    console.log(msg);
 };
 
 export function checkStatus(status: number | null, msg: string = "服务异常，请稍后再试") {
@@ -16,6 +16,9 @@ export function checkStatus(status: number | null, msg: string = "服务异常�
             break;
         case 408:
             errorMessage("请求超时");
+            break;
+        case 422:
+            errorMessage("请求参数错误，请检查后重试");
             break;
         case 500:
             errorMessage("服务器发生错误，请检查服务器");
@@ -36,7 +39,7 @@ export function checkStatus(status: number | null, msg: string = "服务异常�
             errorMessage("HTTP版本不受支持");
             break;
         default:
-            errorMessage(msg || "服务异常，请稍后再试");
+            errorMessage(msg ?? "服务异常，请稍后再试");
             break;
     }
 }
