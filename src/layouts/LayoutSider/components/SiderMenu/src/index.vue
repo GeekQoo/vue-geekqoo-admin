@@ -13,12 +13,11 @@
 <script lang="ts" setup>
 import { computed, ref, watch } from "vue";
 import { usePublic } from "@/hooks";
-import { useStoreDesign, useStoreUser } from "@/store";
+import { useStoreUser } from "@/store";
 import { renderDynamicIcon } from "@/components/Dynamic";
 import type { MenuOption } from "naive-ui";
 
 const storeUser = useStoreUser();
-const storeDesign = useStoreDesign();
 const { $route, $router } = usePublic();
 
 // 当前选中
@@ -26,6 +25,17 @@ const menuActive = computed(() => $route.name as string);
 
 // 当前展开
 const expandedKeys = ref<string[]>([]);
+
+const getExpandedKeys = (menu: App.MenuProps[]): string[] => {
+    let keys: string[] = [];
+    menu.forEach((item) => {
+        if (item.children && item.children.length > 0) {
+            keys.push(item.key);
+            keys = keys.concat(getExpandedKeys(item.children));
+        }
+    });
+    return keys;
+};
 
 // 菜单点击跳转
 const handleUpdateMenu = (key: string) => $router.push({ name: key });
@@ -46,6 +56,7 @@ const setMenu = () => {
     };
 
     menuOptions.value = getMenus(storeUser.userData.menu ?? []);
+    expandedKeys.value = getExpandedKeys(storeUser.userData.menu ?? []);
 };
 
 watch(
