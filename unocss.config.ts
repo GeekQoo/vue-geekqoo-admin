@@ -1,7 +1,11 @@
 import { defineConfig } from "unocss";
 
 export default defineConfig({
-    exclude: ["node_modules", ".git", ".idea", "dist", "public", "build"],
+    content: {
+        pipeline: {
+            exclude: ["node_modules", ".git", ".idea", "dist", "public", "build"]
+        }
+    },
     rules: [
         [/^flex-fixed-(\d+)$/, ([, d]) => ({ flex: `0 0 ${d}px` })],
         [/^wh-(.+)$/, ([, d]) => ({ width: `${d}`, height: `${d}` })]
