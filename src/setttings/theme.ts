@@ -2,8 +2,7 @@
 export const defaultThemeConfig = {
     currentTheme: "lightTheme",
     pageAnimation: "fade-slide",
-    themeColor: "#409eff",
-    menuMode: "linkage"
+    themeColor: "#409eff"
 };
 
 // 页面切换动画预设
@@ -48,9 +47,4 @@ export const pageZoomPreset = [
     { label: "正常", value: 1 },
     { label: "大", value: 1.1 },
     { label: "超大", value: 1.2 }
-];
-
-export const menuModePreset = [
-    { label: "联动菜单", value: "linkage" },
-    { label: "单菜单", value: "single" }
 ];

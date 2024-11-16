@@ -37,15 +37,6 @@
                         @update:value="changePageZoom"
                     />
                 </div>
-                <div class="flex-y-center mb">
-                    <span>菜单模式</span>
-                    <n-select
-                        :options="menuModePreset"
-                        :value="storeDesign.menuMode"
-                        class="ml-a w-36"
-                        @update:value="changeMenuMode"
-                    />
-                </div>
             </n-drawer-content>
         </n-drawer>
     </div>
@@ -56,7 +47,7 @@ import { ref } from "vue";
 import { Settings28Regular } from "@vicons/fluent";
 import { ThemeSwitch } from "../../ThemeSwitch";
 import { useStoreDesign } from "@/store";
-import { menuModePreset, pageAnimationPreset, pageZoomPreset, themeColorPreset } from "@/setttings/theme";
+import { pageAnimationPreset, pageZoomPreset, themeColorPreset } from "@/setttings/theme";
 
 let storeDesign = useStoreDesign();
 
@@ -76,10 +67,5 @@ let changeThemeColor = (val: string) => {
 let changePageZoom = (val: number) => {
     document.body.style.cssText = `zoom: ${val}`;
     storeDesign.setPageZoom(val);
-};
-
-// 菜单模式
-let changeMenuMode = (val: string) => {
-    storeDesign.setMenuMode(val);
 };
 </script>

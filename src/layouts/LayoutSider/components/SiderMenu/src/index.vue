@@ -14,37 +14,42 @@
 import { computed, ref, watch } from "vue";
 import { usePublic } from "@/hooks";
 import { useStoreDesign, useStoreUser } from "@/store";
+import { renderDynamicIcon } from "@/components/Dynamic";
+import type { MenuOption } from "naive-ui";
 
-let storeUser = useStoreUser();
-let storeDesign = useStoreDesign();
-let { $route, $router } = usePublic();
+const storeUser = useStoreUser();
+const storeDesign = useStoreDesign();
+const { $route, $router } = usePublic();
 
 // 当前选中
-let menuActive = computed(() => $route.name as string);
+const menuActive = computed(() => $route.name as string);
 
 // 当前展开
-let expandedKeys = ref<string[]>([]);
+const expandedKeys = ref<string[]>([]);
 
 // 菜单点击跳转
-let handleUpdateMenu = (key: string) => $router.push({ name: key });
+const handleUpdateMenu = (key: string) => $router.push({ name: key });
 
 // 菜单内容
-let menuOptions = ref<App.MenuProps[]>([]);
+const menuOptions = ref<MenuOption[]>([]);
 
-let setMenu = () => {
-    expandedKeys.value = [storeUser.headerMenuActive];
-    if (storeDesign.menuMode === "linkage") {
-        menuOptions.value =
-            storeUser.userData.menu?.filter((item) => {
-                return item.key === storeUser.headerMenuActive;
-            }) || [];
-    } else {
-        menuOptions.value = storeUser.userData.menu || [];
-    }
+const setMenu = () => {
+    let getMenus = (menu: App.MenuProps[]): MenuOption[] => {
+        return (menu ?? []).map((item) => {
+            return {
+                label: item.label,
+                key: item.key,
+                icon: item.icon ? renderDynamicIcon(item.icon) : undefined,
+                children: item.children ? getMenus(item.children) : undefined
+            };
+        });
+    };
+
+    menuOptions.value = getMenus(storeUser.userData.menu ?? []);
 };
 
 watch(
-    () => [storeUser, storeDesign.menuMode],
+    () => [storeUser],
     () => setMenu(),
     { deep: true, immediate: true }
 );

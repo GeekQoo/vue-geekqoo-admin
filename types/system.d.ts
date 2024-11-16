@@ -1,5 +1,3 @@
-import type { MenuOption } from "naive-ui";
-
 declare global {
     declare namespace App {
         // 响应类型
@@ -23,15 +21,17 @@ declare global {
             pageAnimation: string;
             themeColor: string;
             pageZoom: number;
-            menuMode: string;
             globalLoading: boolean;
         }
 
         // 菜单信息
-        type MenuProps = MenuOption & {
+        interface MenuProps {
             type: string | number; // 1:目录 2:菜单 3:按钮
+            label: string;
+            key: string;
+            icon?: string;
             children?: MenuProps[];
-        };
+        }
 
         // 用户信息
         interface UserDataProps {

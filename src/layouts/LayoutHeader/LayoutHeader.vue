@@ -1,13 +1,11 @@
 <template>
     <n-layout-header>
         <div class="toolbar flex-y-center">
-            <header-menu v-if="storeDesign.menuMode === 'linkage'" />
-            <page-breadcrumb v-else />
+            <page-breadcrumb />
             <n-space class="ml-a" align="center" size="medium">
                 <full-screen />
                 <global-settings />
                 <current-user />
-                <!--<theme-switch />-->
             </n-space>
         </div>
         <navigation-tags />
@@ -15,8 +13,5 @@
 </template>
 
 <script lang="ts" setup>
-import { HeaderMenu, NavigationTags, GlobalSettings, CurrentUser, FullScreen, PageBreadcrumb } from "./components";
-import { useStoreDesign } from "@/store";
-
-let storeDesign = useStoreDesign();
+import { NavigationTags, GlobalSettings, CurrentUser, FullScreen, PageBreadcrumb } from "./components";
 </script>

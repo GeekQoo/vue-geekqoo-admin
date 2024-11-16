@@ -9,7 +9,6 @@ export const useStoreDesign = defineStore({
         pageAnimation: getLocalStorage("pageAnimation") || defaultThemeConfig.pageAnimation,
         themeColor: getLocalStorage("themeColor") || defaultThemeConfig.themeColor,
         pageZoom: 1,
-        menuMode: getLocalStorage("menuMode") || defaultThemeConfig.menuMode,
         globalLoading: false
     }),
     actions: {
@@ -27,10 +26,6 @@ export const useStoreDesign = defineStore({
         },
         setPageZoom(value: number) {
             this.pageZoom = value;
-        },
-        setMenuMode(value: string) {
-            this.menuMode = value;
-            setLocalStorage<string>("menuMode", value);
         },
         setGlobalLoading(value: boolean) {
             this.globalLoading = value;

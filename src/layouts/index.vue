@@ -27,27 +27,9 @@ let storeDesign = useStoreDesign();
 // 判断当前是不是暗黑主题
 let isDarkTheme = computed(() => storeDesign.currentTheme === "darkTheme");
 
-// 更新headerMenuActive
-let updateHeaderMenuActive = () => {
-    storeUser.userData.menu?.forEach((item) => {
-        item.children?.forEach((citem) => {
-            if ($route.name === citem.key) {
-                storeUser.setHeaderMenuActive(item.key as string);
-            }
-        });
-    });
-};
-
 onMounted(async () => {
     await storeUser.requestUserData();
-    updateHeaderMenuActive();
 });
-
-watch(
-    () => $route,
-    () => updateHeaderMenuActive(),
-    { deep: true }
-);
 </script>
 
 <style lang="scss">

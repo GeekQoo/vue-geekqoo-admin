@@ -10,19 +10,18 @@ import {
 import { GET_USERINFO } from "@/api/auth";
 import { renderDynamicIcon } from "@/components/Dynamic";
 import { useStoreDesign, useStoreNavigation } from "@/store";
+import type { MenuOption } from "naive-ui";
 
 interface StateProps {
     token: string;
     userData: App.UserDataProps;
-    headerMenuActive: string;
 }
 
 export const useStoreUser = defineStore({
     id: "user",
     state: (): StateProps => ({
         token: getCookie("token") || "",
-        userData: {},
-        headerMenuActive: getSessionStorage("headerMenuActive")
+        userData: {}
     }),
     actions: {
         setToken(value?: string) {
@@ -37,20 +36,12 @@ export const useStoreUser = defineStore({
         requestUserData() {
             let storeDesign = useStoreDesign();
             storeDesign.setGlobalLoading(true);
-            let getMenus = (menu: App.MenuProps[]) => {
-                return menu.map((item) => {
-                    if (item.icon) item.icon = renderDynamicIcon(item.icon as any);
-                    if (item.children) item.children = getMenus(item.children);
-                    return item;
-                });
-            };
             return new Promise((resolve) => {
                 GET_USERINFO<App.UserDataProps>({}).then((res) => {
                     if (res.data.code === 1) {
-                        let menus = getMenus(res.data.data!.menu!);
                         this.userData = {
                             ...res.data.data,
-                            menu: menus as any
+                            menu: res.data.data?.menu ?? []
                         };
                         storeDesign.setGlobalLoading(false);
                         resolve(res.data.data);
@@ -62,22 +53,11 @@ export const useStoreUser = defineStore({
             return new Promise((resolve) => {
                 // 清空导航菜单
                 useStoreNavigation().clearNavigation();
-                // 清空顶部菜单activeIndex
-                this.setHeaderMenuActive();
                 // 清空用户信息
                 this.setToken("");
                 this.userData = {};
                 resolve(true);
             });
-        },
-        setHeaderMenuActive(value?: string) {
-            if (value || value === "0") {
-                this.headerMenuActive = value;
-                setSessionStorage<string>("headerMenuActive", value);
-            } else {
-                this.headerMenuActive = "";
-                clearSessionStorage("headerMenuActive");
-            }
         }
     }
 });
