@@ -13,5 +13,5 @@
 <script lang="ts" setup>
 import { useStoreDesign } from "@/store";
 
-let storeDesign = useStoreDesign();
+const storeDesign = useStoreDesign();
 </script>

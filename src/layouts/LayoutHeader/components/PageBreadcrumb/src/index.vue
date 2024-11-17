@@ -9,5 +9,5 @@
 <script lang="ts" setup>
 import { usePublic } from "@/hooks";
 
-let { $route } = usePublic();
+const { $route } = usePublic();
 </script>

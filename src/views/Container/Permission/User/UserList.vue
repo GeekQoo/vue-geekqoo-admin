@@ -51,7 +51,7 @@ onMounted(() => {
 });
 
 // 搜索项
-let searchConfig = ref<TableSearchbarConfig>([
+const searchConfig = ref<TableSearchbarConfig>([
     {
         prop: "username",
         type: "input",
@@ -70,30 +70,30 @@ let searchConfig = ref<TableSearchbarConfig>([
     }
 ]);
 
-let searchOptions = ref<TableSearchbarOptions>({
+const searchOptions = ref<TableSearchbarOptions>({
     roleId: [
         { label: "超级管理员", value: 1 },
         { label: "普通用户", value: 2 }
     ]
 });
 
-let searchForm = ref<TableSearchbarData>({
+const searchForm = ref<TableSearchbarData>({
     username: null,
     roleId: null,
     createTime: null
 });
 
-let getSearchOptions = () => {};
+const getSearchOptions = () => {};
 
-let onSearch = () => {
+const onSearch = () => {
     getTableData();
 };
 
 // 数据列表
-let { tableData, tableLoading, tableRowKey, tableSelection, changeTableSelection, tablePaginationPreset } =
+const { tableData, tableLoading, tableRowKey, tableSelection, changeTableSelection, tablePaginationPreset } =
     useCommonTable<RowProps>("id");
 
-let tableColumns: DataTableColumns<RowProps> = [
+const tableColumns: DataTableColumns<RowProps> = [
     {
         type: "selection"
     },
@@ -145,7 +145,7 @@ let tableColumns: DataTableColumns<RowProps> = [
     }
 ];
 
-let tablePagination = reactive({
+const tablePagination = reactive({
     ...tablePaginationPreset,
     onChange: (page: number) => {
         tablePagination.page = page;
@@ -158,7 +158,7 @@ let tablePagination = reactive({
     }
 });
 
-let getTableData = () => {
+const getTableData = () => {
     tableLoading.value = true;
     GET_USER_LIST<RowProps[]>({
         ...searchForm.value
@@ -170,7 +170,7 @@ let getTableData = () => {
 };
 
 // 删除
-let onDelete = (id?: string | number) => {
+const onDelete = (id?: string | number) => {
     if (!id && tableSelection.value.length < 1) {
         window.$message.error("请选择要删除的数据");
         return false;

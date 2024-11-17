@@ -86,7 +86,7 @@ import type { TableSearchbarConfig, TableSearchbarData, TableSearchbarOptions } 
 import { cloneDeep } from "lodash-es";
 import { useThrottleFn } from "@vueuse/core";
 
-let props = withDefaults(
+const props = withDefaults(
     defineProps<{
         autoSearch?: boolean;
         config: TableSearchbarConfig;
@@ -101,36 +101,36 @@ let props = withDefaults(
     }
 );
 
-let emits = defineEmits(["update:form", "search", "componentClick", "reset"]);
+const emits = defineEmits(["update:form", "search", "componentClick", "reset"]);
 
-let form = computed({
+const form = computed({
     get: () => props.form,
     set: (value) => emits("update:form", value)
 });
 
 // 默认值
-let defaultForm = ref({});
+const defaultForm = ref({});
 
 onMounted(() => {
     defaultForm.value = cloneDeep(props.form);
 });
 
 // 聚焦事件
-let onComponentClick = () => {
+const onComponentClick = () => {
     emits("componentClick", form.value);
 };
 
 // 搜索功能
-let onSearch = async () => {
+const onSearch = async () => {
     emits("search", form.value);
 };
 
 // 重置功能
-let onReset = async () => {
+const onReset = async () => {
     emits("reset", defaultForm.value);
 };
 
-let throttleSearch = useThrottleFn(() => {
+const throttleSearch = useThrottleFn(() => {
     onSearch();
 }, 200);
 

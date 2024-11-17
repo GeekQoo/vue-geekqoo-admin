@@ -33,9 +33,9 @@ onMounted(() => {
     getTableData();
 });
 
-let { tableData, tableLoading, tableRowKey } = useCommonTable<RowProps>("id");
+const { tableData, tableLoading, tableRowKey } = useCommonTable<RowProps>("id");
 
-let tableColumns = ref<DataTableColumns<RowProps>>([
+const tableColumns = ref<DataTableColumns<RowProps>>([
     {
         title: "任务名称",
         key: "taskName",
@@ -53,7 +53,7 @@ let tableColumns = ref<DataTableColumns<RowProps>>([
     }
 ]);
 
-let getTableData = () => {
+const getTableData = () => {
     for (let i = 0; i < 5; i++) {
         tableData.value.push({
             id: i,

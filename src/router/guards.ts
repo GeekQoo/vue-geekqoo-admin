@@ -4,9 +4,9 @@ import type { NavigationProps } from "#/system";
 
 export function createRouterGuards(router: Router) {
     router.beforeEach((to, from, next) => {
-        let storeNavigation = useStoreNavigation();
-        let navigation: NavigationProps[] = storeNavigation.navigation;
-        let navigationItem = {
+        const storeNavigation = useStoreNavigation();
+        const navigation: NavigationProps[] = storeNavigation.navigation;
+        const navigationItem = {
             title: to.meta.title as string,
             name: to.name as string
         };

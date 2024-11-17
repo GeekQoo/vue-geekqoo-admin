@@ -6,7 +6,7 @@
 import { computed } from "vue";
 import * as icons from "@vicons/antd";
 
-let props = defineProps(["icon"]);
+const props = defineProps(["icon"]);
 
-let iconComponent = computed(() => (icons as any)[props.icon]);
+const iconComponent = computed(() => (icons as any)[props.icon]);
 </script>

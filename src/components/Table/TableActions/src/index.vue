@@ -20,7 +20,7 @@
 <script lang="ts" setup>
 import type { TableButtonActions } from "./types";
 
-let props = withDefaults(
+const props = withDefaults(
     defineProps<{
         type: "button";
         buttonActions?: TableButtonActions;

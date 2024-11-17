@@ -46,13 +46,13 @@ import VueDraggable from "vuedraggable";
 import { MineInfo, Shortcuts, TaskList } from "./components";
 import { usePublic } from "@/hooks";
 
-let { $router } = usePublic();
+const { $router } = usePublic();
 
-let workbenchConfig = ref({
+const workbenchConfig = ref({
     column: 2
 });
 
-let workbenchList = ref([
+const workbenchList = ref([
     [{ title: "任务列表", component: "TaskList", more: "/user/list" }],
     [{ title: "快捷操作", component: "Shortcuts" }]
 ]);

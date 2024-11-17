@@ -25,12 +25,12 @@ import { ref } from "vue";
 import { WeatherMoon16Filled, WeatherSunny28Filled } from "@vicons/fluent";
 import { useStoreDesign } from "@/store";
 
-let storeDesign = useStoreDesign();
+const storeDesign = useStoreDesign();
 
 // 切换主题
-let isDarkTheme = ref(storeDesign.currentTheme === "darkTheme");
-let themeSwitchStyle = () => ({ background: "#333333" });
-let handleCurrentTheme = (val: boolean) => {
+const isDarkTheme = ref(storeDesign.currentTheme === "darkTheme");
+const themeSwitchStyle = () => ({ background: "#333333" });
+const handleCurrentTheme = (val: boolean) => {
     val ? storeDesign.setCurrentTheme("darkTheme") : storeDesign.setCurrentTheme("lightTheme");
 };
 </script>

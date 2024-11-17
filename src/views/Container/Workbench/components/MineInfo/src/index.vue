@@ -20,5 +20,5 @@
 <script lang="ts" setup>
 import { useStoreUser } from "@/store";
 
-let storeUser = useStoreUser();
+const storeUser = useStoreUser();
 </script>

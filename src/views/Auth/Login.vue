@@ -34,19 +34,19 @@ import { useStoreUser } from "@/store";
 import { usePublic } from "@/hooks";
 import { AUTH_LOGIN } from "@/api/auth";
 
-let storeUser = useStoreUser();
-let { $router } = usePublic();
+const storeUser = useStoreUser();
+const { $router } = usePublic();
 
-let loginForm = ref({
+const loginForm = ref({
     username: "",
     password: ""
 });
 
-let isSavePassword = ref(false);
+const isSavePassword = ref(false);
 
-let loginLoading = ref(false);
+const loginLoading = ref(false);
 
-let onLogin = () => {
+const onLogin = () => {
     loginLoading.value = true;
     AUTH_LOGIN<{ token: string }>({ ...loginForm.value }).then(async (res) => {
         if (res.data.code === 1) {

@@ -49,22 +49,22 @@ import { ThemeSwitch } from "../../ThemeSwitch";
 import { useStoreDesign } from "@/store";
 import { pageAnimationPreset, pageZoomPreset, themeColorPreset } from "@/setttings/theme";
 
-let storeDesign = useStoreDesign();
+const storeDesign = useStoreDesign();
 
 // 设置面板抽屉开关
-let settingsActive = ref(false);
+const settingsActive = ref(false);
 
-let changePageAnimation = (val: string) => {
+const changePageAnimation = (val: string) => {
     storeDesign.setPageAnimation(val);
 };
 
 // 主题颜色
-let changeThemeColor = (val: string) => {
+const changeThemeColor = (val: string) => {
     storeDesign.setThemeColor(val);
 };
 
 // 页面缩放
-let changePageZoom = (val: number) => {
+const changePageZoom = (val: number) => {
     document.body.style.cssText = `zoom: ${val}`;
     storeDesign.setPageZoom(val);
 };

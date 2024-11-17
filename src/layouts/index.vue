@@ -20,12 +20,12 @@ import { useStoreDesign, useStoreUser } from "@/store";
 import { computed, onMounted, watch } from "vue";
 import { usePublic } from "@/hooks";
 
-let { $route } = usePublic();
-let storeUser = useStoreUser();
-let storeDesign = useStoreDesign();
+const { $route } = usePublic();
+const storeUser = useStoreUser();
+const storeDesign = useStoreDesign();
 
 // 判断当前是不是暗黑主题
-let isDarkTheme = computed(() => storeDesign.currentTheme === "darkTheme");
+const isDarkTheme = computed(() => storeDesign.currentTheme === "darkTheme");
 
 onMounted(async () => {
     await storeUser.requestUserData();

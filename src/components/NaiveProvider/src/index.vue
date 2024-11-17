@@ -41,11 +41,11 @@ import { lighten } from "@/utils/theme";
 const storeDesign = useStoreDesign();
 
 // 当前主题
-let currentTheme = computed(() => {
+const currentTheme = computed(() => {
     return storeDesign.currentTheme === "darkTheme" ? darkTheme : lightTheme;
 });
 
-let getThemeOverrides = computed(() => {
+const getThemeOverrides = computed(() => {
     return {
         common: {
             primaryColor: storeDesign.themeColor,

@@ -12,9 +12,9 @@ import { ref } from "vue";
 import { FullscreenOutlined, FullscreenExitOutlined } from "@vicons/antd";
 
 // 切换全屏图标
-let isFullScreen = ref(false);
+const isFullScreen = ref(false);
 
-let toggleFullScreenIcon = () => {
+const toggleFullScreenIcon = () => {
     isFullScreen.value = document.fullscreenElement !== null;
 };
 
@@ -22,7 +22,7 @@ let toggleFullScreenIcon = () => {
 document.addEventListener("fullscreenchange", toggleFullScreenIcon);
 
 // 全屏切换
-let toggleFullScreen = () => {
+const toggleFullScreen = () => {
     if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen();
     } else {

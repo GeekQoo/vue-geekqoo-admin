@@ -52,7 +52,7 @@ onMounted(() => {
 });
 
 // 搜索项
-let searchConfig = ref<TableSearchbarConfig>([
+const searchConfig = ref<TableSearchbarConfig>([
     {
         prop: "name",
         type: "input",
@@ -65,25 +65,25 @@ let searchConfig = ref<TableSearchbarConfig>([
     }
 ]);
 
-let searchOptions = ref<TableSearchbarOptions>({
+const searchOptions = ref<TableSearchbarOptions>({
     parentName: [
         { label: "父级菜单", value: 1 },
         { label: "菜单父级", value: 2 }
     ]
 });
 
-let searchForm = ref<TableSearchbarData>({
+const searchForm = ref<TableSearchbarData>({
     name: null,
     parentName: null
 });
 
-let getSearchOptions = () => {};
+const getSearchOptions = () => {};
 
 // 数据列表
-let { tableData, tableLoading, tableRowKey, tableSelection, changeTableSelection, tablePaginationPreset } =
+const { tableData, tableLoading, tableRowKey, tableSelection, changeTableSelection, tablePaginationPreset } =
     useCommonTable<RowProps>("id");
 
-let tableColumns: DataTableColumns<RowProps> = [
+const tableColumns: DataTableColumns<RowProps> = [
     {
         type: "selection"
     },
@@ -135,7 +135,7 @@ let tableColumns: DataTableColumns<RowProps> = [
     }
 ];
 
-let tablePagination = reactive({
+const tablePagination = reactive({
     ...tablePaginationPreset,
     onChange: (page: number) => {
         tablePagination.page = page;
@@ -148,7 +148,7 @@ let tablePagination = reactive({
     }
 });
 
-let getTableData = () => {
+const getTableData = () => {
     tableLoading.value = true;
     GET_MENU_LIST<RowProps[]>({}).then((res) => {
         tableData.value = res.data.data ?? [];
@@ -157,7 +157,7 @@ let getTableData = () => {
     });
 };
 
-let onSubmit = () => {
+const onSubmit = () => {
     console.log(searchForm.value);
     console.log(tableSelection.value);
 };

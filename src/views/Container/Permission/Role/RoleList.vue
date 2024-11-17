@@ -9,14 +9,14 @@ import { onMounted, ref, watch } from "vue";
 import type { DynamicTableHeaderProps } from "@/components/Dynamic";
 import { DynamicTable } from "@/components/Dynamic";
 
-let tableHeader = ref<DynamicTableHeaderProps[]>([
+const tableHeader = ref<DynamicTableHeaderProps[]>([
     { title: "测试表头1", key: "test1", type: "select", source: "source2" },
     { title: "测试表头2", key: "test2", type: "input", source: null },
     { title: "测试表头3", key: "test3", type: "input", source: null },
     { title: "测试表头4", key: "test4", type: "input", source: null }
 ]);
 
-let tableDataSource = ref([
+const tableDataSource = ref([
     {
         label: "数据来源1",
         value: "source1",
@@ -28,7 +28,7 @@ let tableDataSource = ref([
     { label: "数据来源2", value: "source2", defaultOptions: [] }
 ]);
 
-let tableData = ref([]);
+const tableData = ref([]);
 
 onMounted(() => {
     setTimeout(() => {

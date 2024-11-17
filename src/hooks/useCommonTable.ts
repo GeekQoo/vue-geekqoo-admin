@@ -3,23 +3,23 @@ import type { DataTableRowKey } from "naive-ui";
 
 export function useCommonTable<T = UnKnownObject>(rowKeyName?: keyof T) {
     // 表格数据
-    let tableData = ref<T[]>([]);
+    const tableData = ref<T[]>([]);
 
     // 加载状态
-    let tableLoading = ref(false);
+    const tableLoading = ref(false);
 
     // 表格行key
-    let tableRowKey = (row: T) => (rowKeyName ? row[rowKeyName] : "") as string | number;
+    const tableRowKey = (row: T) => (rowKeyName ? row[rowKeyName] : "") as string | number;
 
     // 选中
-    let tableSelection = ref<DataTableRowKey[]>([]);
+    const tableSelection = ref<DataTableRowKey[]>([]);
 
-    let changeTableSelection = (rowKeys: DataTableRowKey[]) => {
+    const changeTableSelection = (rowKeys: DataTableRowKey[]) => {
         tableSelection.value = rowKeys;
     };
 
     // 分页预设
-    let tablePaginationPreset = {
+    const tablePaginationPreset = {
         page: 1,
         pageSize: 10,
         itemCount: 0,

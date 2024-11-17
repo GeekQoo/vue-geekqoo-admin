@@ -35,12 +35,12 @@ import { useStoreNavigation, useStoreUser } from "@/store";
 import { usePublic } from "@/hooks";
 import type { NavigationProps } from "#/system";
 
-let { $route, $router } = usePublic();
-let storeNavigation = useStoreNavigation();
-let storeUser = useStoreUser();
+const { $route, $router } = usePublic();
+const storeNavigation = useStoreNavigation();
+const storeUser = useStoreUser();
 
 // 导航跳转
-let navigationTo = (nav: NavigationProps) => {
+const navigationTo = (nav: NavigationProps) => {
     storeUser.userData.menu?.forEach((item) => {
         item.children?.forEach((citem) => {
             if (citem.key === nav.name) {
@@ -51,27 +51,27 @@ let navigationTo = (nav: NavigationProps) => {
 };
 
 // 删除导航
-let deleteNavigation = (item: NavigationProps) => {
-    let nav = storeNavigation.navigation.filter((citem) => item !== citem);
+const deleteNavigation = (item: NavigationProps) => {
+    const nav = storeNavigation.navigation.filter((citem) => item !== citem);
     storeNavigation.setNavigation(nav);
     if ($route.name === item.name) navigationTo(nav[0]);
 };
 
 // 导航设置
-let settingOptions = ref([
+const settingOptions = ref([
     {
         label: "关闭全部",
         key: "closeAll"
     }
 ]);
 
-let handelSetting = (key: string | number) => {
+const handelSetting = (key: string | number) => {
     if (key === "closeAll") deleteAllNavigation();
 };
 
 // 删除全部
-let deleteAllNavigation = () => {
-    let nav = storeNavigation.navigation.filter((item, index: number) => index === 0);
+const deleteAllNavigation = () => {
+    const nav = storeNavigation.navigation.filter((item, index: number) => index === 0);
     storeNavigation.setNavigation(nav);
     navigationTo(nav[0]);
 };

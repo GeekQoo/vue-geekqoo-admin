@@ -105,7 +105,7 @@ interface Props {
     deletable?: boolean;
 }
 
-let props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
     debug: false,
     header: () => [],
     value: () => [],
@@ -115,23 +115,23 @@ let props = withDefaults(defineProps<Props>(), {
     deletable: true
 });
 
-let emits = defineEmits(["update:header", "update:value"]);
+const emits = defineEmits(["update:header", "update:value"]);
 
-let { tableRowKey, tableSelection, changeTableSelection } = useCommonTable<DynamicTableRowProps>("key");
+const { tableRowKey, tableSelection, changeTableSelection } = useCommonTable<DynamicTableRowProps>("key");
 
-let typeOptions = [
+const typeOptions = [
     { label: "输入框", value: "input" },
     { label: "下拉框", value: "select" }
 ];
 
 // 表头配置
-let headerModal = ref({ show: false, list: props.header });
+const headerModal = ref({ show: false, list: props.header });
 
-let openHeaderModal = () => (headerModal.value.show = true);
+const openHeaderModal = () => (headerModal.value.show = true);
 
-let closeHeaderModal = () => (headerModal.value.show = false);
+const closeHeaderModal = () => (headerModal.value.show = false);
 
-let setTableHeader = async () => {
+const setTableHeader = async () => {
     emits("update:header", headerModal.value.list);
     await nextTick();
     tableColumns.value = createTableColumns();
@@ -140,9 +140,9 @@ let setTableHeader = async () => {
 };
 
 // 选项管理
-let optionList = ref<Record<string, (SelectOption | SelectGroupOption)[]>>({});
+const optionList = ref<Record<string, (SelectOption | SelectGroupOption)[]>>({});
 
-let setOptionList = () => {
+const setOptionList = () => {
     props.dataSource.forEach((item) => {
         optionList.value[item.value as string] = item.defaultOptions as (SelectOption | SelectGroupOption)[];
     });
@@ -155,8 +155,8 @@ watch(
 );
 
 // NDataTable列配置
-let createTableColumns = () => {
-    let dynamicData: DataTableColumns<DynamicTableRowProps> = props.header.map((item) => {
+const createTableColumns = () => {
+    const dynamicData: DataTableColumns<DynamicTableRowProps> = props.header.map((item) => {
         return {
             title: item.title,
             key: item.key,
@@ -187,10 +187,10 @@ let createTableColumns = () => {
     return dynamicData.length > 0 ? [{ type: "selection" }, ...dynamicData] : [];
 };
 
-let tableColumns = ref(createTableColumns());
+const tableColumns = ref(createTableColumns());
 
 // NDataTable行配置
-let tableData = ref<DynamicTableRowProps[]>(props.value);
+const tableData = ref<DynamicTableRowProps[]>(props.value);
 
 watch(
     () => tableData.value,
@@ -198,25 +198,25 @@ watch(
     { deep: true }
 );
 
-let tableRowCount = ref(tableData.value.length);
+const tableRowCount = ref(tableData.value.length);
 
-let createTableRow = () => {
-    let keyArray = props.header.map((item) => item.key);
-    let tableRow: DynamicTableRowProps = Object.fromEntries(keyArray.map((key) => [key, null]));
+const createTableRow = () => {
+    const keyArray = props.header.map((item) => item.key);
+    const tableRow: DynamicTableRowProps = Object.fromEntries(keyArray.map((key) => [key, null]));
     return { key: new Date().getTime(), ...tableRow };
 };
 
-let clearTableRow = () => {
+const clearTableRow = () => {
     tableData.value = [];
     tableRowCount.value = 0;
 };
 
-let addTableRow = () => {
+const addTableRow = () => {
     tableRowCount.value += 1;
     tableData.value.push(createTableRow());
 };
 
-let deleteTableRow = () => {
+const deleteTableRow = () => {
     if (tableSelection.value.length < 1) {
         window.$message.error("请先选择要删除的行");
         return false;

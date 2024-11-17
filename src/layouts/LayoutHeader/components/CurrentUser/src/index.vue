@@ -15,15 +15,15 @@ import { useStoreUser } from "@/store";
 import { renderDynamicIcon } from "@/components/Dynamic";
 import { usePublic } from "@/hooks";
 
-let storeUser = useStoreUser();
-let { $router } = usePublic();
+const storeUser = useStoreUser();
+const { $router } = usePublic();
 
-let settingOptions = ref([
+const settingOptions = ref([
     { label: "用户中心", key: "userCenter", icon: renderDynamicIcon("UserOutlined") },
     { label: "退出登录", key: "logout", icon: renderDynamicIcon("LogoutOutlined") }
 ]);
 
-let handelSetting = (key: string | number) => {
+const handelSetting = (key: string | number) => {
     if (key === "logout") {
         storeUser.logout().then(() => $router.push("/login"));
     }
