@@ -2,7 +2,7 @@ import { httpRequest } from "@/utils/request";
 import { useStoreUser } from "@/store";
 
 // 获取用户列表
-export function GET_USER_LIST<T = unknown>(params: object) {
+export function GET_USER_LIST<T = unknown>(params: UnKnownObject) {
     return httpRequest<T>("/api/user", "get", {
         params,
         headers: {
@@ -12,7 +12,7 @@ export function GET_USER_LIST<T = unknown>(params: object) {
 }
 
 // 删除用户
-export function DELETE_USERS<T = unknown>(params: object) {
+export function DELETE_USERS<T = unknown>(params: UnKnownObject) {
     return httpRequest<T>("/api/user", "delete", {
         params,
         headers: {
