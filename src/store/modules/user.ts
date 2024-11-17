@@ -1,20 +1,12 @@
 import { defineStore } from "pinia";
-import {
-    clearSessionStorage,
-    delCookie,
-    getCookie,
-    getSessionStorage,
-    setCookie,
-    setSessionStorage
-} from "@/utils/storage";
+import { delCookie, getCookie, setCookie } from "@/utils/storage";
 import { GET_USERINFO } from "@/api/auth";
-import { renderDynamicIcon } from "@/components/Dynamic";
 import { useStoreDesign, useStoreNavigation } from "@/store";
-import type { MenuOption } from "naive-ui";
+import type { UserDataProps } from "#/system";
 
 interface StateProps {
     token: string;
-    userData: App.UserDataProps;
+    userData: UserDataProps;
 }
 
 export const useStoreUser = defineStore({
@@ -37,7 +29,7 @@ export const useStoreUser = defineStore({
             let storeDesign = useStoreDesign();
             storeDesign.setGlobalLoading(true);
             return new Promise((resolve) => {
-                GET_USERINFO<App.UserDataProps>({}).then((res) => {
+                GET_USERINFO<UserDataProps>({}).then((res) => {
                     if (res.data.code === 1) {
                         this.userData = {
                             ...res.data.data,

@@ -1,10 +1,11 @@
 import { useStoreNavigation } from "@/store";
 import type { Router } from "vue-router";
+import type { NavigationProps } from "#/system";
 
 export function createRouterGuards(router: Router) {
     router.beforeEach((to, from, next) => {
         let storeNavigation = useStoreNavigation();
-        let navigation: App.NavigationProps[] = storeNavigation.navigation;
+        let navigation: NavigationProps[] = storeNavigation.navigation;
         let navigationItem = {
             title: to.meta.title as string,
             name: to.name as string

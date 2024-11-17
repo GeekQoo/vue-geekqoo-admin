@@ -33,13 +33,14 @@ import { BarsOutlined } from "@vicons/antd";
 import { ref } from "vue";
 import { useStoreNavigation, useStoreUser } from "@/store";
 import { usePublic } from "@/hooks";
+import type { NavigationProps } from "#/system";
 
 let { $route, $router } = usePublic();
 let storeNavigation = useStoreNavigation();
 let storeUser = useStoreUser();
 
 // 导航跳转
-let navigationTo = (nav: App.NavigationProps) => {
+let navigationTo = (nav: NavigationProps) => {
     storeUser.userData.menu?.forEach((item) => {
         item.children?.forEach((citem) => {
             if (citem.key === nav.name) {
@@ -50,7 +51,7 @@ let navigationTo = (nav: App.NavigationProps) => {
 };
 
 // 删除导航
-let deleteNavigation = (item: App.NavigationProps) => {
+let deleteNavigation = (item: NavigationProps) => {
     let nav = storeNavigation.navigation.filter((citem) => item !== citem);
     storeNavigation.setNavigation(nav);
     if ($route.name === item.name) navigationTo(nav[0]);

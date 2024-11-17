@@ -16,6 +16,7 @@ import { usePublic } from "@/hooks";
 import { useStoreUser } from "@/store";
 import { renderDynamicIcon } from "@/components/Dynamic";
 import type { MenuOption } from "naive-ui";
+import type { MenuProps } from "#/system";
 
 const storeUser = useStoreUser();
 const { $route, $router } = usePublic();
@@ -26,7 +27,7 @@ const menuActive = computed(() => $route.name as string);
 // 当前展开
 const expandedKeys = ref<string[]>([]);
 
-const getExpandedKeys = (menu: App.MenuProps[]): string[] => {
+const getExpandedKeys = (menu: MenuProps[]): string[] => {
     let keys: string[] = [];
     menu.forEach((item) => {
         if (item.children && item.children.length > 0) {
@@ -44,7 +45,7 @@ const handleUpdateMenu = (key: string) => $router.push({ name: key });
 const menuOptions = ref<MenuOption[]>([]);
 
 const setMenu = () => {
-    let getMenus = (menu: App.MenuProps[]): MenuOption[] => {
+    let getMenus = (menu: MenuProps[]): MenuOption[] => {
         return (menu ?? []).map((item) => {
             return {
                 label: item.label,

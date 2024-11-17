@@ -1,10 +1,11 @@
 import { defineStore } from "pinia";
 import { getLocalStorage, setLocalStorage } from "@/utils/storage";
 import { defaultThemeConfig } from "@/setttings/theme";
+import type { DesignProps } from "#/system";
 
 export const useStoreDesign = defineStore({
     id: "design",
-    state: (): App.DesignProps => ({
+    state: (): DesignProps => ({
         currentTheme: getLocalStorage("currentTheme") || defaultThemeConfig.currentTheme,
         pageAnimation: getLocalStorage("pageAnimation") || defaultThemeConfig.pageAnimation,
         themeColor: getLocalStorage("themeColor") || defaultThemeConfig.themeColor,
