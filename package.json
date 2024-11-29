@@ -27,14 +27,12 @@
         "@types/node": "^22.9.0",
         "@vitejs/plugin-vue": "^5.2.0",
         "autoprefixer": "^10.4.20",
-        "mockjs": "^1.1.0",
         "prettier": "^3.3.3",
         "sass": "^1.77.8",
         "sass-loader": "^16.0.1",
         "typescript": "^5.5.3",
         "unocss": "^0.64.1",
         "vite": "^5.4.11",
-        "vite-plugin-mock": "^2.9.6",
         "vue-tsc": "^2.0.29"
     }
 }
